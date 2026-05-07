@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Calories Counting App — Component Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="components.css" />
+  <style>
+    /* preview-only layout */
+    body { padding: var(--space-2xl); }
+    .gallery {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5xl);
+    }
+    .gallery h1 {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-5xl);
+      line-height: var(--line-height-tight);
+      letter-spacing: var(--letter-spacing-tight);
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-sm);
+    }
+    .gallery h2 {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-3xl);
+      line-height: var(--line-height-snug);
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-sm);
+    }
+    .gallery p { color: var(--color-text-secondary); margin: 0 0 var(--space-2xl); max-width: 640px; }
+    section { display: flex; flex-direction: column; gap: var(--space-lg); }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); padding: var(--space-lg); background: var(--color-bg-card); border-radius: var(--radius-lg); }
+    .stack { display: flex; flex-direction: column; gap: var(--space-md); padding: var(--space-lg); background: var(--color-bg-card); border-radius: var(--radius-lg); }
+    .label { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; color: var(--color-text-muted); }
+
+    /* Phone-like frames for the shell components */
+    .phone {
+      width: 360px;
+      background: var(--color-bg-default);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone__body { flex: 1 1 auto; padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); min-height: 280px; }
+
+    /* Macros bar example dot */
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; vertical-align: middle; }
+    .dot--p { background: var(--color-accent-sky); }
+    .dot--c { background: var(--color-accent-lavender); }
+    .dot--f { background: var(--color-brand-primary); }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <header>
+      <h1>Calories Counting App — Component Gallery</h1>
+      <p>Reference implementation of every reusable component called out in the IA. Soft &amp; Playful brand mood, mobile-first. Open this file in any browser; no build step needed. Screenshot any section to transfer to Figma.</p>
+    </header>
+
+    <!-- ====================== TYPE RAMP ====================== -->
+    <section>
+      <h2>0 · Type ramp</h2>
+      <div class="stack">
+        <div class="t-display-xl">1,840 kcal</div>
+        <div class="t-display-lg">Welcome back, Anna</div>
+        <div class="t-heading-lg">Today's recipes</div>
+        <div class="t-heading-md">Ingredients</div>
+        <div class="t-heading-sm">Step 3 — Combine</div>
+        <div class="t-body-lg">Default reading text. Inter, 16/1.45, regular. The default for instructions and paragraphs.</div>
+        <div class="t-body-md">Secondary body. Inter 14/1.45.</div>
+        <div class="t-body-sm">Helper text and notes. Inter 13/1.45.</div>
+        <div class="t-label-md">Save changes</div>
+        <div class="t-label-sm">Diet preference</div>
+        <div class="t-numeric-xl">2,150</div>
+        <div class="t-numeric-md">120 g</div>
+      </div>
+    </section>
+
+    <!-- ====================== 1. BUTTON ====================== -->
+    <section>
+      <h2>1 · Button</h2>
+      <div class="row">
+        <button class="c-button c-button--primary">Continue</button>
+        <button class="c-button c-button--primary c-button--lg">Done</button>
+        <button class="c-button c-button--secondary">Loosen filters</button>
+        <button class="c-button c-button--link">Skip</button>
+        <button class="c-button c-button--icon" aria-label="Back">←</button>
+        <button class="c-button c-button--primary" disabled>Disabled</button>
+      </div>
+    </section>
+
+    <!-- ====================== 2. SEARCH INPUT ====================== -->
+    <section>
+      <h2>2 · SearchInput</h2>
+      <div class="stack">
+        <label class="c-search-input">
+          <span class="c-search-input__icon">⌕</span>
+          <input class="c-search-input__field" placeholder="Search foods or recipes" />
+        </label>
+        <label class="c-search-input">
+          <span class="c-search-input__icon">⌕</span>
+          <input class="c-search-input__field" value="oatmeal" />
+          <button class="c-search-input__clear" aria-label="Clear">×</button>
+        </label>
+      </div>
+    </section>
+
+    <!-- ====================== 3. NUMBER STEPPER ====================== -->
+    <section>
+      <h2>3 · NumberStepper</h2>
+      <div class="row">
+        <div class="c-stepper">
+          <button class="c-stepper__btn" aria-label="Decrease">−</button>
+          <span class="c-stepper__value">120</span><span class="c-stepper__unit">g</span>
+          <button class="c-stepper__btn" aria-label="Increase">+</button>
+        </div>
+        <div class="c-stepper">
+          <button class="c-stepper__btn" aria-label="Decrease" disabled>−</button>
+          <span class="c-stepper__value">1</span><span class="c-stepper__unit">serving</span>
+          <button class="c-stepper__btn" aria-label="Increase">+</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 4. UNIT SELECTOR ====================== -->
+    <section>
+      <h2>4 · UnitSelector</h2>
+      <div class="row">
+        <div class="c-unit-selector" role="tablist">
+          <button class="c-unit-selector__btn c-unit-selector__btn--active">g</button>
+          <button class="c-unit-selector__btn">pieces</button>
+          <button class="c-unit-selector__btn">cups</button>
+          <button class="c-unit-selector__btn">tbsp</button>
+          <button class="c-unit-selector__btn">serving</button>
+        </div>
+      </div>
+
+      <p class="label">Composition example — PortionAdjuster</p>
+      <div class="row">
+        <div class="c-portion-adjuster">
+          <div class="c-stepper">
+            <button class="c-stepper__btn">−</button>
+            <span class="c-stepper__value">120</span><span class="c-stepper__unit">g</span>
+            <button class="c-stepper__btn">+</button>
+          </div>
+          <div class="c-unit-selector">
+            <button class="c-unit-selector__btn c-unit-selector__btn--active">g</button>
+            <button class="c-unit-selector__btn">pieces</button>
+            <button class="c-unit-selector__btn">cups</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 5. CHIP ====================== -->
+    <section>
+      <h2>5 · Chip</h2>
+      <p class="label">Option chips (multi-select) — onboarding diet/allergens, edit preferences</p>
+      <div class="row">
+        <button class="c-chip">Vegetarian</button>
+        <button class="c-chip c-chip--selected">Vegan</button>
+        <button class="c-chip">Pescatarian</button>
+        <button class="c-chip c-chip--selected">Gluten-free</button>
+        <button class="c-chip">Keto</button>
+      </div>
+
+      <p class="label">Filter chips — recipes search</p>
+      <div class="row">
+        <button class="c-chip c-chip--filter">Diet</button>
+        <button class="c-chip c-chip--filter c-chip--selected">Max 600 kcal</button>
+        <button class="c-chip c-chip--filter">Allergens</button>
+        <button class="c-chip c-chip--filter">Ingredient</button>
+      </div>
+
+      <p class="label">Badges — recipe card / detail</p>
+      <div class="row">
+        <span class="c-chip c-chip--badge is-fits-you">Fits you</span>
+        <span class="c-chip c-chip--badge is-diet">Vegan</span>
+        <span class="c-chip c-chip--badge is-diet">Gluten-free</span>
+        <span class="c-chip c-chip--badge is-allergen">Contains nuts</span>
+      </div>
+    </section>
+
+    <!-- ====================== 6. SEGMENTED CONTROL ====================== -->
+    <section>
+      <h2>6 · SegmentedControl</h2>
+      <div class="stack">
+        <div class="c-segmented" role="tablist" style="max-width: 360px;">
+          <button class="c-segmented__btn c-segmented__btn--active">Foods</button>
+          <button class="c-segmented__btn">Recipes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 7. STEP DOTS ====================== -->
+    <section>
+      <h2>7 · StepDots</h2>
+      <div class="row">
+        <div class="c-step-dots" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="2">
+          <span class="c-step-dots__dot"></span>
+          <span class="c-step-dots__dot c-step-dots__dot--active"></span>
+          <span class="c-step-dots__dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 8. SAVE BUTTON ====================== -->
+    <section>
+      <h2>8 · SaveButton</h2>
+      <div class="row">
+        <button class="c-save" aria-label="Save" aria-pressed="false">♡</button>
+        <button class="c-save c-save--saved" aria-label="Saved" aria-pressed="true">♥</button>
+      </div>
+    </section>
+
+    <!-- ====================== 9. TOAST ====================== -->
+    <section>
+      <h2>9 · Toast</h2>
+      <div class="row" style="background: var(--color-bg-default); flex-direction: column; align-items: flex-start;">
+        <div class="c-toast"><span class="c-toast__icon">✓</span> Saved to Favorites</div>
+        <div class="c-toast c-toast--warning"><span class="c-toast__icon">!</span> No matching recipes — try loosening filters</div>
+        <div class="c-toast c-toast--danger"><span class="c-toast__icon">✕</span> Could not save. Check connection.</div>
+      </div>
+    </section>
+
+    <!-- ====================== 10. RESULT ROW ====================== -->
+    <section>
+      <h2>10 · ResultRow</h2>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <button class="c-result-row">
+          <span class="c-result-row__thumb">🥣</span>
+          <span class="c-result-row__main">
+            <span class="c-result-row__title">Oatmeal, rolled, dry</span>
+            <span class="c-result-row__meta">Generic · 100 g base</span>
+          </span>
+          <span class="c-result-row__kcal">389<small>kcal</small></span>
+        </button>
+        <button class="c-result-row">
+          <span class="c-result-row__thumb">🍌</span>
+          <span class="c-result-row__main">
+            <span class="c-result-row__title">Banana, raw</span>
+            <span class="c-result-row__meta">Fruit · 1 medium ≈ 118 g</span>
+          </span>
+          <span class="c-result-row__kcal">105<small>kcal</small></span>
+        </button>
+        <button class="c-result-row">
+          <span class="c-result-row__thumb">🥪</span>
+          <span class="c-result-row__main">
+            <span class="c-result-row__title">Greek yogurt, plain, low-fat</span>
+            <span class="c-result-row__meta">Dairy · 100 g base</span>
+          </span>
+          <span class="c-result-row__kcal">73<small>kcal</small></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================== 11. RECIPE CARD ====================== -->
+    <section>
+      <h2>11 · RecipeCard</h2>
+      <div class="row" style="background: var(--color-bg-default); align-items: stretch;">
+        <article class="c-recipe-card" style="max-width: 320px;">
+          <div class="c-recipe-card__image" style="background-color: #FFD86B;">
+            <button class="c-save c-recipe-card__save" aria-label="Save">♡</button>
+          </div>
+          <div class="c-recipe-card__body">
+            <h3 class="c-recipe-card__title">Lemon-garlic chickpea bowl with herb yogurt</h3>
+            <div class="c-recipe-card__meta">
+              <span><b>520</b> kcal</span>
+              <span>·</span>
+              <span><b>25</b> min</span>
+            </div>
+            <div class="c-recipe-card__badges">
+              <span class="c-chip c-chip--badge is-fits-you">Fits you</span>
+              <span class="c-chip c-chip--badge is-diet">Vegetarian</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="c-recipe-card" style="max-width: 320px;">
+          <div class="c-recipe-card__image" style="background-color: #5FD49E;">
+            <button class="c-save c-save--saved c-recipe-card__save" aria-label="Saved">♥</button>
+          </div>
+          <div class="c-recipe-card__body">
+            <h3 class="c-recipe-card__title">Roasted vegetable & quinoa traybake</h3>
+            <div class="c-recipe-card__meta">
+              <span><b>480</b> kcal</span>
+              <span>·</span>
+              <span><b>40</b> min</span>
+            </div>
+            <div class="c-recipe-card__badges">
+              <span class="c-chip c-chip--badge is-diet">Vegan</span>
+              <span class="c-chip c-chip--badge is-diet">Gluten-free</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== 12. NUTRITION STRIP ====================== -->
+    <section>
+      <h2>12 · NutritionStrip</h2>
+      <div class="row" style="background: var(--color-bg-default);">
+        <div class="c-nutrition" style="width: 100%; max-width: 480px;">
+          <div class="c-nutrition__kcal">
+            <div class="c-nutrition__kcal-value">389</div>
+            <div class="c-nutrition__kcal-label">kcal · per 100 g</div>
+          </div>
+          <div class="c-nutrition__macros">
+            <div class="c-nutrition__macro c-nutrition__macro--p">
+              <div class="c-nutrition__macro-value">13<span style="font-size:12px;color:var(--color-text-muted)">g</span></div>
+              <div class="c-nutrition__macro-label">Prot</div>
+            </div>
+            <div class="c-nutrition__macro c-nutrition__macro--c">
+              <div class="c-nutrition__macro-value">66<span style="font-size:12px;color:var(--color-text-muted)">g</span></div>
+              <div class="c-nutrition__macro-label">Carb</div>
+            </div>
+            <div class="c-nutrition__macro c-nutrition__macro--f">
+              <div class="c-nutrition__macro-value">7<span style="font-size:12px;color:var(--color-text-muted)">g</span></div>
+              <div class="c-nutrition__macro-label">Fat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 13. LIST ITEM ====================== -->
+    <section>
+      <h2>13 · ListItem</h2>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <button class="c-list-item">
+          <span class="c-list-item__icon">⚙</span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Edit preferences</span>
+            <span class="c-list-item__sub">Diet, allergies, daily goal</span>
+          </span>
+          <span class="c-list-item__chevron">›</span>
+        </button>
+        <button class="c-list-item">
+          <span class="c-list-item__icon">♥</span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Favorites</span>
+            <span class="c-list-item__sub">12 foods · 8 recipes</span>
+          </span>
+          <span class="c-list-item__chevron">›</span>
+        </button>
+        <button class="c-list-item">
+          <span class="c-list-item__icon">↻</span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Reset onboarding</span>
+          </span>
+          <span class="c-list-item__chevron">›</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================== 14. SUMMARY CARD ====================== -->
+    <section>
+      <h2>14 · SummaryCard</h2>
+      <div class="row" style="background: var(--color-bg-default);">
+        <div class="c-summary-card" style="width: 100%; max-width: 480px;">
+          <div class="c-summary-card__greeting">Hi, Anna 👋</div>
+          <div class="c-summary-card__goal">
+            <span class="c-summary-card__goal-value">2,000</span>
+            <span class="c-summary-card__goal-label">kcal daily goal</span>
+          </div>
+          <div class="c-summary-card__tags">
+            <span class="c-chip c-chip--badge is-diet">Vegetarian</span>
+            <span class="c-chip c-chip--badge is-allergen">No nuts</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 15. EMPTY STATE ====================== -->
+    <section>
+      <h2>15 · EmptyState</h2>
+      <div class="row" style="justify-content: center;">
+        <div class="c-empty">
+          <div class="c-empty__art">🥗</div>
+          <div class="c-empty__title">Nothing here yet</div>
+          <div class="c-empty__desc">Save a recipe or food and it'll show up here for quick access.</div>
+          <button class="c-button c-button--primary">Browse recipes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 16. TOP APP BAR ====================== -->
+    <section>
+      <h2>16 · TopAppBar</h2>
+      <div class="phone">
+        <div class="c-app-bar">
+          <button class="c-app-bar__icon" aria-label="Back">←</button>
+          <div class="c-app-bar__title">Recipe</div>
+          <button class="c-app-bar__icon" aria-label="Save">♡</button>
+        </div>
+        <div class="phone__body">
+          <div class="t-body-md" style="color:var(--color-text-secondary)">App bar with back + right action.</div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="c-app-bar">
+          <div class="c-app-bar__title" style="text-align:left;">Profile</div>
+        </div>
+        <div class="phone__body">
+          <div class="t-body-md" style="color:var(--color-text-secondary)">App bar at tab root — left-aligned title, no back button.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 17. BOTTOM TAB BAR ====================== -->
+    <section>
+      <h2>17 · BottomTabBar</h2>
+      <div class="phone">
+        <div class="c-app-bar"><div class="c-app-bar__title" style="text-align:left;">Calculate</div></div>
+        <div class="phone__body">
+          <label class="c-search-input">
+            <span class="c-search-input__icon">⌕</span>
+            <input class="c-search-input__field" placeholder="Search foods or recipes" />
+          </label>
+          <div class="c-empty" style="padding: var(--space-2xl) 0;">
+            <div class="c-empty__art" style="width:56px;height:56px;font-size:24px;">⌕</div>
+            <div class="t-body-md" style="color:var(--color-text-secondary)">Type to start searching.</div>
+          </div>
+        </div>
+        <nav class="c-tab-bar" role="tablist">
+          <button class="c-tab-bar__btn c-tab-bar__btn--active">
+            <span class="c-tab-bar__icon">⌕</span><span class="c-tab-bar__label">Calculate</span>
+          </button>
+          <button class="c-tab-bar__btn">
+            <span class="c-tab-bar__icon">🥗</span><span class="c-tab-bar__label">Recipes</span>
+          </button>
+          <button class="c-tab-bar__btn">
+            <span class="c-tab-bar__icon">👤</span><span class="c-tab-bar__label">Profile</span>
+          </button>
+        </nav>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

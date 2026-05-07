@@ -1,0 +1,285 @@
+{
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": ["primitives", "semantic"]
+  },
+  "primitives": {
+    "color": {
+      "neutral": {
+        "ink": { "value": "#2A2730", "type": "color", "description": "darkest text" },
+        "graphite": { "value": "#6F6878", "type": "color", "description": "secondary text" },
+        "fog": { "value": "#A39CAB", "type": "color", "description": "muted text" },
+        "paper": { "value": "#FFFFFF", "type": "color", "description": "white surface" },
+        "butter-cream": { "value": "#FFF8EE", "type": "color", "description": "app background" },
+        "oat": { "value": "#F5EFE3", "type": "color", "description": "subtle raised surface" }
+      },
+      "coral": {
+        "500": { "value": "#FF8A7A", "type": "color", "description": "brand primary" },
+        "600": { "value": "#F26F5E", "type": "color", "description": "brand pressed" },
+        "700": { "value": "#E5544A", "type": "color", "description": "danger / alert" }
+      },
+      "mint": {
+        "500": { "value": "#5FD49E", "type": "color" }
+      },
+      "sky": {
+        "500": { "value": "#7CC2F2", "type": "color" }
+      },
+      "lavender": {
+        "500": { "value": "#B8A4FF", "type": "color" }
+      },
+      "butter": {
+        "500": { "value": "#FFD86B", "type": "color" }
+      }
+    },
+    "radius": {
+      "sm": { "value": "8", "type": "borderRadius" },
+      "md": { "value": "12", "type": "borderRadius" },
+      "lg": { "value": "16", "type": "borderRadius" },
+      "xl": { "value": "24", "type": "borderRadius" },
+      "pill": { "value": "999", "type": "borderRadius" }
+    },
+    "spacing": {
+      "0": { "value": "0", "type": "spacing" },
+      "xs": { "value": "4", "type": "spacing" },
+      "sm": { "value": "8", "type": "spacing" },
+      "md": { "value": "12", "type": "spacing" },
+      "lg": { "value": "16", "type": "spacing" },
+      "xl": { "value": "20", "type": "spacing" },
+      "2xl": { "value": "24", "type": "spacing" },
+      "3xl": { "value": "32", "type": "spacing" },
+      "4xl": { "value": "40", "type": "spacing" },
+      "5xl": { "value": "48", "type": "spacing" },
+      "6xl": { "value": "64", "type": "spacing" }
+    },
+    "fontFamily": {
+      "display": { "value": "Fraunces", "type": "fontFamilies", "description": "expressive headlines" },
+      "body": { "value": "Inter", "type": "fontFamilies", "description": "UI + tabular numerals" }
+    },
+    "fontWeight": {
+      "regular": { "value": "400", "type": "fontWeights" },
+      "medium": { "value": "500", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" },
+      "bold": { "value": "700", "type": "fontWeights" }
+    },
+    "fontSize": {
+      "xs": { "value": "12", "type": "fontSizes" },
+      "sm": { "value": "13", "type": "fontSizes" },
+      "md": { "value": "14", "type": "fontSizes" },
+      "lg": { "value": "16", "type": "fontSizes" },
+      "xl": { "value": "18", "type": "fontSizes" },
+      "2xl": { "value": "20", "type": "fontSizes" },
+      "3xl": { "value": "24", "type": "fontSizes" },
+      "4xl": { "value": "28", "type": "fontSizes" },
+      "5xl": { "value": "36", "type": "fontSizes" },
+      "6xl": { "value": "48", "type": "fontSizes" }
+    },
+    "lineHeight": {
+      "tight": { "value": "1.15", "type": "lineHeights" },
+      "snug": { "value": "1.3", "type": "lineHeights" },
+      "normal": { "value": "1.45", "type": "lineHeights" },
+      "loose": { "value": "1.6", "type": "lineHeights" }
+    },
+    "letterSpacing": {
+      "tight": { "value": "-0.01em", "type": "letterSpacing" },
+      "normal": { "value": "0", "type": "letterSpacing" },
+      "wide": { "value": "0.02em", "type": "letterSpacing" }
+    }
+  },
+  "semantic": {
+    "color": {
+      "bg": {
+        "default": { "value": "{primitives.color.neutral.butter-cream}", "type": "color" },
+        "card": { "value": "{primitives.color.neutral.paper}", "type": "color" },
+        "subtle": { "value": "{primitives.color.neutral.oat}", "type": "color" }
+      },
+      "text": {
+        "primary": { "value": "{primitives.color.neutral.ink}", "type": "color" },
+        "secondary": { "value": "{primitives.color.neutral.graphite}", "type": "color" },
+        "muted": { "value": "{primitives.color.neutral.fog}", "type": "color" }
+      },
+      "brand": {
+        "primary": { "value": "{primitives.color.coral.500}", "type": "color" },
+        "primary-pressed": { "value": "{primitives.color.coral.600}", "type": "color" }
+      },
+      "accent": {
+        "mint": { "value": "{primitives.color.mint.500}", "type": "color" },
+        "sky": { "value": "{primitives.color.sky.500}", "type": "color" },
+        "lavender": { "value": "{primitives.color.lavender.500}", "type": "color" },
+        "butter": { "value": "{primitives.color.butter.500}", "type": "color" }
+      },
+      "feedback": {
+        "success": { "value": "{primitives.color.mint.500}", "type": "color" },
+        "warning": { "value": "{primitives.color.butter.500}", "type": "color" },
+        "danger": { "value": "{primitives.color.coral.700}", "type": "color" }
+      }
+    },
+    "radius": {
+      "sm": { "value": "{primitives.radius.sm}", "type": "borderRadius" },
+      "md": { "value": "{primitives.radius.md}", "type": "borderRadius" },
+      "lg": { "value": "{primitives.radius.lg}", "type": "borderRadius" },
+      "xl": { "value": "{primitives.radius.xl}", "type": "borderRadius" },
+      "pill": { "value": "{primitives.radius.pill}", "type": "borderRadius" }
+    },
+    "spacing": {
+      "0": { "value": "{primitives.spacing.0}", "type": "spacing" },
+      "xs": { "value": "{primitives.spacing.xs}", "type": "spacing" },
+      "sm": { "value": "{primitives.spacing.sm}", "type": "spacing" },
+      "md": { "value": "{primitives.spacing.md}", "type": "spacing" },
+      "lg": { "value": "{primitives.spacing.lg}", "type": "spacing" },
+      "xl": { "value": "{primitives.spacing.xl}", "type": "spacing" },
+      "2xl": { "value": "{primitives.spacing.2xl}", "type": "spacing" },
+      "3xl": { "value": "{primitives.spacing.3xl}", "type": "spacing" },
+      "4xl": { "value": "{primitives.spacing.4xl}", "type": "spacing" },
+      "5xl": { "value": "{primitives.spacing.5xl}", "type": "spacing" },
+      "6xl": { "value": "{primitives.spacing.6xl}", "type": "spacing" }
+    },
+    "fontFamily": {
+      "display": { "value": "{primitives.fontFamily.display}", "type": "fontFamilies" },
+      "body": { "value": "{primitives.fontFamily.body}", "type": "fontFamilies" }
+    },
+    "typography": {
+      "display": {
+        "xl": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.display}",
+            "fontWeight": "{primitives.fontWeight.regular}",
+            "fontSize": "{primitives.fontSize.6xl}",
+            "lineHeight": "{primitives.lineHeight.tight}",
+            "letterSpacing": "{primitives.letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Hero / celebratory moments — e.g. total daily calories"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.display}",
+            "fontWeight": "{primitives.fontWeight.regular}",
+            "fontSize": "{primitives.fontSize.5xl}",
+            "lineHeight": "{primitives.lineHeight.tight}",
+            "letterSpacing": "{primitives.letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Onboarding hero, big empty-state title"
+        }
+      },
+      "heading": {
+        "lg": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.display}",
+            "fontWeight": "{primitives.fontWeight.semibold}",
+            "fontSize": "{primitives.fontSize.3xl}",
+            "lineHeight": "{primitives.lineHeight.snug}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Screen title"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.display}",
+            "fontWeight": "{primitives.fontWeight.semibold}",
+            "fontSize": "{primitives.fontSize.2xl}",
+            "lineHeight": "{primitives.lineHeight.snug}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Card title, section header"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.display}",
+            "fontWeight": "{primitives.fontWeight.semibold}",
+            "fontSize": "{primitives.fontSize.xl}",
+            "lineHeight": "{primitives.lineHeight.snug}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Subsection header"
+        }
+      },
+      "body": {
+        "lg": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.regular}",
+            "fontSize": "{primitives.fontSize.lg}",
+            "lineHeight": "{primitives.lineHeight.normal}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Default reading size"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.regular}",
+            "fontSize": "{primitives.fontSize.md}",
+            "lineHeight": "{primitives.lineHeight.normal}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Secondary body"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.regular}",
+            "fontSize": "{primitives.fontSize.sm}",
+            "lineHeight": "{primitives.lineHeight.normal}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Tertiary, helper text"
+        }
+      },
+      "label": {
+        "md": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.semibold}",
+            "fontSize": "{primitives.fontSize.lg}",
+            "lineHeight": "{primitives.lineHeight.snug}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Button label, tab label"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.medium}",
+            "fontSize": "{primitives.fontSize.xs}",
+            "lineHeight": "{primitives.lineHeight.snug}",
+            "letterSpacing": "{primitives.letterSpacing.wide}"
+          },
+          "type": "typography",
+          "description": "Form label, caption, micro-copy"
+        }
+      },
+      "numeric": {
+        "xl": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.semibold}",
+            "fontSize": "{primitives.fontSize.6xl}",
+            "lineHeight": "{primitives.lineHeight.tight}",
+            "letterSpacing": "{primitives.letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Big calorie number — apply Inter tabular figures `tnum`"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{primitives.fontFamily.body}",
+            "fontWeight": "{primitives.fontWeight.semibold}",
+            "fontSize": "{primitives.fontSize.lg}",
+            "lineHeight": "{primitives.lineHeight.tight}",
+            "letterSpacing": "{primitives.letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Inline macro/portion stat — apply Inter tabular figures `tnum`"
+        }
+      }
+    }
+  }
+}
