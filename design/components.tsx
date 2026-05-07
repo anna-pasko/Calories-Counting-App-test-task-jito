@@ -10,9 +10,38 @@
  */
 
 import * as React from "react";
+import {
+  Search,
+  X,
+  Heart,
+  ArrowLeft,
+  ChevronRight,
+  Minus,
+  Plus,
+  Check,
+  AlertTriangle,
+  Calculator,
+  Salad,
+  User,
+} from "lucide-react";
 
 const cx = (...xs: Array<string | false | null | undefined>) =>
   xs.filter(Boolean).join(" ");
+
+export const Icons = {
+  Search,
+  X,
+  Heart,
+  ArrowLeft,
+  ChevronRight,
+  Minus,
+  Plus,
+  Check,
+  AlertTriangle,
+  Calculator,
+  Salad,
+  User,
+};
 
 /* ========================================================================
    1. Button
@@ -65,7 +94,9 @@ export function SearchInput({
 }: SearchInputProps) {
   return (
     <label className="c-search-input">
-      <span className="c-search-input__icon" aria-hidden>⌕</span>
+      <span className="c-search-input__icon" aria-hidden>
+        <Search size={20} strokeWidth={2.25} />
+      </span>
       <input
         className="c-search-input__field"
         value={value}
@@ -80,7 +111,7 @@ export function SearchInput({
           aria-label="Clear search"
           onClick={onClear}
         >
-          ×
+          <X size={16} strokeWidth={2.5} />
         </button>
       )}
     </label>
@@ -121,7 +152,7 @@ export function NumberStepper({
         disabled={value <= min}
         aria-label="Decrease"
       >
-        −
+        <Minus size={18} strokeWidth={2.5} />
       </button>
       <span className="c-stepper__value">{value}</span>
       {unit && <span className="c-stepper__unit">{unit}</span>}
@@ -132,7 +163,7 @@ export function NumberStepper({
         disabled={value >= max}
         aria-label="Increase"
       >
-        +
+        <Plus size={18} strokeWidth={2.5} />
       </button>
     </div>
   );
@@ -210,7 +241,6 @@ export function Chip({
         isBadge && tone && `is-${tone}`,
         className
       )}
-      // @ts-expect-error — button-only attrs are no-ops on span
       type={!isBadge ? "button" : undefined}
       {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
@@ -304,7 +334,7 @@ export function SaveButton({ saved, className, ...rest }: SaveButtonProps) {
       className={cx("c-save", saved && "c-save--saved", className)}
       {...rest}
     >
-      {saved ? "♥" : "♡"}
+      <Heart size={20} strokeWidth={2} fill={saved ? "currentColor" : "none"} />
     </button>
   );
 }
@@ -321,7 +351,10 @@ export interface ToastProps {
 }
 
 export function Toast({ tone = "success", icon, children }: ToastProps) {
-  const defaultIcon = tone === "success" ? "✓" : tone === "warning" ? "!" : "✕";
+  const defaultIcon =
+    tone === "success" ? <Check size={14} strokeWidth={3} /> :
+    tone === "warning" ? <AlertTriangle size={14} strokeWidth={2.5} /> :
+    <X size={14} strokeWidth={3} />;
   return (
     <div className={cx("c-toast", tone !== "success" && `c-toast--${tone}`)} role="status">
       <span className="c-toast__icon" aria-hidden>{icon ?? defaultIcon}</span>
@@ -458,7 +491,7 @@ export function NutritionStrip({
           <div key={m.key} className={`c-nutrition__macro c-nutrition__macro--${m.key}`}>
             <div className="c-nutrition__macro-value">
               {m.value}
-              <span style={{ fontSize: 12, color: "var(--color-text-muted)" }}>g</span>
+              <span className="c-nutrition__macro-unit">g</span>
             </div>
             <div className="c-nutrition__macro-label">{m.label}</div>
           </div>
@@ -494,7 +527,11 @@ export function ListItem({
         <span className="c-list-item__title">{title}</span>
         {sub && <span className="c-list-item__sub">{sub}</span>}
       </span>
-      {showChevron && <span className="c-list-item__chevron" aria-hidden>›</span>}
+      {showChevron && (
+        <span className="c-list-item__chevron" aria-hidden>
+          <ChevronRight size={20} strokeWidth={2} />
+        </span>
+      )}
     </button>
   );
 }
@@ -569,7 +606,7 @@ export function TopAppBar({
     <header className="c-app-bar">
       {!asTabRoot && onBack && (
         <button className="c-app-bar__icon" aria-label="Back" onClick={onBack}>
-          ←
+          <ArrowLeft size={20} strokeWidth={2.25} />
         </button>
       )}
       <div

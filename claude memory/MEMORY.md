@@ -3,3 +3,4 @@
 - [Do not run git commits](feedback_no_auto_commits.md) — user commits manually in this project; draft messages and stage if asked, but never run `git commit`.
 - [Brand mood — Soft & Playful](project_brand_mood.md) — approved 2026-05-07: pastel base, vibrant rounded accents, friendly low-stakes tone (Yuka/Finch/Duolingo-ish).
 - [Brand tokens v0](project_brand_tokens.md) — Fraunces + Inter; coral primary on butter base; mint/sky/lavender/butter accents; rounded radii 8–24+pill.
+- [Tech stack & data sources](project_tech_stack.md) — Vite + React + TS PWA; Open Food Facts (foods, live) + curated 30–40 recipes (static); Zustand+localStorage; $0/month on Vercel.
