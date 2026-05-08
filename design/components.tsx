@@ -374,12 +374,17 @@ export function Toast({ tone = "success", icon, children }: ToastProps) {
    10. ResultRow (food row)
    ======================================================================== */
 export interface ResultRowProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "title"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title" | "onClick"> {
   thumb?: React.ReactNode;
   title: string;
   meta?: string;
   kcal: number;
   kcalLabel?: string;
+  onClick?: () => void;
+  /** When provided, renders a trailing "+" action that fires this callback (e.g., quick-add to meal). */
+  onAdd?: () => void;
+  /** Accessible label for the + action; defaults to `Add ${title} to meal`. */
+  addAriaLabel?: string;
 }
 
 export function ResultRow({
@@ -388,11 +393,28 @@ export function ResultRow({
   meta,
   kcal,
   kcalLabel = "kcal",
+  onClick,
+  onAdd,
+  addAriaLabel,
   className,
   ...rest
 }: ResultRowProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!onClick) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick();
+    }
+  };
   return (
-    <button className={cx("c-result-row", className)} type="button" {...rest}>
+    <div
+      className={cx("c-result-row", className)}
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      {...rest}
+    >
       <span className="c-result-row__thumb" aria-hidden>{thumb}</span>
       <span className="c-result-row__main">
         <span className="c-result-row__title">{title}</span>
@@ -402,7 +424,20 @@ export function ResultRow({
         {kcal}
         <small>{kcalLabel}</small>
       </span>
-    </button>
+      {onAdd && (
+        <button
+          type="button"
+          className="c-result-row__add"
+          aria-label={addAriaLabel ?? `Add ${title} to meal`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onAdd();
+          }}
+        >
+          <Plus size={20} strokeWidth={2.75} />
+        </button>
+      )}
+    </div>
   );
 }
 

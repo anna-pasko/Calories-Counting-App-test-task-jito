@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 import {
+  Button,
   NumberStepper,
   NutritionStrip,
   SaveButton,
@@ -8,28 +9,18 @@ import {
 } from "../../design/components";
 import { useApp } from "../store/useApp";
 import { dataSource } from "../data/source";
-import type { Food } from "../data/types";
-
-const UNITS = ["g", "pieces", "cups", "tbsp", "serving"] as const;
-type Unit = (typeof UNITS)[number];
-
-/** rough conversion factors → grams; "serving" uses food.basePortionGrams */
-const UNIT_TO_G: Record<Unit, number> = {
-  g: 1,
-  pieces: 80,   // generic placeholder
-  cups: 240,
-  tbsp: 15,
-  serving: 100, // fallback; overridden by food.basePortionGrams
-};
+import { computeNutrition } from "../data/portion";
+import { MEAL_UNITS, type Food, type MealUnit } from "../data/types";
 
 export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
   const pop = useApp((s) => s.pop);
   const showToast = useApp((s) => s.showToast);
   const isFav = useApp((s) => (foodId ? s.favoriteFoodIds.includes(foodId) : false));
   const toggleFav = useApp((s) => s.toggleFavoriteFood);
+  const addToMeal = useApp((s) => s.addToMeal);
 
   const [food, setFood] = useState<Food | null>(null);
-  const [unit, setUnit] = useState<Unit>("g");
+  const [unit, setUnit] = useState<MealUnit>("g");
   const [qty, setQty] = useState(100);
 
   useEffect(() => {
@@ -51,21 +42,18 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
     );
   }
 
-  const grams =
-    unit === "serving"
-      ? qty * food.basePortionGrams
-      : qty * UNIT_TO_G[unit];
-  const factor = grams / food.basePortionGrams;
-  const kcal = Math.round(food.kcalPerBase * factor);
-  const macros = {
-    protein: round1(food.macrosPerBase.protein * factor),
-    carbs: round1(food.macrosPerBase.carbs * factor),
-    fat: round1(food.macrosPerBase.fat * factor),
-  };
+  const { grams, kcal, protein, carbs, fat } = computeNutrition(food, qty, unit);
+  const macros = { protein, carbs, fat };
 
   const toggleSave = () => {
     toggleFav(food.id);
     showToast(isFav ? "Removed from favorites" : "Saved to favorites");
+  };
+
+  const handleAddToMeal = () => {
+    addToMeal(food, qty, unit);
+    showToast(`Added ${food.name} to meal`);
+    pop();
   };
 
   return (
@@ -118,19 +106,25 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
             ariaLabel="Portion size"
           />
           <UnitSelector
-            options={UNITS}
+            options={MEAL_UNITS}
             value={unit}
-            onChange={(u: Unit) => {
+            onChange={(u: MealUnit) => {
               setUnit(u);
               setQty(u === "g" ? 100 : 1);
             }}
           />
         </div>
+
+        <Button
+          variant="primary"
+          size="lg"
+          className="cd-add-to-meal"
+          onClick={handleAddToMeal}
+        >
+          <Plus size={20} strokeWidth={2.75} />
+          Add to meal
+        </Button>
       </div>
     </div>
   );
-}
-
-function round1(n: number) {
-  return Math.round(n * 10) / 10;
 }

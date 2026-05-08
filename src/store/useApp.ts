@@ -4,8 +4,12 @@ import type {
   AllergenTag,
   DietTag,
   Food,
+  MealItem,
+  MealUnit,
+  SavedDish,
   UserPrefs,
 } from "../data/types";
+import { sumMealNutrition, type MealTotals } from "../data/portion";
 
 /* ------------------------------------------------------------------ */
 /*  Navigation                                                          */
@@ -16,6 +20,8 @@ export type TabKey = "calculate" | "recipes" | "profile";
 export type ScreenKey =
   | "calculate-search"
   | "calculate-detail"
+  | "meal-review"
+  | "saved-dish-detail"
   | "recipes-search"
   | "recipe-detail"
   | "profile-overview"
@@ -33,6 +39,13 @@ const ROOTS: Record<TabKey, Screen> = {
   recipes: { key: "recipes-search" },
   profile: { key: "profile-overview" },
 };
+
+function makeId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `id-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
 
 /* ------------------------------------------------------------------ */
 /*  State                                                               */
@@ -89,6 +102,21 @@ interface AppState {
   setRecipeDiet: (d: DietTag[]) => void;
   setRecipeMaxKcal: (k: number | undefined) => void;
 
+  // meal builder (draft + saved dishes)
+  draftMeal: MealItem[];
+  addToMeal: (food: Food, qty: number, unit: MealUnit) => void;
+  removeMealItem: (itemId: string) => void;
+  updateMealItem: (itemId: string, qty: number, unit: MealUnit) => void;
+  clearMeal: () => void;
+
+  savedDishes: SavedDish[];
+  /** When non-null, saveMealAsDish updates this dish in place instead of creating a new one. */
+  editingDishId: string | null;
+  /** Returns the id of the saved (or updated) dish. */
+  saveMealAsDish: (name: string) => string;
+  loadDishIntoMeal: (dishId: string) => void;
+  deleteSavedDish: (id: string) => void;
+
   // toast (transient)
   toast: { message: string; tone: "success" | "warning" | "danger" } | null;
   showToast: (message: string, tone?: "success" | "warning" | "danger") => void;
@@ -136,6 +164,9 @@ export const useApp = create<AppState>()(
           recipeQuery: "",
           recipeDiet: [],
           recipeMaxKcal: undefined,
+          draftMeal: [],
+          savedDishes: [],
+          editingDishId: null,
           activeTab: "calculate",
           stacks: {
             calculate: [ROOTS.calculate],
@@ -239,6 +270,80 @@ export const useApp = create<AppState>()(
       setRecipeDiet: (d) => set({ recipeDiet: d }),
       setRecipeMaxKcal: (k) => set({ recipeMaxKcal: k }),
 
+      // meal builder
+      draftMeal: [],
+      addToMeal: (food, qty, unit) =>
+        set((s) => ({
+          draftMeal: [
+            ...s.draftMeal,
+            {
+              id: makeId(),
+              food,
+              qty,
+              unit,
+              addedAt: Date.now(),
+            },
+          ],
+        })),
+      removeMealItem: (itemId) =>
+        set((s) => ({
+          draftMeal: s.draftMeal.filter((it) => it.id !== itemId),
+        })),
+      updateMealItem: (itemId, qty, unit) =>
+        set((s) => ({
+          draftMeal: s.draftMeal.map((it) =>
+            it.id === itemId ? { ...it, qty, unit } : it
+          ),
+        })),
+      clearMeal: () => set({ draftMeal: [], editingDishId: null }),
+
+      savedDishes: [],
+      editingDishId: null,
+      saveMealAsDish: (name) => {
+        const trimmed = name.trim() || "Untitled dish";
+        const now = Date.now();
+        const editingId = get().editingDishId;
+        const draft = get().draftMeal;
+        if (editingId) {
+          set((s) => ({
+            savedDishes: s.savedDishes.map((d) =>
+              d.id === editingId
+                ? { ...d, name: trimmed, items: draft, updatedAt: now }
+                : d
+            ),
+            draftMeal: [],
+            editingDishId: null,
+          }));
+          return editingId;
+        }
+        const id = makeId();
+        set((s) => ({
+          savedDishes: [
+            { id, name: trimmed, items: draft, createdAt: now, updatedAt: now },
+            ...s.savedDishes,
+          ],
+          draftMeal: [],
+          editingDishId: null,
+        }));
+        return id;
+      },
+      loadDishIntoMeal: (dishId) => {
+        const dish = get().savedDishes.find((d) => d.id === dishId);
+        if (!dish) return;
+        // Fresh ids so editing doesn't alias with the original.
+        const items: MealItem[] = dish.items.map((it) => ({
+          ...it,
+          id: makeId(),
+          addedAt: Date.now(),
+        }));
+        set({ draftMeal: items, editingDishId: dishId });
+      },
+      deleteSavedDish: (id) =>
+        set((s) => ({
+          savedDishes: s.savedDishes.filter((d) => d.id !== id),
+          editingDishId: s.editingDishId === id ? null : s.editingDishId,
+        })),
+
       // toast
       toast: null,
       showToast: (message, tone = "success") => {
@@ -264,6 +369,9 @@ export const useApp = create<AppState>()(
         recentSearches: s.recentSearches,
         recipeDiet: s.recipeDiet,
         recipeMaxKcal: s.recipeMaxKcal,
+        draftMeal: s.draftMeal,
+        savedDishes: s.savedDishes,
+        editingDishId: s.editingDishId,
       }),
     }
   )
@@ -280,4 +388,10 @@ export function useCurrentScreen(): Screen {
 
 export function useIsAtTabRoot(): boolean {
   return useApp((s) => s.stacks[s.activeTab].length === 1);
+}
+
+/** Live totals for the current draft meal — recomputed whenever items change. */
+export function useMealTotals(): MealTotals {
+  const items = useApp((s) => s.draftMeal);
+  return sumMealNutrition(items);
 }

@@ -393,6 +393,19 @@ a { color: inherit; }
   transition: background var(--duration-fast) var(--easing-standard);
 }
 .c-result-row:hover { background: var(--color-bg-subtle); }
+.c-result-row__add {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 44px; height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background var(--duration-fast) var(--easing-standard),
+              transform var(--duration-fast) var(--easing-standard);
+}
+.c-result-row__add:hover { background: var(--color-brand-primary-pressed); }
+.c-result-row__add:active { transform: scale(0.94); }
 
 .c-result-row__thumb {
   flex: 0 0 auto;
@@ -793,6 +806,115 @@ a { color: inherit; }
 @keyframes c-dialog-pop {
   from { transform: scale(0.96); opacity: 0; }
   to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ==========================================================================
+   17b. BottomSheet (used by PortionPicker, save-as-dish prompt, etc.)
+   ========================================================================== */
+.c-sheet__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(42, 39, 48, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+  animation: c-sheet-fade var(--duration-base) var(--easing-standard);
+}
+.c-sheet {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-md) var(--space-xl)
+    calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
+  width: 100%;
+  max-width: 480px;
+  box-shadow: var(--shadow-lg);
+  animation: c-sheet-slide var(--duration-base) var(--easing-standard);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.c-sheet__handle {
+  width: 40px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border-strong);
+  margin: 0 auto var(--space-xs);
+}
+.c-sheet__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.c-sheet__thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+  font-size: 28px;
+}
+.c-sheet__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.c-sheet__title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+}
+.c-sheet__subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+.c-sheet__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+  justify-content: center;
+}
+.c-sheet__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+.c-sheet__actions > * { flex: 1 1 0; }
+.c-sheet__input {
+  width: 100%;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border-default);
+  background: var(--color-bg-card);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+.c-sheet__input:focus {
+  outline: none;
+  border-color: var(--color-brand-primary);
+}
+.c-sheet__destructive {
+  align-self: center;
+  background: transparent;
+  color: var(--color-feedback-danger);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  margin-top: calc(var(--space-xs) * -1);
+}
+.c-sheet__destructive:hover { background: var(--color-bg-subtle); }
+@keyframes c-sheet-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes c-sheet-slide {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
 }
 
 /* ==========================================================================

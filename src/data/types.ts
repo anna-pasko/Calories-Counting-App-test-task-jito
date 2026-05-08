@@ -84,3 +84,27 @@ export interface UserPrefs {
   allergenTags: AllergenTag[]; // user's allergens to exclude from recipes
   calorieGoal: number;         // kcal/day
 }
+
+export const MEAL_UNITS = ["g", "pieces", "cups", "tbsp", "serving"] as const;
+export type MealUnit = (typeof MEAL_UNITS)[number];
+
+/**
+ * One entry in the draft meal (or a saved dish). Stores the full Food
+ * snapshot so totals stay correct even if the upstream OFF data changes
+ * or goes offline.
+ */
+export interface MealItem {
+  id: string;        // unique within its meal
+  food: Food;
+  qty: number;
+  unit: MealUnit;
+  addedAt: number;   // ms epoch
+}
+
+export interface SavedDish {
+  id: string;
+  name: string;
+  items: MealItem[];
+  createdAt: number;
+  updatedAt: number;
+}

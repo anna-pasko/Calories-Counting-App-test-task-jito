@@ -10,6 +10,8 @@ import {
 } from "../../design/components";
 import { useApp } from "../store/useApp";
 import { dataSource } from "../data/source";
+import { PortionPicker } from "../components/PortionPicker";
+import { DishCard } from "../components/DishCard";
 import type { Food } from "../data/types";
 
 const FOODS_PAGE_SIZE = 20;
@@ -28,6 +30,10 @@ export function CalculateSearchScreen() {
   const recents = useApp((s) => s.recentSearches);
   const addRecent = useApp((s) => s.addRecentSearch);
   const push = useApp((s) => s.push);
+  const addToMeal = useApp((s) => s.addToMeal);
+  const showToast = useApp((s) => s.showToast);
+  const savedDishes = useApp((s) => s.savedDishes);
+  const [pickerFood, setPickerFood] = useState<Food | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -124,7 +130,27 @@ export function CalculateSearchScreen() {
           </>
         )}
 
-        {!query && recents.length === 0 && (
+        {!query && savedDishes.length > 0 && (
+          <>
+            <div className="section-label">My dishes</div>
+            <div className="list-stack">
+              {savedDishes.map((d) => (
+                <DishCard
+                  key={d.id}
+                  dish={d}
+                  onClick={() =>
+                    push("calculate", {
+                      key: "saved-dish-detail",
+                      props: { dishId: d.id },
+                    })
+                  }
+                />
+              ))}
+            </div>
+          </>
+        )}
+
+        {!query && recents.length === 0 && savedDishes.length === 0 && (
           <EmptyState
             art={<Search size={36} strokeWidth={2} />}
             title="What did you eat?"
@@ -184,6 +210,7 @@ export function CalculateSearchScreen() {
                   kcal={food.kcalPerBase}
                   kcalLabel="kcal / 100 g"
                   onClick={() => openFood(food)}
+                  onAdd={() => setPickerFood(food)}
                 />
               ))}
             </div>
@@ -214,6 +241,17 @@ export function CalculateSearchScreen() {
           </>
         )}
       </div>
+      {pickerFood && (
+        <PortionPicker
+          food={pickerFood}
+          onCancel={() => setPickerFood(null)}
+          onConfirm={(qty, unit) => {
+            addToMeal(pickerFood, qty, unit);
+            setPickerFood(null);
+            showToast(`Added ${pickerFood.name} to meal`);
+          }}
+        />
+      )}
     </>
   );
 }

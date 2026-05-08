@@ -6,11 +6,14 @@ import type { TabKey } from "./store/useApp";
 import { OnboardingScreen } from "./screens/Onboarding";
 import { CalculateSearchScreen } from "./screens/Calculate";
 import { CalculateDetailScreen } from "./screens/CalculateDetail";
+import { MealReviewScreen } from "./screens/MealReview";
+import { SavedDishDetailScreen } from "./screens/SavedDishDetail";
 import { RecipesSearchScreen } from "./screens/Recipes";
 import { RecipeDetailScreen } from "./screens/RecipeDetail";
 import { ProfileOverviewScreen } from "./screens/Profile";
 import { ProfileEditScreen } from "./screens/ProfileEdit";
 import { ProfileFavoritesScreen } from "./screens/ProfileFavorites";
+import { MealBar } from "./components/MealBar";
 
 const ICON_PROPS = { size: 22, strokeWidth: 2 } as const;
 const TABS: { key: TabKey; label: string; icon: ReactNode }[] = [
@@ -28,6 +31,10 @@ export function App() {
   const toast = useApp((s) => s.toast);
   const confirm = useApp((s) => s.confirm);
   const dismissConfirm = useApp((s) => s.dismissConfirm);
+  const push = useApp((s) => s.push);
+
+  const mealBarVisible =
+    activeTab === "calculate" && screen.key !== "meal-review";
 
   if (!onboarded) {
     return (
@@ -43,6 +50,12 @@ export function App() {
       <main id="main" className="app-main">
         <ScreenView screenKey={screen.key} props={screen.props} />
       </main>
+      {mealBarVisible && (
+        <MealBar
+          atBottom={!atRoot}
+          onClick={() => push("calculate", { key: "meal-review" })}
+        />
+      )}
       {atRoot && (
         <BottomTabBar items={TABS} active={activeTab} onChange={setActiveTab} />
       )}
@@ -81,6 +94,10 @@ function ScreenView({
       return <CalculateSearchScreen />;
     case "calculate-detail":
       return <CalculateDetailScreen foodId={props?.foodId as string} />;
+    case "meal-review":
+      return <MealReviewScreen />;
+    case "saved-dish-detail":
+      return <SavedDishDetailScreen dishId={props?.dishId as string} />;
     case "recipes-search":
       return <RecipesSearchScreen />;
     case "recipe-detail":
