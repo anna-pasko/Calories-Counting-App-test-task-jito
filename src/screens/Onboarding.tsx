@@ -69,7 +69,7 @@ export function OnboardingScreen() {
               <h1 className="t-display-lg" style={{ margin: 0 }}>Welcome</h1>
               <div className="t-heading-lg" style={{ margin: 0 }}>
                 to{" "}
-                <span style={{ color: "var(--color-accent-mint)" }}>
+                <span style={{ color: "var(--color-accent-mint-text)" }}>
                   Calories Calculator
                 </span>
               </div>
@@ -101,6 +101,7 @@ export function OnboardingScreen() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
+              aria-label="Your name"
               autoFocus
               maxLength={32}
               autoComplete="given-name"

@@ -84,7 +84,7 @@ export function RecipeDetailScreen({
           onClick={toggleSave}
         />
         {recipe.imageUrl ? (
-          <img src={recipe.imageUrl} alt="" className="cd-hero__img" />
+          <img src={recipe.imageUrl} alt={recipe.title} className="cd-hero__img" />
         ) : (
           <div className="cd-hero__placeholder" aria-hidden>{recipe.heroEmoji}</div>
         )}
@@ -123,6 +123,7 @@ export function RecipeDetailScreen({
               min={1}
               max={12}
               onChange={setServings}
+              ariaLabel="Servings"
             />
           </div>
 

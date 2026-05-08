@@ -85,7 +85,7 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
           onClick={toggleSave}
         />
         {food.imageUrl ? (
-          <img src={food.imageUrl} alt="" className="cd-hero__img" />
+          <img src={food.imageUrl} alt={food.name} className="cd-hero__img" />
         ) : (
           <div className="cd-hero__placeholder" aria-hidden>🥫</div>
         )}
@@ -115,6 +115,7 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
             min={unit === "g" ? 10 : 1}
             max={unit === "g" ? 2000 : 50}
             onChange={setQty}
+            ariaLabel="Portion size"
           />
           <UnitSelector
             options={UNITS}

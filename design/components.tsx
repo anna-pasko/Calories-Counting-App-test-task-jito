@@ -103,6 +103,7 @@ export function SearchInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        aria-label={placeholder}
         {...rest}
       />
       {value && onClear && (
@@ -426,8 +427,22 @@ export function RecipeCard({
   onToggleSave,
   onClick,
 }: RecipeCardProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (!onClick) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick();
+    }
+  };
   return (
-    <article className="c-recipe-card" onClick={onClick}>
+    <article
+      className="c-recipe-card"
+      role="button"
+      tabIndex={0}
+      aria-label={`Open recipe: ${title}`}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+    >
       <div
         className="c-recipe-card__image"
         style={{
@@ -447,7 +462,7 @@ export function RecipeCard({
         )}
       </div>
       <div className="c-recipe-card__body">
-        <h3 className="c-recipe-card__title">{title}</h3>
+        <h2 className="c-recipe-card__title">{title}</h2>
         <div className="c-recipe-card__meta">
           <span><b>{kcal}</b> kcal</span>
           <span>·</span>

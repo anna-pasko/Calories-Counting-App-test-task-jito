@@ -37,7 +37,10 @@ export function App() {
 
   return (
     <div className="app-frame">
-      <ScreenView screenKey={screen.key} props={screen.props} />
+      <a href="#main" className="skip-link">Skip to main content</a>
+      <main id="main" className="app-main">
+        <ScreenView screenKey={screen.key} props={screen.props} />
+      </main>
       {atRoot && (
         <BottomTabBar items={TABS} active={activeTab} onChange={setActiveTab} />
       )}

@@ -15,12 +15,19 @@
 
   --p-coral-500: #FF8A7A;
   --p-coral-600: #F26F5E;
-  --p-coral-700: #E5544A;
+  --p-coral-700: #C2493A;       /* deepened so white text clears WCAG AA */
 
   --p-mint-500: #5FD49E;
   --p-sky-500: #7CC2F2;
   --p-lavender-500: #B8A4FF;
   --p-butter-500: #FFD86B;
+
+  /* Text-grade variants — only for use as text/icon foreground.
+     Each one clears 4.5:1 on the cream + white surfaces. */
+  --p-coral-text: #B23A2A;      /* 5.6:1 on cream */
+  --p-mint-text: #1B7A52;       /* 5.0:1 on cream */
+  --p-sky-text: #2374B0;        /* 5.0:1 on cream */
+  --p-lavender-text: #6E54C9;   /* 5.6:1 on cream */
 
   /* ---------- Color · Semantic (use these in components) ---------- */
   --color-bg-default: var(--p-neutral-butter-cream);
@@ -34,11 +41,18 @@
 
   --color-brand-primary: var(--p-coral-500);
   --color-brand-primary-pressed: var(--p-coral-600);
+  --color-brand-text: var(--p-coral-text);             /* coral, but legible as text */
 
   --color-accent-mint: var(--p-mint-500);
   --color-accent-sky: var(--p-sky-500);
   --color-accent-lavender: var(--p-lavender-500);
   --color-accent-butter: var(--p-butter-500);
+
+  /* Text-grade accent variants. Use these whenever an accent color is
+     applied to text or to icon strokes on a light surface. */
+  --color-accent-mint-text: var(--p-mint-text);
+  --color-accent-sky-text: var(--p-sky-text);
+  --color-accent-lavender-text: var(--p-lavender-text);
 
   --color-feedback-success: var(--p-mint-500);
   --color-feedback-warning: var(--p-butter-500);

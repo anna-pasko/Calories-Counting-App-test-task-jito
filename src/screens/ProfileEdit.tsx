@@ -63,6 +63,7 @@ export function ProfileEditScreen() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
+          aria-label="Your name"
           maxLength={32}
           autoComplete="given-name"
         />

@@ -30,6 +30,8 @@ a { color: inherit; }
 .c-tab-bar__btn:focus-visible,
 .c-app-bar__icon:focus-visible,
 .c-list-item:focus-visible,
+.c-recipe-card:focus-visible,
+.c-result-row:focus-visible,
 .c-save:focus-visible,
 .c-stepper__btn:focus-visible,
 .c-unit-selector__btn:focus-visible,
@@ -61,26 +63,26 @@ a { color: inherit; }
 }
 .c-button--primary {
   background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);            /* ink on coral = 6.3:1, AA */
 }
 .c-button--primary:hover { background: var(--color-brand-primary-pressed); }
 .c-button--primary:active { transform: scale(0.98); }
 
 .c-button--secondary {
   background: transparent;
-  color: var(--color-brand-primary);
-  box-shadow: inset 0 0 0 1.5px var(--color-brand-primary);
+  color: var(--color-brand-text);
+  box-shadow: inset 0 0 0 1.5px var(--color-brand-text);
 }
-.c-button--secondary:hover { background: rgba(255, 138, 122, 0.08); }
+.c-button--secondary:hover { background: rgba(178, 58, 42, 0.08); }
 
 .c-button--link {
   min-height: 32px;
   padding: 0 var(--space-sm);
   background: transparent;
-  color: var(--color-brand-primary);
+  color: var(--color-brand-text);
   border-radius: var(--radius-sm);
 }
-.c-button--link:hover { color: var(--color-brand-primary-pressed); }
+.c-button--link:hover { color: var(--p-coral-700); }
 
 .c-button--icon {
   min-height: 44px;
@@ -245,7 +247,7 @@ a { color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  min-height: 36px;
+  min-height: 44px;            /* AAA target size for touch */
   padding: 0 var(--space-lg);
   border-radius: var(--radius-pill);
   background: var(--color-bg-card);
@@ -259,7 +261,7 @@ a { color: inherit; }
 
 .c-chip--selected {
   background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);            /* ink on coral = 6.3:1, AA */
   box-shadow: none;
 }
 .c-chip--badge {
@@ -339,7 +341,7 @@ a { color: inherit; }
 .c-save:hover { transform: scale(1.05); }
 .c-save:active { transform: scale(0.95); }
 .c-save--saved {
-  color: var(--color-brand-primary);
+  color: var(--color-brand-text);              /* 5.9:1 on white, passes 3:1 UI */
 }
 
 /* ==========================================================================
@@ -569,9 +571,9 @@ a { color: inherit; }
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
 }
-.c-nutrition__macro--p .c-nutrition__macro-label { color: var(--color-accent-sky); }
-.c-nutrition__macro--c .c-nutrition__macro-label { color: var(--color-accent-lavender); }
-.c-nutrition__macro--f .c-nutrition__macro-label { color: var(--color-brand-primary); }
+.c-nutrition__macro--p .c-nutrition__macro-label { color: var(--color-accent-sky-text); }
+.c-nutrition__macro--c .c-nutrition__macro-label { color: var(--color-accent-lavender-text); }
+.c-nutrition__macro--f .c-nutrition__macro-label { color: var(--color-brand-text); }
 
 /* ==========================================================================
    13. ListItem (Profile rows)
@@ -651,7 +653,7 @@ a { color: inherit; }
   font-size: var(--font-size-4xl);
   line-height: var(--line-height-tight);
   font-variant-numeric: tabular-nums;
-  color: var(--color-brand-primary);
+  color: var(--color-brand-text);
 }
 .c-summary-card__goal-label {
   font-size: var(--font-size-sm);
@@ -742,7 +744,7 @@ a { color: inherit; }
   height: 56px;
   border-radius: var(--radius-pill);
   background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);            /* ink on coral = 6.3:1, AA */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -785,11 +787,24 @@ a { color: inherit; }
   border-radius: var(--radius-md);
   min-height: 56px;
 }
-.c-tab-bar__btn--active { color: var(--color-brand-primary); }
+.c-tab-bar__btn--active { color: var(--color-brand-text); }
 .c-tab-bar__icon { font-size: 22px; line-height: 1; }
 .c-tab-bar__label {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   Reduced-motion preference
+   Disables animations / transitions for users who set OS-level "reduce motion".
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ==========================================================================

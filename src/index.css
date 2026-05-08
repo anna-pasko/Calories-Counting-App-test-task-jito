@@ -23,6 +23,38 @@ html, body, #root {
   position: relative;
 }
 
+/* <main> wrapper so the skip link has a real landmark to jump to.
+   Inherits the flex-column layout the screens used to get from .app-frame. */
+.app-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;             /* lets overflow-y: auto on .screen work */
+}
+
+/* Skip link — visually hidden until it receives keyboard focus, then
+   slides into view in the top-left corner. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-text-primary);
+  color: var(--color-text-on-brand);
+  border-bottom-right-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transform: translateY(-110%);
+  transition: transform var(--duration-fast) var(--easing-standard);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
 .screen {
   flex: 1 1 auto;
   display: flex;
