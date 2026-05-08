@@ -112,6 +112,11 @@ interface AppState {
   savedDishes: SavedDish[];
   /** When non-null, saveMealAsDish updates this dish in place instead of creating a new one. */
   editingDishId: string | null;
+  /** Pending name edit while in dish-edit mode. Initialized from the dish on load,
+   *  updated as the user types, used by saveMealAsDish on update. Persisted so it
+   *  survives navigation (e.g., leaving meal-review to add an ingredient and back). */
+  dishNameDraft: string | null;
+  setDishNameDraft: (name: string) => void;
   /** Returns the id of the saved (or updated) dish. */
   saveMealAsDish: (name: string) => string;
   loadDishIntoMeal: (dishId: string) => void;
@@ -167,6 +172,7 @@ export const useApp = create<AppState>()(
           draftMeal: [],
           savedDishes: [],
           editingDishId: null,
+          dishNameDraft: null,
           activeTab: "calculate",
           stacks: {
             calculate: [ROOTS.calculate],
@@ -295,10 +301,13 @@ export const useApp = create<AppState>()(
             it.id === itemId ? { ...it, qty, unit } : it
           ),
         })),
-      clearMeal: () => set({ draftMeal: [], editingDishId: null }),
+      clearMeal: () =>
+        set({ draftMeal: [], editingDishId: null, dishNameDraft: null }),
 
       savedDishes: [],
       editingDishId: null,
+      dishNameDraft: null,
+      setDishNameDraft: (name) => set({ dishNameDraft: name }),
       saveMealAsDish: (name) => {
         const trimmed = name.trim() || "Untitled dish";
         const now = Date.now();
@@ -313,6 +322,7 @@ export const useApp = create<AppState>()(
             ),
             draftMeal: [],
             editingDishId: null,
+            dishNameDraft: null,
           }));
           return editingId;
         }
@@ -324,6 +334,7 @@ export const useApp = create<AppState>()(
           ],
           draftMeal: [],
           editingDishId: null,
+          dishNameDraft: null,
         }));
         return id;
       },
@@ -336,7 +347,7 @@ export const useApp = create<AppState>()(
           id: makeId(),
           addedAt: Date.now(),
         }));
-        set({ draftMeal: items, editingDishId: dishId });
+        set({ draftMeal: items, editingDishId: dishId, dishNameDraft: dish.name });
       },
       deleteSavedDish: (id) =>
         set((s) => ({
@@ -372,6 +383,7 @@ export const useApp = create<AppState>()(
         draftMeal: s.draftMeal,
         savedDishes: s.savedDishes,
         editingDishId: s.editingDishId,
+        dishNameDraft: s.dishNameDraft,
       }),
     }
   )

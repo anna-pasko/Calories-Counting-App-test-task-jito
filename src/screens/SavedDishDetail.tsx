@@ -7,6 +7,7 @@ import {
 } from "../../design/components";
 import { useApp } from "../store/useApp";
 import { computeNutrition, sumMealNutrition } from "../data/portion";
+import { FoodThumb } from "../components/FoodThumb";
 
 export function SavedDishDetailScreen({ dishId }: { dishId?: string }) {
   const pop = useApp((s) => s.pop);
@@ -88,23 +89,17 @@ export function SavedDishDetailScreen({ dishId }: { dishId?: string }) {
             return (
               <ResultRow
                 key={it.id}
-                thumb={
-                  it.food.imageUrl ? (
-                    <img
-                      src={it.food.imageUrl}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  ) : (
-                    "🥫"
-                  )
-                }
+                thumb={<FoodThumb imageUrl={it.food.imageUrl} />}
                 title={it.food.name}
                 meta={`${it.qty} ${it.unit} · ${n.grams.toFixed(0)} g`}
                 kcal={n.kcal}
                 kcalLabel="kcal"
+                onClick={() =>
+                  push("calculate", {
+                    key: "calculate-detail",
+                    props: { foodId: it.food.id, food: it.food },
+                  })
+                }
               />
             );
           })}

@@ -27,10 +27,12 @@ export function RecipeDetailScreen({
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [servings, setServings] = useState(1);
+  const [heroErrored, setHeroErrored] = useState(false);
 
   useEffect(() => {
     if (!recipeId) return;
     let active = true;
+    setHeroErrored(false);
     dataSource.getRecipe(recipeId).then((r) => {
       if (active && r) {
         setRecipe(r);
@@ -83,8 +85,13 @@ export function RecipeDetailScreen({
           saved={isFav}
           onClick={toggleSave}
         />
-        {recipe.imageUrl ? (
-          <img src={recipe.imageUrl} alt={recipe.title} className="cd-hero__img" />
+        {recipe.imageUrl && !heroErrored ? (
+          <img
+            src={recipe.imageUrl}
+            alt={recipe.title}
+            className="cd-hero__img"
+            onError={() => setHeroErrored(true)}
+          />
         ) : (
           <div className="cd-hero__placeholder" aria-hidden>{recipe.heroEmoji}</div>
         )}

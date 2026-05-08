@@ -9,6 +9,7 @@ import {
 } from "../../design/components";
 import { useApp } from "../store/useApp";
 import { dataSource } from "../data/source";
+import { FoodThumb } from "../components/FoodThumb";
 import type { Food, Recipe } from "../data/types";
 
 type Tab = "foods" | "recipes";
@@ -70,19 +71,7 @@ export function ProfileFavoritesScreen() {
               {foods.map((f) => (
                 <ResultRow
                   key={f.id}
-                  thumb={
-                    f.imageUrl ? (
-                      <img
-                        src={f.imageUrl}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    ) : (
-                      "🥫"
-                    )
-                  }
+                  thumb={<FoodThumb imageUrl={f.imageUrl} />}
                   title={f.name}
                   meta={[f.brand, `${f.basePortionGrams} g base`].filter(Boolean).join(" · ")}
                   kcal={f.kcalPerBase}

@@ -22,10 +22,12 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
   const [food, setFood] = useState<Food | null>(null);
   const [unit, setUnit] = useState<MealUnit>("g");
   const [qty, setQty] = useState(100);
+  const [heroErrored, setHeroErrored] = useState(false);
 
   useEffect(() => {
     if (!foodId) return;
     let active = true;
+    setHeroErrored(false);
     dataSource.getFood(foodId).then((f) => {
       if (active) setFood(f);
     });
@@ -72,8 +74,13 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
           saved={isFav}
           onClick={toggleSave}
         />
-        {food.imageUrl ? (
-          <img src={food.imageUrl} alt={food.name} className="cd-hero__img" />
+        {food.imageUrl && !heroErrored ? (
+          <img
+            src={food.imageUrl}
+            alt={food.name}
+            className="cd-hero__img"
+            onError={() => setHeroErrored(true)}
+          />
         ) : (
           <div className="cd-hero__placeholder" aria-hidden>🥫</div>
         )}

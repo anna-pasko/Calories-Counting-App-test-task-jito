@@ -61,7 +61,13 @@ export function OnboardingScreen() {
         <div className="col" style={{ flex: 1 }}>
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div className="center col" style={{ maxWidth: 320, alignItems: "center", gap: "var(--space-sm)" }}>
-              <div style={{ fontSize: 80, lineHeight: 1 }}>🥗</div>
+              <img
+                src="/favicon.svg"
+                alt=""
+                width={96}
+                height={96}
+                style={{ display: "block" }}
+              />
               <h1 className="t-display-lg" style={{ margin: 0 }}>Welcome</h1>
               <div className="t-heading-lg" style={{ margin: 0 }}>
                 to{" "}

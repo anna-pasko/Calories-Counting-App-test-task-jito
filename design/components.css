@@ -399,7 +399,7 @@ a { color: inherit; }
   width: 44px; height: 44px;
   border-radius: var(--radius-pill);
   background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);             /* ink on coral = 6.2:1, AA */
   display: inline-flex; align-items: center; justify-content: center;
   transition: background var(--duration-fast) var(--easing-standard),
               transform var(--duration-fast) var(--easing-standard);
@@ -441,16 +441,20 @@ a { color: inherit; }
   color: var(--color-text-secondary);
   line-height: var(--line-height-snug);
   overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .c-result-row__kcal {
   flex: 0 0 auto;
+  align-self: center;
   text-align: right;
   font-family: var(--font-family-body);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-md);
   font-variant-numeric: tabular-nums;
   color: var(--color-text-primary);
-  padding-top: 2px;
 }
 .c-result-row__kcal small {
   display: block;
@@ -647,6 +651,8 @@ a { color: inherit; }
 }
 .c-list-item__chevron {
   flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
   color: var(--color-text-muted);
   font-size: 18px;
 }

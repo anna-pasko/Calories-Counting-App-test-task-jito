@@ -12,6 +12,7 @@ import { useApp } from "../store/useApp";
 import { dataSource } from "../data/source";
 import { PortionPicker } from "../components/PortionPicker";
 import { DishCard } from "../components/DishCard";
+import { FoodThumb } from "../components/FoodThumb";
 import type { Food } from "../data/types";
 
 const FOODS_PAGE_SIZE = 20;
@@ -192,19 +193,7 @@ export function CalculateSearchScreen() {
               {results.map((food) => (
                 <ResultRow
                   key={food.id}
-                  thumb={
-                    food.imageUrl ? (
-                      <img
-                        src={food.imageUrl}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    ) : (
-                      "🥫"
-                    )
-                  }
+                  thumb={<FoodThumb imageUrl={food.imageUrl} />}
                   title={food.name}
                   meta={[food.brand, food.category].filter(Boolean).join(" · ")}
                   kcal={food.kcalPerBase}

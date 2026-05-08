@@ -171,6 +171,7 @@ body {
   flex-direction: column;
   gap: var(--space-md);
   padding: var(--space-lg);
+  flex: 1 1 auto;
 }
 .cd-title-block {
   display: flex;
@@ -206,7 +207,9 @@ body {
 }
 .cd-add-to-meal {
   width: 100%;
-  margin-top: var(--space-md);
+  margin-top: auto;                              /* push to bottom of cd-body */
+  position: sticky;
+  bottom: env(safe-area-inset-bottom, 0);        /* clear iOS home indicator */
 }
 
 /* ---------- DishCard (saved meals on Calculate landing) --------------- */
@@ -215,19 +218,20 @@ body {
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-lg);
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
+  align-items: center;
+  gap: var(--space-md);
   text-align: left;
   width: 100%;
   cursor: pointer;
   transition: background var(--duration-fast) var(--easing-standard);
 }
 .dish-card:hover { background: var(--color-bg-subtle); }
-.dish-card__row {
+.dish-card__main {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-md);
+  flex-direction: column;
+  gap: var(--space-xs);
 }
 .dish-card__title {
   margin: 0;
@@ -237,19 +241,22 @@ body {
   line-height: var(--line-height-snug);
   color: var(--color-text-primary);
   overflow-wrap: anywhere;
-  flex: 1 1 auto;
-  min-width: 0;
 }
 .dish-card__kcal {
   flex: 0 0 auto;
-  font-size: var(--font-size-md);
+  text-align: right;
+  font-family: var(--font-family-body);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
 }
 .dish-card__kcal small {
-  font-weight: var(--font-weight-regular);
+  display: block;
   font-size: var(--font-size-xs);
-  margin-left: 2px;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-muted);
 }
 .dish-card__ingredients {
   font-size: var(--font-size-sm);
@@ -260,14 +267,6 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.dish-card__meta {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  font-weight: var(--font-weight-medium);
-}
-
 /* ---------- Meal review actions row ----------------------------------- */
 .meal-review__actions,
 .dish-detail__actions {
@@ -278,6 +277,63 @@ body {
 .meal-review__actions > *,
 .dish-detail__actions > * { flex: 1 1 0; }
 
+/* Pill-shaped rename input with inline X clear (matches c-text-input style). */
+.rename-input {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 0 var(--space-sm) 0 var(--space-lg);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  transition: outline var(--duration-fast) var(--easing-standard);
+}
+.rename-input:focus-within {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+.rename-input__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+.rename-input__field::placeholder { color: var(--color-text-muted); }
+.rename-input__clear {
+  flex: 0 0 auto;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.rename-input__clear:hover {
+  background: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+.meal-review__add {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--color-brand-text);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-xs);
+}
+.meal-review__add:hover { background: rgba(178, 58, 42, 0.08); }
+
 /* ---------- Meal bar (sticky cart-style strip on Calculate tab) ------- */
 .meal-bar {
   display: flex;
@@ -286,7 +342,7 @@ body {
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
+  color: var(--color-text-primary);             /* ink on coral = 6.2:1, AA */
   text-align: left;
   width: 100%;
   font-family: inherit;
@@ -312,7 +368,6 @@ body {
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
-  opacity: 0.85;
 }
 .meal-bar__kcal {
   font-family: var(--font-family-display);

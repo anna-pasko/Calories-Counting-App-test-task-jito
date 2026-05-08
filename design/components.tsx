@@ -467,6 +467,10 @@ export function RecipeCard({
   onToggleSave,
   onClick,
 }: RecipeCardProps) {
+  const [imgErrored, setImgErrored] = React.useState(false);
+  React.useEffect(() => {
+    setImgErrored(false);
+  }, [imageUrl]);
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (!onClick) return;
     if (e.key === "Enter" || e.key === " ") {
@@ -487,13 +491,14 @@ export function RecipeCard({
         className="c-recipe-card__image"
         style={{ backgroundColor: imageBg }}
       >
-        {imageUrl && (
+        {imageUrl && !imgErrored && (
           <img
             src={imageUrl}
             alt=""
             loading="lazy"
             decoding="async"
             className="c-recipe-card__img"
+            onError={() => setImgErrored(true)}
           />
         )}
         {onToggleSave && (

@@ -1,3 +1,4 @@
+import { Heart } from "lucide-react";
 import { Chip, ListItem, SummaryCard, TopAppBar } from "../../design/components";
 import { useApp } from "../store/useApp";
 
@@ -39,7 +40,7 @@ export function ProfileOverviewScreen() {
             onClick={() => push("profile", { key: "profile-edit" })}
           />
           <ListItem
-            icon="♥"
+            icon={<Heart size={14} strokeWidth={2} />}
             title="Favorites"
             sub={`${favFoods} foods · ${favRecipes} recipes`}
             onClick={() => push("profile", { key: "profile-favorites" })}

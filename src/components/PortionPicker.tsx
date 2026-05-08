@@ -6,6 +6,7 @@ import {
   UnitSelector,
 } from "../../design/components";
 import { BottomSheet } from "./BottomSheet";
+import { FoodThumb } from "./FoodThumb";
 import { computeNutrition } from "../data/portion";
 import { MEAL_UNITS, type Food, type MealUnit } from "../data/types";
 
@@ -40,11 +41,7 @@ export function PortionPicker({
     <BottomSheet ariaLabel={`Portion for ${food.name}`} onCancel={onCancel}>
       <div className="c-sheet__header">
         <span className="c-sheet__thumb" aria-hidden>
-          {food.imageUrl ? (
-            <img src={food.imageUrl} alt="" loading="lazy" decoding="async" />
-          ) : (
-            "🥫"
-          )}
+          <FoodThumb imageUrl={food.imageUrl} />
         </span>
         <div>
           <h2 className="c-sheet__title">{food.name}</h2>

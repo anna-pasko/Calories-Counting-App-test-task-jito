@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Plus, X } from "lucide-react";
 import {
   Button,
   EmptyState,
@@ -10,10 +11,12 @@ import { useApp, useMealTotals } from "../store/useApp";
 import { computeNutrition } from "../data/portion";
 import { PortionPicker } from "../components/PortionPicker";
 import { NameDishSheet } from "../components/NameDishSheet";
+import { FoodThumb } from "../components/FoodThumb";
 import type { MealItem } from "../data/types";
 
 export function MealReviewScreen() {
   const pop = useApp((s) => s.pop);
+  const resetTab = useApp((s) => s.resetTab);
   const items = useApp((s) => s.draftMeal);
   const totals = useMealTotals();
   const updateMealItem = useApp((s) => s.updateMealItem);
@@ -24,6 +27,8 @@ export function MealReviewScreen() {
   const showConfirm = useApp((s) => s.showConfirm);
   const editingDishId = useApp((s) => s.editingDishId);
   const savedDishes = useApp((s) => s.savedDishes);
+  const dishNameDraft = useApp((s) => s.dishNameDraft);
+  const setDishNameDraft = useApp((s) => s.setDishNameDraft);
 
   const editingDish = editingDishId
     ? savedDishes.find((d) => d.id === editingDishId)
@@ -50,20 +55,64 @@ export function MealReviewScreen() {
     });
   };
 
-  const onSaveSubmit = (name: string) => {
+  const onSavePress = () => {
+    if (isEditingExisting) {
+      // Inline name is the source of truth — skip the naming sheet.
+      const finalName = (dishNameDraft ?? editingDish.name).trim() || "Untitled dish";
+      saveMealAsDish(finalName);
+      pop();
+      showToast(`Updated ${finalName}`);
+    } else {
+      // New draft — collect a name via the sheet.
+      setNamingOpen(true);
+    }
+  };
+
+  const onNewSubmit = (name: string) => {
     saveMealAsDish(name);
     setNamingOpen(false);
     pop();
-    showToast(isEditingExisting ? `Updated ${name}` : `Saved ${name}`);
+    showToast(`Saved ${name}`);
+  };
+
+  const onAddIngredient = () => {
+    // Reset the calculate stack to its root so the user lands cleanly on
+    // search with their loaded draft visible in the meal bar. They tap the
+    // bar to come back here once they've added items.
+    resetTab("calculate");
   };
 
   return (
     <>
       <TopAppBar
-        title={isEditingExisting ? editingDish.name : "Your meal"}
+        title={isEditingExisting ? "Edit dish" : "Your meal"}
         onBack={() => pop()}
       />
       <div className="screen">
+        {isEditingExisting && (
+          <div className="rename-input">
+            <input
+              className="rename-input__field"
+              type="text"
+              value={dishNameDraft ?? editingDish.name}
+              onChange={(e) => setDishNameDraft(e.target.value)}
+              placeholder="Dish name"
+              aria-label="Dish name"
+              maxLength={60}
+            />
+            {(dishNameDraft ?? editingDish.name) && (
+              <button
+                type="button"
+                className="rename-input__clear"
+                aria-label="Clear dish name"
+                onClick={() => setDishNameDraft("")}
+              >
+                <X size={14} strokeWidth={2.5} />
+              </button>
+            )}
+          </div>
+        )}
+
         {isEmpty ? (
           <EmptyState
             art="🥣"
@@ -87,19 +136,7 @@ export function MealReviewScreen() {
                 return (
                   <ResultRow
                     key={it.id}
-                    thumb={
-                      it.food.imageUrl ? (
-                        <img
-                          src={it.food.imageUrl}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        />
-                      ) : (
-                        "🥫"
-                      )
-                    }
+                    thumb={<FoodThumb imageUrl={it.food.imageUrl} />}
                     title={it.food.name}
                     meta={`${it.qty} ${it.unit} · ${n.grams.toFixed(0)} g`}
                     kcal={n.kcal}
@@ -110,11 +147,20 @@ export function MealReviewScreen() {
               })}
             </div>
 
+            <button
+              type="button"
+              className="meal-review__add"
+              onClick={onAddIngredient}
+            >
+              <Plus size={18} strokeWidth={2.5} />
+              Add an ingredient
+            </button>
+
             <div className="meal-review__actions">
               <Button variant="secondary" onClick={onDiscard}>
                 Discard
               </Button>
-              <Button variant="primary" onClick={() => setNamingOpen(true)}>
+              <Button variant="primary" onClick={onSavePress}>
                 {isEditingExisting ? "Update dish" : "Save dish"}
               </Button>
             </div>
@@ -142,9 +188,8 @@ export function MealReviewScreen() {
 
       {namingOpen && (
         <NameDishSheet
-          defaultValue={editingDish?.name}
-          submitLabel={isEditingExisting ? "Update dish" : "Save dish"}
-          onSubmit={onSaveSubmit}
+          submitLabel="Save dish"
+          onSubmit={onNewSubmit}
           onCancel={() => setNamingOpen(false)}
         />
       )}
