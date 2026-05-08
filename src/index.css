@@ -341,8 +341,8 @@ body {
   justify-content: space-between;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
-  background: var(--color-brand-primary);
-  color: var(--color-text-primary);             /* ink on coral = 6.2:1, AA */
+  background: #FFD7CC;                          /* light coral — 30% coral over butter-cream */
+  color: var(--color-text-primary);
   text-align: left;
   width: 100%;
   font-family: inherit;
@@ -350,7 +350,7 @@ body {
   position: sticky;
   bottom: 0;
   z-index: 10;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
   animation: meal-bar-slide var(--duration-base) var(--easing-standard);
 }
 .meal-bar--at-bottom {
@@ -379,7 +379,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--color-brand-primary);       /* ink-on-coral = 6.2:1, AA */
+  color: var(--color-text-primary);
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-pill);
   font-weight: var(--font-weight-semibold);

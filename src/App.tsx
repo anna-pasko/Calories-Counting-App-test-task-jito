@@ -34,7 +34,9 @@ export function App() {
   const push = useApp((s) => s.push);
 
   const mealBarVisible =
-    activeTab === "calculate" && screen.key !== "meal-review";
+    activeTab === "calculate" &&
+    screen.key !== "meal-review" &&
+    screen.key !== "calculate-detail";
 
   if (!onboarded) {
     return (
