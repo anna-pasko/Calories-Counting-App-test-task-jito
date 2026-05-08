@@ -6,8 +6,13 @@
 
 import type { Food } from "./types";
 
+/**
+ * Routed through `/off-api` so the browser hits the same origin and avoids
+ * CORS. Vite proxies it to https://world.openfoodfacts.org in dev; production
+ * relies on a host rewrite (see vercel.json).
+ */
 const SEARCH_URL =
-  "https://world.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1&page_size=20";
+  "/off-api/cgi/search.pl?search_simple=1&action=process&json=1&page_size=20";
 
 interface OFFProduct {
   code?: string;
@@ -100,7 +105,7 @@ export async function searchFoods(query: string, signal?: AbortSignal): Promise<
 }
 
 export async function getFood(id: string, signal?: AbortSignal): Promise<Food | null> {
-  const url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(id)}.json`;
+  const url = `/off-api/api/v2/product/${encodeURIComponent(id)}.json`;
   try {
     const res = await fetch(url, { signal });
     if (!res.ok) return null;

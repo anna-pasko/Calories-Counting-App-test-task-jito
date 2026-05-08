@@ -120,10 +120,119 @@ const SEEDS: GenericSeed[] = [
   { id: "g-orange-juice", name: "Orange juice", category: "drink", kcal: 45, protein: 0.7, carbs: 10, fat: 0.2, dietTags: ["vegan", "vegetarian", "gluten-free", "dairy-free"] },
 ];
 
+/**
+ * Photographic ingredient images, courtesy of TheMealDB
+ * (https://www.themealdb.com/api.php). Free to use, no key required.
+ * Names are URL-encoded inline so spaces work as expected.
+ */
+const ING = (name: string) =>
+  `https://www.themealdb.com/images/ingredients/${encodeURIComponent(name)}.png`;
+
+const IMAGE_BY_ID: Record<string, string> = {
+  // Fruits
+  "g-banana": ING("Banana"),
+  "g-apple": ING("Apples"),
+  "g-orange": ING("Orange"),
+  "g-strawberry": ING("Strawberries"),
+  "g-blueberry": ING("Blueberries"),
+  "g-raspberry": ING("Raspberries"),
+  "g-grapes": ING("Grapes"),
+  "g-pear": ING("Pear"),
+  "g-pineapple": ING("Pineapple"),
+  "g-mango": ING("Mango"),
+  "g-watermelon": ING("Watermelon"),
+  "g-peach": ING("Peach"),
+  "g-avocado": ING("Avocado"),
+  "g-lemon": ING("Lemon"),
+  "g-kiwi": ING("Kiwi"),
+
+  // Vegetables
+  "g-broccoli": ING("Broccoli"),
+  "g-spinach": ING("Spinach"),
+  "g-carrot": ING("Carrots"),
+  "g-potato": ING("Potatoes"),
+  "g-sweet-potato": ING("Sweet Potato"),
+  "g-tomato": ING("Tomatoes"),
+  "g-cucumber": ING("Cucumber"),
+  "g-bell-pepper": ING("Bell Pepper"),
+  "g-lettuce": ING("Lettuce"),
+  "g-onion": ING("Onion"),
+  "g-garlic": ING("Garlic"),
+  "g-zucchini": ING("Courgettes"),
+  "g-cauliflower": ING("Cauliflower"),
+  "g-corn": ING("Sweetcorn"),
+  "g-mushroom": ING("Mushrooms"),
+
+  // Meat & poultry
+  "g-chicken-breast": ING("Chicken Breast"),
+  "g-chicken-thigh": ING("Chicken Thighs"),
+  "g-beef-ground": ING("Beef Mince"),
+  "g-beef-steak": ING("Beef"),
+  "g-pork-chop": ING("Pork"),
+  "g-bacon": ING("Bacon"),
+  "g-turkey-breast": ING("Turkey"),
+
+  // Fish & seafood
+  "g-salmon": ING("Salmon"),
+  "g-tuna": ING("Tuna"),
+  "g-shrimp": ING("Prawns"),
+  "g-cod": ING("Cod"),
+
+  // Eggs & plant proteins
+  "g-egg": ING("Eggs"),
+  "g-tofu": ING("Tofu"),
+  "g-tempeh": ING("Tofu"),
+  "g-lentils": ING("Red Lentils"),
+  "g-chickpeas": ING("Chickpeas"),
+  "g-black-beans": ING("Black Beans"),
+  "g-kidney-beans": ING("Kidney Beans"),
+  "g-edamame": ING("Soya Beans"),
+
+  // Grains & carbs
+  "g-rice-white": ING("White Rice"),
+  "g-rice-brown": ING("Brown Rice"),
+  "g-quinoa": ING("Quinoa"),
+  "g-oats": ING("Oats"),
+  "g-pasta": ING("Pasta"),
+  "g-bread-white": ING("Bread"),
+  "g-bread-whole": ING("Wholewheat bread"),
+  "g-tortilla": ING("Tortillas"),
+  "g-couscous": ING("Couscous"),
+
+  // Dairy & alternatives
+  "g-milk-whole": ING("Whole Milk"),
+  "g-milk-skim": ING("Milk"),
+  "g-yogurt-greek": ING("Greek Yogurt"),
+  "g-cheese-cheddar": ING("Cheddar Cheese"),
+  "g-cheese-mozzarella": ING("Mozzarella"),
+  "g-butter": ING("Butter"),
+  "g-almond-milk": ING("Almond Milk"),
+  "g-soy-milk": ING("Soy Milk"),
+
+  // Nuts & seeds
+  "g-almonds": ING("Almonds"),
+  "g-walnuts": ING("Walnuts"),
+  "g-peanuts": ING("Peanuts"),
+  "g-peanut-butter": ING("Peanut Butter"),
+  "g-cashews": ING("Cashews"),
+  "g-chia": ING("Chia Seeds"),
+
+  // Pantry
+  "g-olive-oil": ING("Olive Oil"),
+  "g-honey": ING("Honey"),
+  "g-sugar": ING("Sugar"),
+  "g-dark-choc": ING("Dark Chocolate"),
+
+  // Drinks
+  "g-coffee": ING("Coffee"),
+  "g-orange-juice": ING("Orange Juice"),
+};
+
 export const GENERIC_FOODS: Food[] = SEEDS.map((s) => ({
   id: s.id,
   name: s.name,
   category: s.category,
+  imageUrl: IMAGE_BY_ID[s.id],
   basePortionGrams: s.basePortionGrams ?? 100,
   kcalPerBase: s.kcal,
   macrosPerBase: { protein: s.protein, carbs: s.carbs, fat: s.fat },

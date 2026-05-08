@@ -6,7 +6,11 @@
       "Bash(dir design *)",
       "Read(//c/Users/pasko/AppData/Local/Temp/claude/C--Users-pasko-OneDrive-Documents-GitHub-Calories-Counting-App-test-task-jito/6c35a9ad-ed34-4f70-95f9-15fad7a9990f/tasks/**)",
       "Bash(npm.cmd install *)",
-      "Bash(npx.cmd tsc *)"
+      "Bash(npx.cmd tsc *)",
+      "Bash(netstat -ano)",
+      "Bash(findstr LISTENING)",
+      "Bash(findstr -E \":\\(3000|5173|4173|8080|8000\\)\")",
+      "Bash(npm run *)"
     ]
   }
 }

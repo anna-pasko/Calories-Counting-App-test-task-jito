@@ -70,7 +70,17 @@ export function ProfileFavoritesScreen() {
               {foods.map((f) => (
                 <ResultRow
                   key={f.id}
-                  thumb="🥫"
+                  thumb={
+                    f.imageUrl ? (
+                      <img
+                        src={f.imageUrl}
+                        alt=""
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      "🥫"
+                    )
+                  }
                   title={f.name}
                   meta={[f.brand, `${f.basePortionGrams} g base`].filter(Boolean).join(" · ")}
                   kcal={f.kcalPerBase}
@@ -96,6 +106,7 @@ export function ProfileFavoritesScreen() {
               <RecipeCard
                 key={r.id}
                 title={r.title}
+                imageUrl={r.imageUrl}
                 imageBg={r.heroColor}
                 kcal={r.kcalPerServing}
                 prepMinutes={r.prepMinutes}

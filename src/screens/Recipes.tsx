@@ -93,7 +93,7 @@ export function RecipesSearchScreen() {
             selected={maxKcal !== undefined}
             onClick={() => setMaxKcal(maxKcal ? undefined : 500)}
           >
-            {maxKcal ? `Max ${maxKcal} kcal` : "Max kcal"}
+            {maxKcal ? `max ${maxKcal} kcal` : "max 500 kcal"}
           </Chip>
           {(diet.length > 0 || maxKcal !== undefined) && (
             <Button variant="link" onClick={clearFilters}>

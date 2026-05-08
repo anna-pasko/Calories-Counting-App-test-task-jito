@@ -79,10 +79,12 @@ html, body, #root {
 .center      { text-align: center; }
 .muted       { color: var(--color-text-muted); }
 
-/* ---------- CalculateDetail (product page) ---------------------------- */
+/* ---------- Detail hero (product & recipe pages) --------------------- */
 .cd-hero {
+  position: relative;
+  flex: 0 0 auto;          /* don't let the flex column squash the hero */
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;   /* matches RecipeCard image */
   background: var(--color-bg-subtle);
   display: flex;
   align-items: center;
@@ -99,19 +101,11 @@ html, body, #root {
   font-size: 96px;
   opacity: 0.6;
 }
-.cd-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  padding: var(--space-lg);
-}
-.cd-header-row {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-md);
-}
-.cd-back {
-  flex: 0 0 auto;
+.cd-hero__back {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 1;
   width: 40px; height: 40px;
   border-radius: var(--radius-pill);
   background: var(--color-bg-card);
@@ -121,14 +115,23 @@ html, body, #root {
   align-items: center;
   justify-content: center;
 }
-.cd-back:hover { background: var(--color-bg-subtle); }
+.cd-hero__back:hover { background: var(--color-bg-subtle); }
+.cd-hero__save {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 1;
+}
+.cd-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
 .cd-title-block {
-  flex: 1 1 auto;
-  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding-top: 2px;
 }
 .cd-title {
   margin: 0;

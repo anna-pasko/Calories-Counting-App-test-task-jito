@@ -71,6 +71,19 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
   return (
     <div className="screen screen--no-pad">
       <div className="cd-hero">
+        <button
+          type="button"
+          className="cd-hero__back"
+          onClick={() => pop()}
+          aria-label="Back"
+        >
+          <ArrowLeft size={20} strokeWidth={2.25} />
+        </button>
+        <SaveButton
+          className="cd-hero__save"
+          saved={isFav}
+          onClick={toggleSave}
+        />
         {food.imageUrl ? (
           <img src={food.imageUrl} alt="" className="cd-hero__img" />
         ) : (
@@ -79,20 +92,9 @@ export function CalculateDetailScreen({ foodId }: { foodId?: string }) {
       </div>
 
       <div className="cd-body">
-        <div className="cd-header-row">
-          <button
-            type="button"
-            className="cd-back"
-            onClick={() => pop()}
-            aria-label="Back"
-          >
-            <ArrowLeft size={20} strokeWidth={2.25} />
-          </button>
-          <div className="cd-title-block">
-            <h1 className="cd-title">{food.name}</h1>
-            {food.brand && <div className="cd-vendor">{food.brand}</div>}
-          </div>
-          <SaveButton saved={isFav} onClick={toggleSave} />
+        <div className="cd-title-block">
+          <h1 className="cd-title">{food.name}</h1>
+          {food.brand && <div className="cd-vendor">{food.brand}</div>}
         </div>
 
         <div className="section-label">Nutrition · {grams.toFixed(0)} g</div>

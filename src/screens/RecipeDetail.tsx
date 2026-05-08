@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import {
   Chip,
   NumberStepper,
   NutritionStrip,
   SaveButton,
-  TopAppBar,
 } from "../../design/components";
 import { useApp } from "../store/useApp";
 import type { TabKey } from "../store/useApp";
@@ -44,10 +44,9 @@ export function RecipeDetailScreen({
 
   if (!recipe) {
     return (
-      <>
-        <TopAppBar title="Loading…" onBack={() => pop()} />
-        <div className="screen muted center">Loading recipe…</div>
-      </>
+      <div className="screen muted center" style={{ paddingTop: "var(--space-3xl)" }}>
+        Loading recipe…
+      </div>
     );
   }
 
@@ -69,38 +68,29 @@ export function RecipeDetailScreen({
   };
 
   return (
-    <>
-      <TopAppBar
-        title=""
-        onBack={() => pop()}
-        rightAction={<SaveButton saved={isFav} onClick={toggleSave} />}
-      />
-      <div className="screen screen--no-pad">
-        {/* Hero */}
-        <div
-          style={{
-            aspectRatio: "16 / 10",
-            background: recipe.heroColor,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 96,
-            overflow: "hidden",
-          }}
-          aria-hidden
+    <div className="screen screen--no-pad">
+      <div className="cd-hero" style={{ background: recipe.heroColor }}>
+        <button
+          type="button"
+          className="cd-hero__back"
+          onClick={() => pop()}
+          aria-label="Back"
         >
-          {recipe.imageUrl ? (
-            <img
-              src={recipe.imageUrl}
-              alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          ) : (
-            recipe.heroEmoji
-          )}
-        </div>
+          <ArrowLeft size={20} strokeWidth={2.25} />
+        </button>
+        <SaveButton
+          className="cd-hero__save"
+          saved={isFav}
+          onClick={toggleSave}
+        />
+        {recipe.imageUrl ? (
+          <img src={recipe.imageUrl} alt="" className="cd-hero__img" />
+        ) : (
+          <div className="cd-hero__placeholder" aria-hidden>{recipe.heroEmoji}</div>
+        )}
+      </div>
 
-        <div style={{ padding: "var(--space-lg)", display: "flex", flexDirection: "column", gap: "var(--space-md)" }}>
+      <div style={{ padding: "var(--space-lg)", display: "flex", flexDirection: "column", gap: "var(--space-md)" }}>
           <h1 className="t-heading-lg" style={{ margin: 0 }}>{recipe.title}</h1>
           <p className="t-body-md muted" style={{ margin: 0 }}>{recipe.description}</p>
 
@@ -194,7 +184,6 @@ export function RecipeDetailScreen({
           </ol>
         </div>
       </div>
-    </>
   );
 }
 
