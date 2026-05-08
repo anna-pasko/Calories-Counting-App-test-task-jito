@@ -31,13 +31,16 @@ const ALLERGEN_OPTIONS: { value: AllergenTag; label: string }[] = [
 
 export function OnboardingScreen() {
   const [step, setStep] = useState(0);
+  const [name, setName] = useState("");
   const [diet, setDiet] = useState<DietTag[]>([]);
   const [allergens, setAllergens] = useState<AllergenTag[]>([]);
   const [calorieGoal, setCalorieGoal] = useState(2000);
   const completeOnboarding = useApp((s) => s.completeOnboarding);
 
   const finish = (prefs?: Partial<UserPrefs>) => {
+    const trimmedName = (prefs?.name ?? name).trim();
     completeOnboarding({
+      name: trimmedName || undefined,
       dietTags: prefs?.dietTags ?? diet,
       allergenTags: prefs?.allergenTags ?? allergens,
       calorieGoal: prefs?.calorieGoal ?? calorieGoal,
@@ -46,6 +49,7 @@ export function OnboardingScreen() {
 
   const skip = () =>
     finish({
+      name: undefined,
       dietTags: [],
       allergenTags: [],
       calorieGoal: 2000,
@@ -54,17 +58,23 @@ export function OnboardingScreen() {
   return (
     <div className="screen" style={{ paddingTop: "var(--space-3xl)" }}>
       <div className="row-center" style={{ marginBottom: "var(--space-2xl)" }}>
-        <StepDots count={3} current={step} />
+        <StepDots count={4} current={step} />
       </div>
 
       {step === 0 && (
         <div className="col" style={{ flex: 1 }}>
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div className="center col" style={{ maxWidth: 320, alignItems: "center" }}>
+            <div className="center col" style={{ maxWidth: 320, alignItems: "center", gap: "var(--space-sm)" }}>
               <div style={{ fontSize: 80, lineHeight: 1 }}>🥗</div>
               <h1 className="t-display-lg" style={{ margin: 0 }}>Welcome</h1>
-              <p className="t-body-lg muted" style={{ margin: 0 }}>
-                Find calories for any food, and recipes that fit you. Two questions and you're in.
+              <div className="t-heading-lg" style={{ margin: 0 }}>
+                to{" "}
+                <span style={{ color: "var(--color-accent-mint)" }}>
+                  Calories Calculator
+                </span>
+              </div>
+              <p className="t-body-lg muted" style={{ margin: "var(--space-md) 0 0" }}>
+                Find calories for any food, and recipes that fit you. Three questions and you're in.
               </p>
             </div>
           </div>
@@ -78,6 +88,41 @@ export function OnboardingScreen() {
       )}
 
       {step === 1 && (
+        <div className="col" style={{ flex: 1 }}>
+          <h1 className="t-heading-lg" style={{ margin: 0 }}>What should we call you?</h1>
+          <p className="t-body-md muted" style={{ margin: 0 }}>
+            We'll use this to greet you on your profile.
+          </p>
+
+          <div style={{ marginTop: "var(--space-lg)" }}>
+            <input
+              className="c-text-input"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name"
+              autoFocus
+              maxLength={32}
+              autoComplete="given-name"
+            />
+          </div>
+
+          <div style={{ flex: 1 }} />
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => setStep(2)}
+            disabled={!name.trim()}
+          >
+            Continue
+          </Button>
+          <Button variant="link" onClick={skip} style={{ alignSelf: "center" }}>
+            Skip
+          </Button>
+        </div>
+      )}
+
+      {step === 2 && (
         <div className="col" style={{ flex: 1 }}>
           <h1 className="t-heading-lg" style={{ margin: 0 }}>What do you eat?</h1>
           <p className="t-body-md muted" style={{ margin: 0 }}>
@@ -123,7 +168,7 @@ export function OnboardingScreen() {
           </div>
 
           <div style={{ flex: 1 }} />
-          <Button variant="primary" size="lg" onClick={() => setStep(2)}>
+          <Button variant="primary" size="lg" onClick={() => setStep(3)}>
             Continue
           </Button>
           <Button variant="link" onClick={skip} style={{ alignSelf: "center" }}>
@@ -132,7 +177,7 @@ export function OnboardingScreen() {
         </div>
       )}
 
-      {step === 2 && (
+      {step === 3 && (
         <div className="col" style={{ flex: 1 }}>
           <h1 className="t-heading-lg" style={{ margin: 0 }}>Daily calorie goal</h1>
           <p className="t-body-md muted" style={{ margin: 0 }}>

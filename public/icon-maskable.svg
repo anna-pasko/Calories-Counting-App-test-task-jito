@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Calories Calculator">
+  <title>Calories Calculator</title>
+  <!-- Maskable: full-bleed coral, content stays inside the safe zone (~80%) -->
+  <rect width="512" height="512" fill="#FF8A7A"/>
+
+  <!-- Butter plate (smaller so the face stays inside Android's adaptive mask) -->
+  <circle cx="256" cy="262" r="146" fill="#FFD86B"/>
+  <circle cx="256" cy="262" r="146" fill="none" stroke="#FFE89A" stroke-width="6" opacity="0.55"/>
+
+  <!-- Eyes -->
+  <circle cx="214" cy="240" r="17" fill="#2A2730"/>
+  <circle cx="298" cy="240" r="17" fill="#2A2730"/>
+
+  <!-- Smile -->
+  <path d="M 202 290 Q 256 342 310 290"
+        stroke="#2A2730" stroke-width="17" stroke-linecap="round" fill="none"/>
+</svg>

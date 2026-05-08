@@ -13,7 +13,7 @@ export function ProfileOverviewScreen() {
       <TopAppBar title="Profile" asTabRoot />
       <div className="screen">
         <SummaryCard
-          greeting="Hi 👋"
+          greeting={prefs.name ? `Hi, ${prefs.name} 👋` : "Hi 👋"}
           goalKcal={prefs.calorieGoal}
           tags={
             <>

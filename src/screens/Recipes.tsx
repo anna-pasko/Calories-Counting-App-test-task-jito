@@ -3,6 +3,7 @@ import {
   Button,
   Chip,
   EmptyState,
+  LoadMoreButton,
   RecipeCard,
   SearchInput,
   TopAppBar,
@@ -18,6 +19,8 @@ const DIET_OPTIONS: DietTag[] = [
   "gluten-free",
   "dairy-free",
 ];
+
+const RECIPES_PAGE_SIZE = 6;
 
 export function RecipesSearchScreen() {
   const prefs = useApp((s) => s.prefs);
@@ -35,18 +38,25 @@ export function RecipesSearchScreen() {
   const excludeAllergens = prefs.allergenTags;
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [visibleCount, setVisibleCount] = useState(RECIPES_PAGE_SIZE);
 
   useEffect(() => {
     let active = true;
     dataSource
       .searchRecipes(query, { diet, excludeAllergens, maxKcal })
       .then((rs) => {
-        if (active) setRecipes(rs);
+        if (active) {
+          setRecipes(rs);
+          setVisibleCount(RECIPES_PAGE_SIZE);
+        }
       });
     return () => {
       active = false;
     };
   }, [query, diet, excludeAllergens, maxKcal]);
+
+  const visibleRecipes = recipes.slice(0, visibleCount);
+  const hasMoreRecipes = recipes.length > visibleCount;
 
   const fitsYou = useMemo(() => {
     const userDiets = new Set(prefs.dietTags);
@@ -114,44 +124,52 @@ export function RecipesSearchScreen() {
             }
           />
         ) : (
-          <div className="list-stack" style={{ gap: "var(--space-md)" }}>
-            {recipes.map((r) => {
-              const saved = favoriteRecipeIds.includes(r.id);
-              return (
-                <RecipeCard
-                  key={r.id}
-                  title={r.title}
-                  imageUrl={r.imageUrl}
-                  imageBg={r.heroColor}
-                  kcal={r.kcalPerServing}
-                  prepMinutes={r.prepMinutes}
-                  saved={saved}
-                  onToggleSave={() => {
-                    toggleFavoriteRecipe(r.id);
-                    showToast(saved ? "Removed from favorites" : "Saved to favorites");
-                  }}
-                  onClick={() =>
-                    push("recipes", {
-                      key: "recipe-detail",
-                      props: { recipeId: r.id, fromTab: "recipes" },
-                    })
-                  }
-                  badges={
-                    <>
-                      {fitsYou(r) && (
-                        <Chip variant="badge" tone="fits-you">Fits you</Chip>
-                      )}
-                      {r.dietTags.slice(0, 2).map((d) => (
-                        <Chip key={d} variant="badge" tone="diet">
-                          {d}
-                        </Chip>
-                      ))}
-                    </>
-                  }
-                />
-              );
-            })}
-          </div>
+          <>
+            <div className="list-stack" style={{ gap: "var(--space-md)" }}>
+              {visibleRecipes.map((r) => {
+                const saved = favoriteRecipeIds.includes(r.id);
+                return (
+                  <RecipeCard
+                    key={r.id}
+                    title={r.title}
+                    imageUrl={r.imageUrl}
+                    imageBg={r.heroColor}
+                    kcal={r.kcalPerServing}
+                    prepMinutes={r.prepMinutes}
+                    saved={saved}
+                    onToggleSave={() => {
+                      toggleFavoriteRecipe(r.id);
+                      showToast(saved ? "Removed from favorites" : "Saved to favorites");
+                    }}
+                    onClick={() =>
+                      push("recipes", {
+                        key: "recipe-detail",
+                        props: { recipeId: r.id, fromTab: "recipes" },
+                      })
+                    }
+                    badges={
+                      <>
+                        {fitsYou(r) && (
+                          <Chip variant="badge" tone="fits-you">Fits you</Chip>
+                        )}
+                        {r.dietTags.slice(0, 2).map((d) => (
+                          <Chip key={d} variant="badge" tone="diet">
+                            {d}
+                          </Chip>
+                        ))}
+                      </>
+                    }
+                  />
+                );
+              })}
+            </div>
+            {hasMoreRecipes && (
+              <LoadMoreButton
+                onClick={() => setVisibleCount((n) => n + RECIPES_PAGE_SIZE)}
+                label="Load more recipes"
+              />
+            )}
+          </>
         )}
       </div>
     </>

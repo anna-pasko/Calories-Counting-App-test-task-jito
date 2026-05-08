@@ -79,6 +79,7 @@ export interface RecipeFilters {
 }
 
 export interface UserPrefs {
+  name?: string;               // shown in profile greeting
   dietTags: DietTag[];
   allergenTags: AllergenTag[]; // user's allergens to exclude from recipes
   calorieGoal: number;         // kcal/day

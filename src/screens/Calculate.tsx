@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { History, Search, SearchX } from "lucide-react";
 import {
   EmptyState,
+  LoadMoreButton,
   ResultRow,
   SearchInput,
   TopAppBar,
@@ -10,12 +11,17 @@ import { useApp } from "../store/useApp";
 import { dataSource } from "../data/source";
 import type { Food } from "../data/types";
 
+const FOODS_PAGE_SIZE = 20;
+
 export function CalculateSearchScreen() {
   const query = useApp((s) => s.calcQuery);
   const results = useApp((s) => s.calcResults);
   const setQuery = useApp((s) => s.setCalcQuery);
   const setResults = useApp((s) => s.setCalcResults);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const recents = useApp((s) => s.recentSearches);
   const addRecent = useApp((s) => s.addRecentSearch);
   const push = useApp((s) => s.push);
@@ -25,16 +31,20 @@ export function CalculateSearchScreen() {
     abortRef.current?.abort();
     if (!query.trim()) {
       setResults([]);
+      setHasMore(false);
+      setPage(1);
       setLoading(false);
       return;
     }
     const ctrl = new AbortController();
     abortRef.current = ctrl;
     setLoading(true);
+    setPage(1);
     const t = setTimeout(async () => {
-      const r = await dataSource.searchFoods(query, ctrl.signal);
+      const r = await dataSource.searchFoods(query, ctrl.signal, 1);
       if (!ctrl.signal.aborted) {
         setResults(r);
+        setHasMore(r.length >= FOODS_PAGE_SIZE);
         setLoading(false);
       }
     }, 350);
@@ -43,6 +53,26 @@ export function CalculateSearchScreen() {
       ctrl.abort();
     };
   }, [query, setResults]);
+
+  const loadMore = async () => {
+    if (loadingMore || !query.trim()) return;
+    const next = page + 1;
+    const ctrl = new AbortController();
+    abortRef.current = ctrl;
+    setLoadingMore(true);
+    try {
+      const more = await dataSource.searchFoods(query, ctrl.signal, next);
+      if (ctrl.signal.aborted) return;
+      const seen = new Set(results.map((f) => f.id));
+      const merged = [...results, ...more.filter((f) => !seen.has(f.id))];
+      setResults(merged);
+      setPage(next);
+      // OFF returns full pages until the last; <pageSize means we're done.
+      setHasMore(more.length >= FOODS_PAGE_SIZE);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   const openFood = (food: Food) => {
     addRecent(query || food.name);
@@ -109,29 +139,38 @@ export function CalculateSearchScreen() {
         )}
 
         {query && !loading && results.length > 0 && (
-          <div className="list-stack">
-            {results.map((food) => (
-              <ResultRow
-                key={food.id}
-                thumb={
-                  food.imageUrl ? (
-                    <img
-                      src={food.imageUrl}
-                      alt=""
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  ) : (
-                    "🥫"
-                  )
-                }
-                title={food.name}
-                meta={[food.brand, food.category].filter(Boolean).join(" · ")}
-                kcal={food.kcalPerBase}
-                kcalLabel="kcal / 100 g"
-                onClick={() => openFood(food)}
+          <>
+            <div className="list-stack">
+              {results.map((food) => (
+                <ResultRow
+                  key={food.id}
+                  thumb={
+                    food.imageUrl ? (
+                      <img
+                        src={food.imageUrl}
+                        alt=""
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      "🥫"
+                    )
+                  }
+                  title={food.name}
+                  meta={[food.brand, food.category].filter(Boolean).join(" · ")}
+                  kcal={food.kcalPerBase}
+                  kcalLabel="kcal / 100 g"
+                  onClick={() => openFood(food)}
+                />
+              ))}
+            </div>
+            {hasMore && (
+              <LoadMoreButton
+                onClick={loadMore}
+                loading={loadingMore}
+                label="Load more results"
               />
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </>

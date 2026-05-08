@@ -23,6 +23,7 @@ import {
   Calculator,
   Salad,
   User,
+  RotateCw,
 } from "lucide-react";
 
 const cx = (...xs: Array<string | false | null | undefined>) =>
@@ -621,7 +622,38 @@ export function TopAppBar({
 }
 
 /* ========================================================================
-   17. BottomTabBar
+   17. LoadMoreButton (circular reload arrow — paginated lists)
+   ======================================================================== */
+export interface LoadMoreButtonProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  label?: string;
+  loading?: boolean;
+}
+
+export function LoadMoreButton({
+  label = "Load more",
+  loading,
+  className,
+  disabled,
+  ...rest
+}: LoadMoreButtonProps) {
+  return (
+    <div className="c-load-more__wrap">
+      <button
+        type="button"
+        aria-label={label}
+        className={cx("c-load-more", loading && "is-loading", className)}
+        disabled={disabled || loading}
+        {...rest}
+      >
+        <RotateCw size={22} strokeWidth={2.5} />
+      </button>
+    </div>
+  );
+}
+
+/* ========================================================================
+   18. BottomTabBar
    ======================================================================== */
 export interface TabItem<T extends string = string> {
   key: T;

@@ -13,28 +13,32 @@ import { ALL_RECIPES, getRecipe, searchRecipes } from "./recipes";
 import type { Food, Recipe, RecipeFilters } from "./types";
 
 export interface DataSource {
-  searchFoods(query: string, signal?: AbortSignal): Promise<Food[]>;
+  searchFoods(query: string, signal?: AbortSignal, page?: number): Promise<Food[]>;
   getFood(id: string, signal?: AbortSignal): Promise<Food | null>;
   searchRecipes(query: string, filters?: RecipeFilters): Promise<Recipe[]>;
   getRecipe(id: string): Promise<Recipe | null>;
   allRecipes(): Promise<Recipe[]>;
 }
 
-/** Merge generic foods (always first) with branded results from Open Food Facts. */
+/**
+ * Merge generic foods (always first, page 1 only) with branded results
+ * from Open Food Facts. Subsequent pages return only OFF results so the
+ * generic list isn't repeated when paginating.
+ */
 async function searchFoodsCombined(
   query: string,
   signal?: AbortSignal,
+  page = 1,
 ): Promise<Food[]> {
-  const generics = searchGenericFoods(query);
-  const branded = await off.searchFoods(query, signal);
-  // de-dupe by id, preferring generics
+  const generics = page === 1 ? searchGenericFoods(query) : [];
+  const branded = await off.searchFoods(query, signal, page);
   const seen = new Set(generics.map((f) => f.id));
   const filtered = branded.filter((f) => !seen.has(f.id));
   return [...generics, ...filtered];
 }
 
 export const dataSource: DataSource = {
-  searchFoods: (query, signal) => searchFoodsCombined(query, signal),
+  searchFoods: (query, signal, page) => searchFoodsCombined(query, signal, page),
   getFood: async (id, signal) => {
     const generic = GENERIC_FOODS.find((f) => f.id === id);
     if (generic) return generic;

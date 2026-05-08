@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#FF8A7A"/>
-  <text x="32" y="44" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">c</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Calories Calculator">
+  <title>Calories Calculator</title>
+  <!-- Coral rounded badge -->
+  <rect width="512" height="512" rx="112" ry="112" fill="#FF8A7A"/>
+
+  <!-- Butter plate -->
+  <circle cx="256" cy="262" r="172" fill="#FFD86B"/>
+  <!-- Plate inner highlight rim (warmth) -->
+  <circle cx="256" cy="262" r="172" fill="none" stroke="#FFE89A" stroke-width="6" opacity="0.55"/>
+
+  <!-- Eyes -->
+  <circle cx="206" cy="234" r="20" fill="#2A2730"/>
+  <circle cx="306" cy="234" r="20" fill="#2A2730"/>
+
+  <!-- Smile -->
+  <path d="M 188 296 Q 256 360 324 296"
+        stroke="#2A2730" stroke-width="20" stroke-linecap="round" fill="none"/>
 </svg>

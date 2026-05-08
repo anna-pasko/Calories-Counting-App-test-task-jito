@@ -35,12 +35,19 @@ export function ProfileEditScreen() {
   const pop = useApp((s) => s.pop);
   const showToast = useApp((s) => s.showToast);
 
+  const [name, setName] = useState(prefs.name ?? "");
   const [diet, setDiet] = useState<DietTag[]>(prefs.dietTags);
   const [allergens, setAllergens] = useState<AllergenTag[]>(prefs.allergenTags);
   const [calorieGoal, setCalorieGoal] = useState(prefs.calorieGoal);
 
   const save = () => {
-    setPrefs({ dietTags: diet, allergenTags: allergens, calorieGoal });
+    const trimmed = name.trim();
+    setPrefs({
+      name: trimmed || undefined,
+      dietTags: diet,
+      allergenTags: allergens,
+      calorieGoal,
+    });
     showToast("Preferences saved");
     pop();
   };
@@ -49,6 +56,17 @@ export function ProfileEditScreen() {
     <>
       <TopAppBar title="Edit preferences" onBack={() => pop()} />
       <div className="screen">
+        <div className="section-label">Your name</div>
+        <input
+          className="c-text-input"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Your name"
+          maxLength={32}
+          autoComplete="given-name"
+        />
+
         <div className="section-label">Diet</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-sm)" }}>
           {DIET_OPTIONS.map((opt) => (

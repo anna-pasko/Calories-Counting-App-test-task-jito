@@ -87,9 +87,13 @@ function round1(n: number): number {
   return Math.round(n * 10) / 10;
 }
 
-export async function searchFoods(query: string, signal?: AbortSignal): Promise<Food[]> {
+export async function searchFoods(
+  query: string,
+  signal?: AbortSignal,
+  page = 1,
+): Promise<Food[]> {
   if (!query.trim()) return [];
-  const url = `${SEARCH_URL}&search_terms=${encodeURIComponent(query)}`;
+  const url = `${SEARCH_URL}&page=${page}&search_terms=${encodeURIComponent(query)}`;
   try {
     const res = await fetch(url, { signal });
     if (!res.ok) return [];
