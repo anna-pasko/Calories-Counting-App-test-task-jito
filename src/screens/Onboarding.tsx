@@ -57,10 +57,6 @@ export function OnboardingScreen() {
 
   return (
     <div className="screen" style={{ paddingTop: "var(--space-3xl)" }}>
-      <div className="row-center" style={{ marginBottom: "var(--space-2xl)" }}>
-        <StepDots count={4} current={step} />
-      </div>
-
       {step === 0 && (
         <div className="col" style={{ flex: 1 }}>
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -77,6 +73,9 @@ export function OnboardingScreen() {
                 Find calories for any food, and recipes that fit you. Three questions and you're in.
               </p>
             </div>
+          </div>
+          <div className="row-center">
+            <StepDots count={4} current={step} />
           </div>
           <Button variant="primary" size="lg" onClick={() => setStep(1)}>
             Continue
@@ -105,10 +104,18 @@ export function OnboardingScreen() {
               autoFocus
               maxLength={32}
               autoComplete="given-name"
+              autoCapitalize="words"
+              enterKeyHint="next"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && name.trim()) setStep(2);
+              }}
             />
           </div>
 
           <div style={{ flex: 1 }} />
+          <div className="row-center">
+            <StepDots count={4} current={step} />
+          </div>
           <Button
             variant="primary"
             size="lg"
@@ -169,6 +176,9 @@ export function OnboardingScreen() {
           </div>
 
           <div style={{ flex: 1 }} />
+          <div className="row-center">
+            <StepDots count={4} current={step} />
+          </div>
           <Button variant="primary" size="lg" onClick={() => setStep(3)}>
             Continue
           </Button>
@@ -197,6 +207,9 @@ export function OnboardingScreen() {
             />
           </div>
 
+          <div className="row-center">
+            <StepDots count={4} current={step} />
+          </div>
           <Button variant="primary" size="lg" onClick={() => finish()}>
             Done
           </Button>

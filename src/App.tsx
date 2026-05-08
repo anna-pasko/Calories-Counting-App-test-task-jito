@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { BottomTabBar, Toast } from "../design/components";
+import { BottomTabBar, ConfirmDialog, Toast } from "../design/components";
 import { Calculator, Salad, User } from "lucide-react";
 import { useApp, useCurrentScreen, useIsAtTabRoot } from "./store/useApp";
 import type { TabKey } from "./store/useApp";
@@ -26,6 +26,8 @@ export function App() {
   const screen = useCurrentScreen();
   const atRoot = useIsAtTabRoot();
   const toast = useApp((s) => s.toast);
+  const confirm = useApp((s) => s.confirm);
+  const dismissConfirm = useApp((s) => s.dismissConfirm);
 
   if (!onboarded) {
     return (
@@ -48,6 +50,20 @@ export function App() {
         <div className="toast-anchor">
           <Toast tone={toast.tone}>{toast.message}</Toast>
         </div>
+      )}
+      {confirm && (
+        <ConfirmDialog
+          title={confirm.title}
+          message={confirm.message}
+          confirmLabel={confirm.confirmLabel}
+          cancelLabel={confirm.cancelLabel}
+          destructive={confirm.destructive}
+          onConfirm={() => {
+            confirm.onConfirm();
+            dismissConfirm();
+          }}
+          onCancel={dismissConfirm}
+        />
       )}
     </div>
   );

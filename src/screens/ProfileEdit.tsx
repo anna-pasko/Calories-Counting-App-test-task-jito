@@ -66,6 +66,8 @@ export function ProfileEditScreen() {
           aria-label="Your name"
           maxLength={32}
           autoComplete="given-name"
+          autoCapitalize="words"
+          enterKeyHint="done"
         />
 
         <div className="section-label">Diet</div>

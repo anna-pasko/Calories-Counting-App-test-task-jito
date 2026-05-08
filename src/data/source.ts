@@ -12,8 +12,17 @@ import { GENERIC_FOODS, searchGenericFoods } from "./genericFoods";
 import { ALL_RECIPES, getRecipe, searchRecipes } from "./recipes";
 import type { Food, Recipe, RecipeFilters } from "./types";
 
+export interface FoodSearchResult {
+  items: Food[];
+  hasError: boolean;   // true when OFF couldn't be reached at all
+}
+
 export interface DataSource {
-  searchFoods(query: string, signal?: AbortSignal, page?: number): Promise<Food[]>;
+  searchFoods(
+    query: string,
+    signal?: AbortSignal,
+    page?: number,
+  ): Promise<FoodSearchResult>;
   getFood(id: string, signal?: AbortSignal): Promise<Food | null>;
   searchRecipes(query: string, filters?: RecipeFilters): Promise<Recipe[]>;
   getRecipe(id: string): Promise<Recipe | null>;
@@ -24,17 +33,27 @@ export interface DataSource {
  * Merge generic foods (always first, page 1 only) with branded results
  * from Open Food Facts. Subsequent pages return only OFF results so the
  * generic list isn't repeated when paginating.
+ *
+ * If the OFF request fails (offline, proxy down, CORS), we still return any
+ * generics we matched locally and surface `hasError: true` so the UI can
+ * offer a retry.
  */
 async function searchFoodsCombined(
   query: string,
   signal?: AbortSignal,
   page = 1,
-): Promise<Food[]> {
+): Promise<FoodSearchResult> {
   const generics = page === 1 ? searchGenericFoods(query) : [];
-  const branded = await off.searchFoods(query, signal, page);
+  let branded: Food[] = [];
+  let hasError = false;
+  try {
+    branded = await off.searchFoods(query, signal, page);
+  } catch (err) {
+    if ((err as Error).name !== "AbortError") hasError = true;
+  }
   const seen = new Set(generics.map((f) => f.id));
   const filtered = branded.filter((f) => !seen.has(f.id));
-  return [...generics, ...filtered];
+  return { items: [...generics, ...filtered], hasError };
 }
 
 export const dataSource: DataSource = {

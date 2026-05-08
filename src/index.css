@@ -6,17 +6,24 @@
 html, body, #root {
   height: 100%;
 }
+body {
+  /* Stop body bouncing when a child scroll-area reaches its edge. */
+  overscroll-behavior-y: contain;
+}
 #root {
   display: flex;
   justify-content: center;
   background: var(--color-bg-default);
 }
 
-/* Phone-shaped viewport for desktop preview; full-bleed on mobile */
+/* Phone-shaped viewport for desktop preview; full-bleed on mobile.
+   Uses dvh (dynamic viewport height) so the layout shrinks when the on-screen
+   keyboard opens — onboarding's bottom button stays visible. */
 .app-frame {
   width: 100%;
   max-width: 480px;
-  min-height: 100vh;
+  min-height: 100vh;        /* fallback for old browsers */
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--color-bg-default);
@@ -61,10 +68,14 @@ html, body, #root {
   flex-direction: column;
   gap: var(--space-md);
   padding: var(--space-lg);
+  /* Reserve space for the iOS home indicator on screens without a tab bar. */
+  padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
   overflow-y: auto;
   /* Always reserve space for the scrollbar so the searchbar doesn't shift
      width when results appear and the screen becomes scrollable. */
   scrollbar-gutter: stable;
+  /* Keep rubber-banding inside this container — don't bounce the whole page. */
+  overscroll-behavior: contain;
 }
 
 .screen--no-pad {
@@ -90,7 +101,8 @@ html, body, #root {
 .toast-anchor {
   position: fixed;
   left: 50%;
-  bottom: 96px;
+  /* Anchor at the top so the on-screen keyboard can never hide it. */
+  top: calc(env(safe-area-inset-top) + var(--space-md));
   transform: translateX(-50%);
   z-index: 50;
   pointer-events: none;
@@ -99,7 +111,7 @@ html, body, #root {
 .toast-anchor .c-toast { pointer-events: auto; }
 
 @keyframes toast-in {
-  from { opacity: 0; transform: translate(-50%, 8px); }
+  from { opacity: 0; transform: translate(-50%, -8px); }
   to   { opacity: 1; transform: translate(-50%, 0);   }
 }
 
@@ -135,7 +147,7 @@ html, body, #root {
 }
 .cd-hero__back {
   position: absolute;
-  top: var(--space-md);
+  top: max(var(--space-md), env(safe-area-inset-top));
   left: var(--space-md);
   z-index: 1;
   width: 40px; height: 40px;
@@ -150,7 +162,7 @@ html, body, #root {
 .cd-hero__back:hover { background: var(--color-bg-subtle); }
 .cd-hero__save {
   position: absolute;
-  top: var(--space-md);
+  top: max(var(--space-md), env(safe-area-inset-top));
   right: var(--space-md);
   z-index: 1;
 }
@@ -181,8 +193,14 @@ html, body, #root {
 }
 .cd-portion-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
   gap: var(--space-md);
-  flex-wrap: wrap;
+}
+/* Center the stepper and let the unit selector breathe across the row. */
+.cd-portion-row > * { align-self: center; }
+.cd-portion-row .c-unit-selector {
+  width: 100%;
+  justify-content: space-between;
+  overflow-x: auto;
 }

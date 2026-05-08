@@ -93,6 +93,18 @@ interface AppState {
   toast: { message: string; tone: "success" | "warning" | "danger" } | null;
   showToast: (message: string, tone?: "success" | "warning" | "danger") => void;
   dismissToast: () => void;
+
+  // confirm dialog
+  confirm: {
+    title?: string;
+    message: string;
+    confirmLabel?: string;
+    cancelLabel?: string;
+    destructive?: boolean;
+    onConfirm: () => void;
+  } | null;
+  showConfirm: (params: NonNullable<AppState["confirm"]>) => void;
+  dismissConfirm: () => void;
 }
 
 export const useApp = create<AppState>()(
@@ -236,6 +248,11 @@ export const useApp = create<AppState>()(
         }, 2400);
       },
       dismissToast: () => set({ toast: null }),
+
+      // confirm dialog
+      confirm: null,
+      showConfirm: (params) => set({ confirm: params }),
+      dismissConfirm: () => set({ confirm: null }),
     }),
     {
       name: "calories-app-v0",

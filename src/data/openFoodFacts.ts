@@ -104,7 +104,7 @@ export async function searchFoods(
   } catch (err) {
     if ((err as Error).name === "AbortError") return [];
     console.error("OFF search failed:", err);
-    return [];
+    throw err;   // let the caller distinguish a real failure from "no matches"
   }
 }
 

@@ -75,6 +75,8 @@ export function ProfileFavoritesScreen() {
                       <img
                         src={f.imageUrl}
                         alt=""
+                        loading="lazy"
+                        decoding="async"
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       />
                     ) : (

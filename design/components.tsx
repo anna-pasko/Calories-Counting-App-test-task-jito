@@ -100,6 +100,11 @@ export function SearchInput({
       </span>
       <input
         className="c-search-input__field"
+        type="search"
+        enterKeyHint="search"
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck={false}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
@@ -445,11 +450,17 @@ export function RecipeCard({
     >
       <div
         className="c-recipe-card__image"
-        style={{
-          backgroundColor: imageBg,
-          backgroundImage: imageUrl ? `url(${imageUrl})` : undefined,
-        }}
+        style={{ backgroundColor: imageBg }}
       >
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="c-recipe-card__img"
+          />
+        )}
         {onToggleSave && (
           <SaveButton
             className="c-recipe-card__save"
@@ -633,6 +644,65 @@ export function TopAppBar({
       </div>
       {rightAction ? rightAction : !asTabRoot && <div className="c-app-bar__spacer" />}
     </header>
+  );
+}
+
+/* ========================================================================
+   17a. ConfirmDialog (in-app modal — replaces native confirm() on mobile)
+   ======================================================================== */
+export interface ConfirmDialogProps {
+  title?: string;
+  message: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  destructive?: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+export function ConfirmDialog({
+  title,
+  message,
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
+  destructive,
+  onConfirm,
+  onCancel,
+}: ConfirmDialogProps) {
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCancel();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onCancel]);
+
+  return (
+    <div className="c-dialog__backdrop" onClick={onCancel}>
+      <div
+        className="c-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title ? "c-dialog-title" : undefined}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {title && (
+          <h2 id="c-dialog-title" className="c-dialog__title">{title}</h2>
+        )}
+        <p className="c-dialog__message">{message}</p>
+        <div className="c-dialog__actions">
+          <Button variant="secondary" onClick={onCancel}>{cancelLabel}</Button>
+          <Button
+            variant="primary"
+            onClick={onConfirm}
+            style={destructive ? { background: "var(--color-feedback-danger)", color: "var(--color-text-on-brand)" } : undefined}
+            autoFocus
+          >
+            {confirmLabel}
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
 

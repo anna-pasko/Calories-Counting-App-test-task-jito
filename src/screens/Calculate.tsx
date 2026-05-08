@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { History, Search, SearchX } from "lucide-react";
+import { History, RotateCw, Search, SearchX, WifiOff } from "lucide-react";
 import {
+  Button,
   EmptyState,
   LoadMoreButton,
   ResultRow,
@@ -22,6 +23,8 @@ export function CalculateSearchScreen() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [retryNonce, setRetryNonce] = useState(0);
   const recents = useApp((s) => s.recentSearches);
   const addRecent = useApp((s) => s.addRecentSearch);
   const push = useApp((s) => s.push);
@@ -32,6 +35,7 @@ export function CalculateSearchScreen() {
     if (!query.trim()) {
       setResults([]);
       setHasMore(false);
+      setHasError(false);
       setPage(1);
       setLoading(false);
       return;
@@ -43,8 +47,9 @@ export function CalculateSearchScreen() {
     const t = setTimeout(async () => {
       const r = await dataSource.searchFoods(query, ctrl.signal, 1);
       if (!ctrl.signal.aborted) {
-        setResults(r);
-        setHasMore(r.length >= FOODS_PAGE_SIZE);
+        setResults(r.items);
+        setHasError(r.hasError);
+        setHasMore(r.items.length >= FOODS_PAGE_SIZE);
         setLoading(false);
       }
     }, 350);
@@ -52,7 +57,7 @@ export function CalculateSearchScreen() {
       clearTimeout(t);
       ctrl.abort();
     };
-  }, [query, setResults]);
+  }, [query, retryNonce, setResults]);
 
   const loadMore = async () => {
     if (loadingMore || !query.trim()) return;
@@ -61,18 +66,21 @@ export function CalculateSearchScreen() {
     abortRef.current = ctrl;
     setLoadingMore(true);
     try {
-      const more = await dataSource.searchFoods(query, ctrl.signal, next);
+      const r = await dataSource.searchFoods(query, ctrl.signal, next);
       if (ctrl.signal.aborted) return;
       const seen = new Set(results.map((f) => f.id));
-      const merged = [...results, ...more.filter((f) => !seen.has(f.id))];
+      const merged = [...results, ...r.items.filter((f) => !seen.has(f.id))];
       setResults(merged);
       setPage(next);
+      setHasError(r.hasError);
       // OFF returns full pages until the last; <pageSize means we're done.
-      setHasMore(more.length >= FOODS_PAGE_SIZE);
+      setHasMore(!r.hasError && r.items.length >= FOODS_PAGE_SIZE);
     } finally {
       setLoadingMore(false);
     }
   };
+
+  const retry = () => setRetryNonce((n) => n + 1);
 
   const openFood = (food: Food) => {
     addRecent(query || food.name);
@@ -130,7 +138,21 @@ export function CalculateSearchScreen() {
           </div>
         )}
 
-        {query && !loading && results.length === 0 && (
+        {query && !loading && results.length === 0 && hasError && (
+          <EmptyState
+            art={<WifiOff size={36} strokeWidth={2} />}
+            title="Couldn't load results"
+            desc="Check your connection and try again."
+            action={
+              <Button variant="primary" onClick={retry}>
+                <RotateCw size={18} strokeWidth={2.5} />
+                Retry
+              </Button>
+            }
+          />
+        )}
+
+        {query && !loading && results.length === 0 && !hasError && (
           <EmptyState
             art={<SearchX size={36} strokeWidth={2} />}
             title="No matches"
@@ -149,6 +171,8 @@ export function CalculateSearchScreen() {
                       <img
                         src={food.imageUrl}
                         alt=""
+                        loading="lazy"
+                        decoding="async"
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       />
                     ) : (
@@ -163,6 +187,23 @@ export function CalculateSearchScreen() {
                 />
               ))}
             </div>
+            {hasError && (
+              <div
+                className="muted center t-body-sm"
+                style={{ padding: "var(--space-md) 0" }}
+                role="status"
+              >
+                Showing offline matches only — couldn't reach Open Food Facts.{" "}
+                <button
+                  type="button"
+                  className="c-button c-button--link"
+                  style={{ display: "inline-flex" }}
+                  onClick={retry}
+                >
+                  Retry
+                </button>
+              </div>
+            )}
             {hasMore && (
               <LoadMoreButton
                 onClick={loadMore}

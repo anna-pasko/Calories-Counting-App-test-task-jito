@@ -116,7 +116,7 @@ export function RecipeDetailScreen({
           />
 
           <div className="section-label">Servings</div>
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <NumberStepper
               value={servings}
               unit={servings === 1 ? "serving" : "servings"}

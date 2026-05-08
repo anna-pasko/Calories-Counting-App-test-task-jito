@@ -5,6 +5,7 @@ export function ProfileOverviewScreen() {
   const prefs = useApp((s) => s.prefs);
   const push = useApp((s) => s.push);
   const resetOnboarding = useApp((s) => s.resetOnboarding);
+  const showConfirm = useApp((s) => s.showConfirm);
   const favFoods = useApp((s) => s.favoriteFoodIds.length);
   const favRecipes = useApp((s) => s.favoriteRecipeIds.length);
 
@@ -47,9 +48,17 @@ export function ProfileOverviewScreen() {
             icon="↻"
             title="Reset onboarding"
             sub="Clear preferences and start over"
-            onClick={() => {
-              if (confirm("Reset all preferences and favorites?")) resetOnboarding();
-            }}
+            onClick={() =>
+              showConfirm({
+                title: "Reset everything?",
+                message:
+                  "This will clear your preferences, favorites, and recent searches, and walk you through onboarding again.",
+                confirmLabel: "Reset",
+                cancelLabel: "Cancel",
+                destructive: true,
+                onConfirm: resetOnboarding,
+              })
+            }
           />
         </div>
       </div>
