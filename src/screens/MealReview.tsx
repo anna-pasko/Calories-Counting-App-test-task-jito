@@ -88,7 +88,7 @@ export function MealReviewScreen() {
         title={isEditingExisting ? "Edit dish" : "Your meal"}
         onBack={() => pop()}
       />
-      <div className="screen">
+      <div className={`screen${isEmpty ? "" : " screen--with-bottom-bar"}`}>
         {isEditingExisting && (
           <div className="rename-input">
             <input
@@ -133,12 +133,16 @@ export function MealReviewScreen() {
             <div className="list-stack">
               {items.map((it) => {
                 const n = computeNutrition(it.food, it.qty, it.unit);
+                const meta =
+                  it.unit === "g"
+                    ? `${it.qty} g`
+                    : `${it.qty} ${it.unit} · ${n.grams.toFixed(0)} g`;
                 return (
                   <ResultRow
                     key={it.id}
                     thumb={<FoodThumb imageUrl={it.food.imageUrl} />}
                     title={it.food.name}
-                    meta={`${it.qty} ${it.unit} · ${n.grams.toFixed(0)} g`}
+                    meta={meta}
                     kcal={n.kcal}
                     kcalLabel="kcal"
                     onClick={() => setEditingItem(it)}

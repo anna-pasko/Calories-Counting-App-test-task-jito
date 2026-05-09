@@ -17,6 +17,8 @@ export interface FoodSearchResult {
   hasError: boolean;   // true when OFF couldn't be reached at all
 }
 
+export const FOODS_PAGE_SIZE = 20;
+
 export interface DataSource {
   searchFoods(
     query: string,
@@ -53,7 +55,10 @@ async function searchFoodsCombined(
   }
   const seen = new Set(generics.map((f) => f.id));
   const filtered = branded.filter((f) => !seen.has(f.id));
-  return { items: [...generics, ...filtered], hasError };
+  // Cap each page at FOODS_PAGE_SIZE so the result list paginates by exactly 20.
+  // Without this, page 1 was generics + 20 branded (often 21–25 rows).
+  const items = [...generics, ...filtered].slice(0, FOODS_PAGE_SIZE);
+  return { items, hasError };
 }
 
 export const dataSource: DataSource = {

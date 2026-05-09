@@ -3,15 +3,34 @@
   <!-- Maskable: full-bleed coral, content stays inside the safe zone (~80%) -->
   <rect width="512" height="512" fill="#FF8A7A"/>
 
-  <!-- Butter plate (smaller so the face stays inside Android's adaptive mask) -->
-  <circle cx="256" cy="262" r="146" fill="#FFD86B"/>
-  <circle cx="256" cy="262" r="146" fill="none" stroke="#FFE89A" stroke-width="6" opacity="0.55"/>
+  <!-- Avocado skin (pear shape, scaled into safe zone) -->
+  <path d="M 256 115
+           C 229 115, 208 144, 198 186
+           C 189 227, 139 256, 139 331
+           C 139 392, 192 421, 256 421
+           C 320 421, 373 392, 373 331
+           C 373 256, 323 227, 314 186
+           C 304 144, 283 115, 256 115 Z"
+        fill="#4F8A3A"/>
+
+  <!-- Flesh -->
+  <path d="M 256 133
+           C 233 133, 218 157, 211 194
+           C 205 230, 157 253, 157 330
+           C 157 381, 202 405, 256 405
+           C 310 405, 355 381, 355 330
+           C 355 253, 307 230, 301 194
+           C 294 157, 279 133, 256 133 Z"
+        fill="#F0EBA5"/>
+
+  <!-- Pit -->
+  <circle cx="256" cy="306" r="69" fill="#A06B3A"/>
 
   <!-- Eyes -->
-  <circle cx="214" cy="240" r="17" fill="#2A2730"/>
-  <circle cx="298" cy="240" r="17" fill="#2A2730"/>
+  <circle cx="234" cy="295" r="10" fill="#2A2730"/>
+  <circle cx="278" cy="295" r="10" fill="#2A2730"/>
 
   <!-- Smile -->
-  <path d="M 202 290 Q 256 342 310 290"
-        stroke="#2A2730" stroke-width="17" stroke-linecap="round" fill="none"/>
+  <path d="M 229 322 Q 256 343 283 322"
+        stroke="#2A2730" stroke-width="11" stroke-linecap="round" fill="none"/>
 </svg>

@@ -9,13 +9,11 @@ import {
   TopAppBar,
 } from "../../design/components";
 import { useApp } from "../store/useApp";
-import { dataSource } from "../data/source";
+import { dataSource, FOODS_PAGE_SIZE } from "../data/source";
 import { PortionPicker } from "../components/PortionPicker";
 import { DishCard } from "../components/DishCard";
 import { FoodThumb } from "../components/FoodThumb";
 import type { Food } from "../data/types";
-
-const FOODS_PAGE_SIZE = 20;
 
 export function CalculateSearchScreen() {
   const query = useApp((s) => s.calcQuery);

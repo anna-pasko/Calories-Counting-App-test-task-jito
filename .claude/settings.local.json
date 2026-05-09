@@ -13,7 +13,9 @@
       "Bash(npm run *)",
       "Bash(npx tsc *)",
       "Bash(powershell -NoProfile -Command \"Get-Content src\\\\index.css | Measure-Object -Line\")",
-      "Bash(powershell -NoProfile -Command \"if \\(-not \\(Test-Path src\\\\components\\)\\) { New-Item -ItemType Directory -Path src\\\\components | Out-Null }; Test-Path src\\\\components\")"
+      "Bash(powershell -NoProfile -Command \"if \\(-not \\(Test-Path src\\\\components\\)\\) { New-Item -ItemType Directory -Path src\\\\components | Out-Null }; Test-Path src\\\\components\")",
+      "Bash(start http://localhost:5173/favicon.svg)",
+      "Bash(start http://localhost:5173/)"
     ]
   }
 }

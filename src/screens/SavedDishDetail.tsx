@@ -86,12 +86,16 @@ export function SavedDishDetailScreen({ dishId }: { dishId?: string }) {
         <div className="list-stack">
           {dish.items.map((it) => {
             const n = computeNutrition(it.food, it.qty, it.unit);
+            const meta =
+              it.unit === "g"
+                ? `${it.qty} g`
+                : `${it.qty} ${it.unit} · ${n.grams.toFixed(0)} g`;
             return (
               <ResultRow
                 key={it.id}
                 thumb={<FoodThumb imageUrl={it.food.imageUrl} />}
                 title={it.food.name}
-                meta={`${it.qty} ${it.unit} · ${n.grams.toFixed(0)} g`}
+                meta={meta}
                 kcal={n.kcal}
                 kcalLabel="kcal"
                 onClick={() =>

@@ -279,18 +279,30 @@ export const useApp = create<AppState>()(
       // meal builder
       draftMeal: [],
       addToMeal: (food, qty, unit) =>
-        set((s) => ({
-          draftMeal: [
-            ...s.draftMeal,
-            {
-              id: makeId(),
-              food,
-              qty,
-              unit,
-              addedAt: Date.now(),
-            },
-          ],
-        })),
+        set((s) => {
+          // Merge with an existing line when the food *and* unit match. Mixing
+          // units on one row (e.g. 1 piece + 100 g) would force a single
+          // representation and silently reinterpret the user's input, so those
+          // stay as separate rows.
+          const idx = s.draftMeal.findIndex(
+            (it) => it.food.id === food.id && it.unit === unit
+          );
+          if (idx >= 0) {
+            return {
+              draftMeal: s.draftMeal.map((it, i) =>
+                i === idx
+                  ? { ...it, qty: it.qty + qty, addedAt: Date.now() }
+                  : it
+              ),
+            };
+          }
+          return {
+            draftMeal: [
+              ...s.draftMeal,
+              { id: makeId(), food, qty, unit, addedAt: Date.now() },
+            ],
+          };
+        }),
       removeMealItem: (itemId) =>
         set((s) => ({
           draftMeal: s.draftMeal.filter((it) => it.id !== itemId),
