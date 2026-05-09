@@ -5,7 +5,6 @@ import { useApp, useCurrentScreen, useIsAtTabRoot } from "./store/useApp";
 import type { TabKey } from "./store/useApp";
 import { OnboardingScreen } from "./screens/Onboarding";
 import { CalculateSearchScreen } from "./screens/Calculate";
-import { CalculateDetailScreen } from "./screens/CalculateDetail";
 import { MealReviewScreen } from "./screens/MealReview";
 import { SavedDishDetailScreen } from "./screens/SavedDishDetail";
 import { RecipesSearchScreen } from "./screens/Recipes";
@@ -35,8 +34,7 @@ export function App() {
 
   const mealBarVisible =
     activeTab === "calculate" &&
-    screen.key !== "meal-review" &&
-    screen.key !== "calculate-detail";
+    screen.key !== "meal-review";
 
   if (!onboarded) {
     return (
@@ -94,8 +92,6 @@ function ScreenView({
   switch (screenKey) {
     case "calculate-search":
       return <CalculateSearchScreen />;
-    case "calculate-detail":
-      return <CalculateDetailScreen foodId={props?.foodId as string} />;
     case "meal-review":
       return <MealReviewScreen />;
     case "saved-dish-detail":

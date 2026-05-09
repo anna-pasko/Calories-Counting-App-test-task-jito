@@ -65,7 +65,6 @@ Every push to `main` deploys automatically.
 │   └── screens/               One file per IA screen
 │       ├── Onboarding.tsx
 │       ├── Calculate.tsx
-│       ├── CalculateDetail.tsx
 │       ├── Recipes.tsx
 │       ├── RecipeDetail.tsx
 │       ├── Profile.tsx

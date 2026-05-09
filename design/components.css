@@ -393,6 +393,13 @@ a { color: inherit; }
   transition: background var(--duration-fast) var(--easing-standard);
 }
 .c-result-row:hover { background: var(--color-bg-subtle); }
+/* Non-interactive variant — used when ResultRow has no onClick (e.g., meal
+   page ingredient rows). Drops the pointer cursor and hover feedback so
+   the row doesn't look tappable. */
+.c-result-row--static {
+  cursor: default;
+}
+.c-result-row--static:hover { background: var(--color-bg-card); }
 .c-result-row__add {
   flex: 0 0 auto;
   align-self: center;
@@ -406,6 +413,13 @@ a { color: inherit; }
 }
 .c-result-row__add:hover { background: var(--color-brand-primary-pressed); }
 .c-result-row__add:active { transform: scale(0.94); }
+/* "Already in meal" — mint pill with a check, signalling the food is queued. */
+.c-result-row__add--added {
+  background: var(--color-accent-mint);
+}
+.c-result-row__add--added:hover {
+  background: var(--color-accent-mint);          /* don't darken — it's a status, not a CTA */
+}
 
 .c-result-row__thumb {
   flex: 0 0 auto;
@@ -828,6 +842,7 @@ a { color: inherit; }
   animation: c-sheet-fade var(--duration-base) var(--easing-standard);
 }
 .c-sheet {
+  position: relative;
   background: var(--color-bg-card);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: var(--space-md) var(--space-xl)
@@ -842,6 +857,17 @@ a { color: inherit; }
   max-height: 90vh;
   overflow-y: auto;
 }
+/* Save (favorite) toggle that lives in the sheet header, vertically centered
+   with the product title. Bigger circle than the base .c-save and outlined
+   in light gray so it reads on the white sheet background. */
+.c-sheet__save {
+  width: 52px;
+  height: 52px;
+  margin-left: auto;
+  flex: 0 0 auto;
+  border: 1px solid var(--color-border-default);
+  box-shadow: none;
+}
 .c-sheet__handle {
   width: 40px;
   height: 4px;
@@ -853,6 +879,13 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: var(--space-md);
+}
+.c-sheet__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;          /* let the subtitle ellipsis-truncate inside flex */
 }
 .c-sheet__thumb {
   width: 56px;
@@ -885,6 +918,10 @@ a { color: inherit; }
   gap: var(--space-md);
   align-items: center;
   justify-content: center;
+  /* Tuck the portion editor close to the nutrition strip above and leave
+     more breathing room before the action buttons. */
+  margin-top: calc(var(--space-md) * -1 + var(--space-xs));
+  margin-bottom: var(--space-md);
 }
 .c-sheet__actions {
   display: flex;

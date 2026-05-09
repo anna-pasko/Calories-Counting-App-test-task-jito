@@ -1,7 +1,6 @@
 /**
  * Pure portion / nutrition math, shared across:
- *   - CalculateDetail (single-item screen)
- *   - PortionPicker (quick-add bottom sheet)
+ *   - PortionPicker (food details + quick-add bottom sheet)
  *   - Meal review screen (per-item totals)
  *   - Saved dish cards / detail (full-dish totals)
  *

@@ -13,7 +13,13 @@ import { dataSource, FOODS_PAGE_SIZE } from "../data/source";
 import { PortionPicker } from "../components/PortionPicker";
 import { DishCard } from "../components/DishCard";
 import { FoodThumb } from "../components/FoodThumb";
-import type { Food } from "../data/types";
+import type { Food, MealUnit } from "../data/types";
+
+interface PickerState {
+  food: Food;
+  /** Set when this picker is editing an existing meal item rather than adding a new one. */
+  editing?: { itemId: string; qty: number; unit: MealUnit };
+}
 
 export function CalculateSearchScreen() {
   const query = useApp((s) => s.calcQuery);
@@ -30,9 +36,12 @@ export function CalculateSearchScreen() {
   const addRecent = useApp((s) => s.addRecentSearch);
   const push = useApp((s) => s.push);
   const addToMeal = useApp((s) => s.addToMeal);
+  const updateMealItem = useApp((s) => s.updateMealItem);
+  const removeMealItem = useApp((s) => s.removeMealItem);
   const showToast = useApp((s) => s.showToast);
   const savedDishes = useApp((s) => s.savedDishes);
-  const [pickerFood, setPickerFood] = useState<Food | null>(null);
+  const draftMeal = useApp((s) => s.draftMeal);
+  const [picker, setPicker] = useState<PickerState | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -89,7 +98,13 @@ export function CalculateSearchScreen() {
 
   const openFood = (food: Food) => {
     addRecent(query || food.name);
-    push("calculate", { key: "calculate-detail", props: { foodId: food.id, food } });
+    const existing = draftMeal.find((it) => it.food.id === food.id);
+    setPicker({
+      food,
+      editing: existing
+        ? { itemId: existing.id, qty: existing.qty, unit: existing.unit }
+        : undefined,
+    });
   };
 
   const reuseRecent = (q: string) => setQuery(q);
@@ -188,18 +203,24 @@ export function CalculateSearchScreen() {
         {query && !loading && results.length > 0 && (
           <>
             <div className="list-stack">
-              {results.map((food) => (
-                <ResultRow
-                  key={food.id}
-                  thumb={<FoodThumb imageUrl={food.imageUrl} />}
-                  title={food.name}
-                  meta={[food.brand, food.category].filter(Boolean).join(" · ")}
-                  kcal={food.kcalPerBase}
-                  kcalLabel="kcal / 100 g"
-                  onClick={() => openFood(food)}
-                  onAdd={() => setPickerFood(food)}
-                />
-              ))}
+              {results.map((food) => {
+                const inMeal = draftMeal.some(
+                  (it) => it.food.id === food.id
+                );
+                return (
+                  <ResultRow
+                    key={food.id}
+                    thumb={<FoodThumb imageUrl={food.imageUrl} />}
+                    title={food.name}
+                    meta={[food.brand, food.category].filter(Boolean).join(" · ")}
+                    kcal={food.kcalPerBase}
+                    kcalLabel="kcal / 100 g"
+                    added={inMeal}
+                    onClick={() => openFood(food)}
+                    onAdd={() => openFood(food)}
+                  />
+                );
+              })}
             </div>
             {hasError && (
               <div
@@ -228,15 +249,32 @@ export function CalculateSearchScreen() {
           </>
         )}
       </div>
-      {pickerFood && (
+      {picker && (
         <PortionPicker
-          food={pickerFood}
-          onCancel={() => setPickerFood(null)}
+          food={picker.food}
+          initialQty={picker.editing?.qty}
+          initialUnit={picker.editing?.unit}
+          confirmLabel={picker.editing ? "Save changes" : "Add to meal"}
+          onCancel={() => setPicker(null)}
           onConfirm={(qty, unit) => {
-            addToMeal(pickerFood, qty, unit);
-            setPickerFood(null);
-            showToast(`Added ${pickerFood.name} to meal`);
+            if (picker.editing) {
+              updateMealItem(picker.editing.itemId, qty, unit);
+              showToast(`Updated ${picker.food.name}`);
+            } else {
+              addToMeal(picker.food, qty, unit);
+              showToast(`Added ${picker.food.name} to meal`);
+            }
+            setPicker(null);
           }}
+          onRemove={
+            picker.editing
+              ? () => {
+                  removeMealItem(picker.editing!.itemId);
+                  showToast(`Removed ${picker.food.name}`);
+                  setPicker(null);
+                }
+              : undefined
+          }
         />
       )}
     </>

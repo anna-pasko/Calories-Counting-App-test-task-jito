@@ -3,10 +3,12 @@ import {
   Button,
   NumberStepper,
   NutritionStrip,
+  SaveButton,
   UnitSelector,
 } from "../../design/components";
 import { BottomSheet } from "./BottomSheet";
 import { FoodThumb } from "./FoodThumb";
+import { useApp } from "../store/useApp";
 import { computeNutrition } from "../data/portion";
 import { MEAL_UNITS, type Food, type MealUnit } from "../data/types";
 
@@ -34,8 +36,18 @@ export function PortionPicker({
   const [qty, setQty] = React.useState(
     initialQty ?? (initialUnit === "g" ? 100 : 1)
   );
+  const isFav = useApp((s) => s.favoriteFoodIds.includes(food.id));
+  const toggleFavoriteFood = useApp((s) => s.toggleFavoriteFood);
+  const showToast = useApp((s) => s.showToast);
 
-  const { kcal, protein, carbs, fat, grams } = computeNutrition(food, qty, unit);
+  const { kcal, protein, carbs, fat } = computeNutrition(food, qty, unit);
+
+  const onToggleSave = () => {
+    toggleFavoriteFood(food.id);
+    showToast(isFav ? "Removed from favorites" : "Saved to favorites");
+  };
+
+  const description = [food.brand, food.category].filter(Boolean).join(" · ");
 
   return (
     <BottomSheet ariaLabel={`Portion for ${food.name}`} onCancel={onCancel}>
@@ -43,10 +55,17 @@ export function PortionPicker({
         <span className="c-sheet__thumb" aria-hidden>
           <FoodThumb imageUrl={food.imageUrl} />
         </span>
-        <div>
+        <div className="c-sheet__title-block">
           <h2 className="c-sheet__title">{food.name}</h2>
-          {food.brand && <div className="c-sheet__subtitle">{food.brand}</div>}
+          {description && (
+            <div className="c-sheet__subtitle">{description}</div>
+          )}
         </div>
+        <SaveButton
+          className="c-sheet__save"
+          saved={isFav}
+          onClick={onToggleSave}
+        />
       </div>
 
       <NutritionStrip
@@ -54,7 +73,6 @@ export function PortionPicker({
         protein={protein}
         carbs={carbs}
         fat={fat}
-        perLabel={`for ${grams.toFixed(0)} g`}
       />
 
       <div className="c-sheet__row">

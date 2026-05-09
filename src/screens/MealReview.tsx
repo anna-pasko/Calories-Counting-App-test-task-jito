@@ -9,8 +9,8 @@ import {
 } from "../../design/components";
 import { useApp, useMealTotals } from "../store/useApp";
 import { computeNutrition } from "../data/portion";
-import { PortionPicker } from "../components/PortionPicker";
 import { NameDishSheet } from "../components/NameDishSheet";
+import { PortionPicker } from "../components/PortionPicker";
 import { FoodThumb } from "../components/FoodThumb";
 import type { MealItem } from "../data/types";
 
@@ -19,10 +19,10 @@ export function MealReviewScreen() {
   const resetTab = useApp((s) => s.resetTab);
   const items = useApp((s) => s.draftMeal);
   const totals = useMealTotals();
-  const updateMealItem = useApp((s) => s.updateMealItem);
-  const removeMealItem = useApp((s) => s.removeMealItem);
   const clearMeal = useApp((s) => s.clearMeal);
   const saveMealAsDish = useApp((s) => s.saveMealAsDish);
+  const updateMealItem = useApp((s) => s.updateMealItem);
+  const removeMealItem = useApp((s) => s.removeMealItem);
   const showToast = useApp((s) => s.showToast);
   const showConfirm = useApp((s) => s.showConfirm);
   const editingDishId = useApp((s) => s.editingDishId);
@@ -34,8 +34,8 @@ export function MealReviewScreen() {
     ? savedDishes.find((d) => d.id === editingDishId)
     : undefined;
 
-  const [editingItem, setEditingItem] = useState<MealItem | null>(null);
   const [namingOpen, setNamingOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<MealItem | null>(null);
 
   const isEditingExisting = !!editingDish;
   const isEmpty = items.length === 0;
@@ -82,11 +82,22 @@ export function MealReviewScreen() {
     resetTab("calculate");
   };
 
+  // In edit-existing mode, popping silently leaves the dish in "editing"
+  // state with stale draft items — confusing on the next visit. Reuse the
+  // discard confirm so the user explicitly chooses to drop their edits.
+  const handleBack = () => {
+    if (isEditingExisting) {
+      onDiscard();
+    } else {
+      pop();
+    }
+  };
+
   return (
     <>
       <TopAppBar
         title={isEditingExisting ? "Edit dish" : "Your meal"}
-        onBack={() => pop()}
+        onBack={handleBack}
       />
       <div className={`screen${isEmpty ? "" : " screen--with-bottom-bar"}`}>
         {isEditingExisting && (
@@ -145,7 +156,9 @@ export function MealReviewScreen() {
                     meta={meta}
                     kcal={n.kcal}
                     kcalLabel="kcal"
-                    onClick={() => setEditingItem(it)}
+                    onClick={
+                      isEditingExisting ? () => setEditingItem(it) : undefined
+                    }
                   />
                 );
               })}

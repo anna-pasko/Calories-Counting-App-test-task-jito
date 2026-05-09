@@ -19,7 +19,6 @@ export type TabKey = "calculate" | "recipes" | "profile";
 
 export type ScreenKey =
   | "calculate-search"
-  | "calculate-detail"
   | "meal-review"
   | "saved-dish-detail"
   | "recipes-search"

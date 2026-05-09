@@ -73,7 +73,7 @@ export function SavedDishDetailScreen({ dishId }: { dishId?: string }) {
   return (
     <>
       <TopAppBar title={dish.name} onBack={() => pop()} />
-      <div className="screen">
+      <div className="screen screen--with-bottom-bar">
         <NutritionStrip
           kcal={totals.kcal}
           protein={totals.protein}
@@ -98,12 +98,6 @@ export function SavedDishDetailScreen({ dishId }: { dishId?: string }) {
                 meta={meta}
                 kcal={n.kcal}
                 kcalLabel="kcal"
-                onClick={() =>
-                  push("calculate", {
-                    key: "calculate-detail",
-                    props: { foodId: it.food.id, food: it.food },
-                  })
-                }
               />
             );
           })}

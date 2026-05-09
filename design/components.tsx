@@ -385,6 +385,10 @@ export interface ResultRowProps
   onAdd?: () => void;
   /** Accessible label for the + action; defaults to `Add ${title} to meal`. */
   addAriaLabel?: string;
+  /** When true, the trailing button shows a check instead of "+", signalling
+   *  that the item is already in the meal. The callback still fires so the
+   *  parent can open an edit overlay. */
+  added?: boolean;
 }
 
 export function ResultRow({
@@ -396,9 +400,11 @@ export function ResultRow({
   onClick,
   onAdd,
   addAriaLabel,
+  added,
   className,
   ...rest
 }: ResultRowProps) {
+  const interactive = !!onClick;
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!onClick) return;
     if (e.key === "Enter" || e.key === " ") {
@@ -408,9 +414,13 @@ export function ResultRow({
   };
   return (
     <div
-      className={cx("c-result-row", className)}
-      role="button"
-      tabIndex={0}
+      className={cx(
+        "c-result-row",
+        !interactive && "c-result-row--static",
+        className
+      )}
+      role={interactive ? "button" : undefined}
+      tabIndex={interactive ? 0 : undefined}
       onClick={onClick}
       onKeyDown={handleKeyDown}
       {...rest}
@@ -427,14 +437,24 @@ export function ResultRow({
       {onAdd && (
         <button
           type="button"
-          className="c-result-row__add"
-          aria-label={addAriaLabel ?? `Add ${title} to meal`}
+          className={cx(
+            "c-result-row__add",
+            added && "c-result-row__add--added"
+          )}
+          aria-label={
+            addAriaLabel ??
+            (added ? `${title} is in meal — tap to edit` : `Add ${title} to meal`)
+          }
           onClick={(e) => {
             e.stopPropagation();
             onAdd();
           }}
         >
-          <Plus size={20} strokeWidth={2.75} />
+          {added ? (
+            <Check size={20} strokeWidth={2.75} />
+          ) : (
+            <Plus size={20} strokeWidth={2.75} />
+          )}
         </button>
       )}
     </div>
@@ -541,13 +561,15 @@ export function NutritionStrip({
   protein,
   carbs,
   fat,
-  perLabel = "per serving",
+  perLabel,
 }: NutritionStripProps) {
   return (
     <div className="c-nutrition" role="group" aria-label="Nutrition">
       <div className="c-nutrition__kcal">
         <div className="c-nutrition__kcal-value">{kcal}</div>
-        <div className="c-nutrition__kcal-label">kcal · {perLabel}</div>
+        <div className="c-nutrition__kcal-label">
+          kcal{perLabel ? ` · ${perLabel}` : ""}
+        </div>
       </div>
       <div className="c-nutrition__macros">
         {[

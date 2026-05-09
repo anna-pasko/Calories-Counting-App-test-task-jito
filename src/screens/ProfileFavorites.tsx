@@ -10,6 +10,7 @@ import {
 import { useApp } from "../store/useApp";
 import { dataSource } from "../data/source";
 import { FoodThumb } from "../components/FoodThumb";
+import { PortionPicker } from "../components/PortionPicker";
 import type { Food, Recipe } from "../data/types";
 
 type Tab = "foods" | "recipes";
@@ -20,11 +21,13 @@ export function ProfileFavoritesScreen() {
   const favFoodIds = useApp((s) => s.favoriteFoodIds);
   const favRecipeIds = useApp((s) => s.favoriteRecipeIds);
   const toggleFavoriteRecipe = useApp((s) => s.toggleFavoriteRecipe);
+  const addToMeal = useApp((s) => s.addToMeal);
   const showToast = useApp((s) => s.showToast);
 
   const [tab, setTab] = useState<Tab>("foods");
   const [foods, setFoods] = useState<Food[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [pickerFood, setPickerFood] = useState<Food | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -75,12 +78,7 @@ export function ProfileFavoritesScreen() {
                   title={f.name}
                   meta={[f.brand, `${f.basePortionGrams} g base`].filter(Boolean).join(" · ")}
                   kcal={f.kcalPerBase}
-                  onClick={() =>
-                    push("profile", {
-                      key: "calculate-detail",
-                      props: { foodId: f.id, food: f },
-                    })
-                  }
+                  onClick={() => setPickerFood(f)}
                 />
               ))}
             </div>
@@ -122,6 +120,17 @@ export function ProfileFavoritesScreen() {
           </div>
         )}
       </div>
+      {pickerFood && (
+        <PortionPicker
+          food={pickerFood}
+          onCancel={() => setPickerFood(null)}
+          onConfirm={(qty, unit) => {
+            addToMeal(pickerFood, qty, unit);
+            setPickerFood(null);
+            showToast(`Added ${pickerFood.name} to meal`);
+          }}
+        />
+      )}
     </>
   );
 }

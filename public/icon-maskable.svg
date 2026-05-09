@@ -3,34 +3,24 @@
   <!-- Maskable: full-bleed coral, content stays inside the safe zone (~80%) -->
   <rect width="512" height="512" fill="#FF8A7A"/>
 
-  <!-- Avocado skin (pear shape, scaled into safe zone) -->
-  <path d="M 256 115
-           C 229 115, 208 144, 198 186
-           C 189 227, 139 256, 139 331
-           C 139 392, 192 421, 256 421
-           C 320 421, 373 392, 373 331
-           C 373 256, 323 227, 314 186
-           C 304 144, 283 115, 256 115 Z"
-        fill="#4F8A3A"/>
+  <!-- Stem -->
+  <path d="M 256 124 L 256 100" stroke="#6B4A2A" stroke-width="8" stroke-linecap="round"/>
+  <!-- Leaf -->
+  <path d="M 259 106 Q 294 96, 297 124 Q 271 132, 259 106 Z" fill="#5FA046"/>
 
-  <!-- Flesh -->
-  <path d="M 256 133
-           C 233 133, 218 157, 211 194
-           C 205 230, 157 253, 157 330
-           C 157 381, 202 405, 256 405
-           C 310 405, 355 381, 355 330
-           C 355 253, 307 230, 301 194
-           C 294 157, 279 133, 256 133 Z"
-        fill="#F0EBA5"/>
+  <!-- Pear body, scaled into the safe zone -->
+  <path d="M 256 124
+           C 229 124, 208 152, 198 194
+           C 188 236, 140 268, 140 340
+           C 140 400, 192 421, 256 421
+           C 320 421, 372 400, 372 340
+           C 372 268, 324 236, 314 194
+           C 304 152, 283 124, 256 124 Z"
+        fill="#C8DC82"/>
 
-  <!-- Pit -->
-  <circle cx="256" cy="306" r="69" fill="#A06B3A"/>
-
-  <!-- Eyes -->
-  <circle cx="234" cy="295" r="10" fill="#2A2730"/>
-  <circle cx="278" cy="295" r="10" fill="#2A2730"/>
-
-  <!-- Smile -->
-  <path d="M 229 322 Q 256 343 283 322"
+  <!-- Face -->
+  <circle cx="232" cy="314" r="11" fill="#2A2730"/>
+  <circle cx="280" cy="314" r="11" fill="#2A2730"/>
+  <path d="M 226 342 Q 256 364 286 342"
         stroke="#2A2730" stroke-width="11" stroke-linecap="round" fill="none"/>
 </svg>
