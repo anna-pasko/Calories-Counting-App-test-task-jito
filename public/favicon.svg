@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Calories Calculator">
+  <title>Calories Calculator</title>
+  <!-- Coral rounded badge -->
+  <rect width="512" height="512" rx="112" ry="112" fill="#FF8A7A"/>
+
+  <!-- Stem -->
+  <path d="M 256 100 L 256 70" stroke="#6B4A2A" stroke-width="10" stroke-linecap="round"/>
+  <!-- Leaf on the stem -->
+  <path d="M 260 78 Q 304 64, 308 100 Q 274 110, 260 78 Z" fill="#5FA046"/>
+
+  <!-- Pear body (tapered neck → wide round bulb) -->
+  <path d="M 256 100
+           C 222 100, 196 136, 184 188
+           C 172 240, 110 280, 110 370
+           C 110 446, 176 472, 256 472
+           C 336 472, 402 446, 402 370
+           C 402 280, 340 240, 328 188
+           C 316 136, 290 100, 256 100 Z"
+        fill="#C8DC82"/>
+
+  <!-- Face -->
+  <circle cx="226" cy="338" r="14" fill="#2A2730"/>
+  <circle cx="286" cy="338" r="14" fill="#2A2730"/>
+  <path d="M 218 372 Q 256 400 294 372"
+        stroke="#2A2730" stroke-width="14" stroke-linecap="round" fill="none"/>
+</svg>

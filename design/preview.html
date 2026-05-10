@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Calories Counting App — Component Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="components.css" />
+  <style>
+    /* preview-only layout */
+    body { padding: var(--space-2xl); }
+    .gallery {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5xl);
+    }
+    .gallery h1 {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-5xl);
+      line-height: var(--line-height-tight);
+      letter-spacing: var(--letter-spacing-tight);
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-sm);
+    }
+    .gallery h2 {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-3xl);
+      line-height: var(--line-height-snug);
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+    .gallery p { color: var(--color-text-secondary); margin: 0 0 var(--space-2xl); max-width: 640px; }
+    /* Sub-section labels cling to the stack/row below them, with breathing
+       room above to separate them from the previous block. */
+    .gallery p.label { margin: var(--space-md) 0 0; }
+    section { display: flex; flex-direction: column; gap: var(--space-lg); }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); padding: var(--space-lg); background: var(--color-bg-card); border-radius: var(--radius-lg); }
+    .stack { display: flex; flex-direction: column; gap: var(--space-md); padding: var(--space-lg); background: var(--color-bg-card); border-radius: var(--radius-lg); }
+    .label { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; color: var(--color-text-muted); }
+
+    /* Phone-like frames for the shell components */
+    .phone {
+      width: 360px;
+      background: var(--color-bg-default);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone__body { flex: 1 1 auto; padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); min-height: 280px; }
+
+    /* Macros bar example dot */
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; vertical-align: middle; }
+    .dot--p { background: var(--color-accent-sky); }
+    .dot--c { background: var(--color-accent-lavender); }
+    .dot--f { background: var(--color-brand-primary); }
+
+    /* State-preview helpers — force a focused / pressed look on demo elements
+       without requiring real keyboard / touch interaction. */
+    .is-focus     { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+    .is-pressed   { transform: scale(0.98); background: var(--color-brand-primary-pressed); }
+
+    /* Tag the state above each preview cluster so the gallery is self-documenting. */
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-md);
+    }
+    .state-cell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--color-bg-card);
+      border-radius: var(--radius-md);
+    }
+    .state-cell__label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-wide);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* Lucide SVG icons — sprite is at the top of <body>. Inherit color via
+       currentColor so the icon picks up its parent's text color, matching
+       lucide-react behavior in the running app. */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      stroke: currentColor;
+      fill: none;
+      flex: 0 0 auto;
+    }
+    .icon--14 { width: 14px; height: 14px; stroke-width: 2.5; }
+    .icon--16 { width: 16px; height: 16px; stroke-width: 2.5; }
+    .icon--18 { width: 18px; height: 18px; stroke-width: 2.5; }
+    .icon--20 { width: 20px; height: 20px; stroke-width: 2; }
+    .icon--22 { width: 22px; height: 22px; stroke-width: 2; }
+    .icon--24 { width: 24px; height: 24px; stroke-width: 2; }
+    .icon--filled { fill: currentColor; }
+  </style>
+</head>
+<body>
+  <!-- Lucide icon sprite — paths from lucide.dev v0.469. Each `<symbol>` matches
+       the corresponding `lucide-react` component used in the app. Reference
+       with `<svg class="icon"><use href="#i-name"/></svg>`. -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-search" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+      </symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+      </symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m9 18 6-6-6-6"></path>
+      </symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"></path>
+        <path d="M12 5v14"></path>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6 9 17l-5-5"></path>
+      </symbol>
+      <symbol id="i-alert-triangle" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+        <path d="M12 9v4"></path>
+        <path d="M12 17h.01"></path>
+      </symbol>
+      <symbol id="i-calculator" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+        <line x1="8" x2="16" y1="6" y2="6"></line>
+        <line x1="16" x2="16" y1="14" y2="18"></line>
+        <path d="M16 10h.01"></path>
+        <path d="M12 10h.01"></path>
+        <path d="M8 10h.01"></path>
+        <path d="M12 14h.01"></path>
+        <path d="M8 14h.01"></path>
+        <path d="M12 18h.01"></path>
+        <path d="M8 18h.01"></path>
+      </symbol>
+      <symbol id="i-salad" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 21h10"></path>
+        <path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"></path>
+        <path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1"></path>
+        <path d="m13 12 4-4"></path>
+        <path d="M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2"></path>
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </symbol>
+      <symbol id="i-rotate-cw" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+        <path d="M21 3v5h-5"></path>
+      </symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </symbol>
+      <symbol id="i-star" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </symbol>
+      <symbol id="i-keyboard" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 8h.01"></path>
+        <path d="M12 12h.01"></path>
+        <path d="M14 8h.01"></path>
+        <path d="M16 12h.01"></path>
+        <path d="M18 8h.01"></path>
+        <path d="M6 8h.01"></path>
+        <path d="M7 16h10"></path>
+        <path d="M8 12h.01"></path>
+        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+      </symbol>
+      <symbol id="i-rotate-ccw" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+        <path d="M3 3v5h5"></path>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="gallery">
+    <header>
+      <h1>Calories Counting App — Component Gallery</h1>
+      <p>Reference implementation of every reusable component called out in the IA. Soft &amp; Playful brand mood, mobile-first. Open this file in any browser; no build step needed. Screenshot any section to transfer to Figma.</p>
+    </header>
+
+    <!-- ====================== TYPE RAMP ====================== -->
+    <section>
+      <h2>0 · Type ramp</h2>
+
+      <p class="label">Fraunces — display & headings (descending)</p>
+      <div class="stack">
+        <div>
+          <div class="state-cell__label">t-display-xl · 48 px · hero number (total daily kcal)</div>
+          <div class="t-display-xl">1,840 kcal</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-display-lg · 36 px · onboarding hero greeting</div>
+          <div class="t-display-lg">Welcome back, Anna</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-heading-lg · 24 px · screen title</div>
+          <div class="t-heading-lg">Today's recipes</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-heading-md · 20 px · card title, section header</div>
+          <div class="t-heading-md">Ingredients</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-heading-sm · 18 px · subsection header</div>
+          <div class="t-heading-sm">Step 3 — Combine</div>
+        </div>
+      </div>
+
+      <p class="label">Inter — body, labels & numeric (descending)</p>
+      <div class="stack">
+        <div>
+          <div class="state-cell__label">t-numeric-xl · 48 px · big stat (tabular figures)</div>
+          <div class="t-numeric-xl">2,150</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-body-lg · 16 px · default reading paragraph</div>
+          <div class="t-body-lg">A simple sheet-pan dinner with herby quinoa and roasted seasonal veg.</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-label-md · 16 px · button or tab label</div>
+          <div class="t-label-md">Save changes</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-numeric-md · 16 px · inline portion stat (tabular)</div>
+          <div class="t-numeric-md">120 g</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-body-md · 14 px · secondary body, meta line</div>
+          <div class="t-body-md">Generic · 100 g base</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-body-sm · 13 px · helper text, micro-copy</div>
+          <div class="t-body-sm">Tap to search again</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-label-sm · 12 px · form label, caption</div>
+          <div class="t-label-sm">Diet preference</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 1. BUTTON ====================== -->
+    <section>
+      <h2>1 · Button</h2>
+      <p class="label">Variants & sizes</p>
+      <div class="row">
+        <button class="c-button c-button--primary">Continue</button>
+        <button class="c-button c-button--primary c-button--lg">Done (lg)</button>
+        <button class="c-button c-button--secondary">Loosen filters</button>
+        <button class="c-button c-button--link">Skip</button>
+        <button class="c-button c-button--icon" aria-label="Back"><svg class="icon icon--20"><use href="#i-arrow-left"/></svg></button>
+      </div>
+
+      <p class="label">Primary states</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Default</div>
+          <button class="c-button c-button--primary">Continue</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Pressed</div>
+          <button class="c-button c-button--primary is-pressed">Continue</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focus-visible</div>
+          <button class="c-button c-button--primary is-focus">Continue</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Disabled</div>
+          <button class="c-button c-button--primary" disabled>Continue</button>
+        </div>
+      </div>
+
+      <p class="label">Secondary states</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Default</div>
+          <button class="c-button c-button--secondary">Loosen filters</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focus-visible</div>
+          <button class="c-button c-button--secondary is-focus">Loosen filters</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Disabled</div>
+          <button class="c-button c-button--secondary" disabled>Loosen filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 2. SEARCH INPUT ====================== -->
+    <section>
+      <h2>2 · SearchInput</h2>
+      <p class="label">States</p>
+      <div class="state-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <div class="state-cell">
+          <div class="state-cell__label">Empty (placeholder)</div>
+          <label class="c-search-input">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" placeholder="Search foods or recipes" />
+          </label>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focused (empty)</div>
+          <label class="c-search-input is-focus">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" placeholder="Search foods or recipes" />
+          </label>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Typing (focused + clear)</div>
+          <label class="c-search-input is-focus">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" value="oat" />
+            <button class="c-search-input__clear" aria-label="Clear"><svg class="icon icon--16"><use href="#i-x"/></svg></button>
+          </label>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Filled (blurred, with clear)</div>
+          <label class="c-search-input">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" value="oatmeal" />
+            <button class="c-search-input__clear" aria-label="Clear"><svg class="icon icon--16"><use href="#i-x"/></svg></button>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 2b. TEXT INPUT ====================== -->
+    <section>
+      <h2>2b · TextInput</h2>
+      <p class="label">Single-line pill input — onboarding name, profile edit name</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Empty (placeholder)</div>
+          <input class="c-text-input" placeholder="Your name" />
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Filled</div>
+          <input class="c-text-input" value="Anna" />
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focus-visible</div>
+          <input class="c-text-input is-focus" value="Anna" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 3. NUMBER STEPPER ====================== -->
+    <section>
+      <h2>3 · NumberStepper</h2>
+      <p class="label">States</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Default</div>
+          <div class="c-stepper">
+            <button class="c-stepper__btn" aria-label="Decrease"><svg class="icon icon--18"><use href="#i-minus"/></svg></button>
+            <span class="c-stepper__value">120</span><span class="c-stepper__unit">g</span>
+            <button class="c-stepper__btn" aria-label="Increase"><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">At-min (− disabled)</div>
+          <div class="c-stepper">
+            <button class="c-stepper__btn" aria-label="Decrease" disabled><svg class="icon icon--18"><use href="#i-minus"/></svg></button>
+            <span class="c-stepper__value">1</span><span class="c-stepper__unit">serving</span>
+            <button class="c-stepper__btn" aria-label="Increase"><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">At-max (+ disabled)</div>
+          <div class="c-stepper">
+            <button class="c-stepper__btn" aria-label="Decrease"><svg class="icon icon--18"><use href="#i-minus"/></svg></button>
+            <span class="c-stepper__value">2000</span><span class="c-stepper__unit">g</span>
+            <button class="c-stepper__btn" aria-label="Increase" disabled><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 4. UNIT SELECTOR ====================== -->
+    <section>
+      <h2>4 · UnitSelector</h2>
+      <p class="label">All units (default selection on "g")</p>
+      <div class="row">
+        <div class="c-unit-selector" role="tablist">
+          <button class="c-unit-selector__btn c-unit-selector__btn--active">g</button>
+          <button class="c-unit-selector__btn">pieces</button>
+          <button class="c-unit-selector__btn">cups</button>
+          <button class="c-unit-selector__btn">tbsp</button>
+          <button class="c-unit-selector__btn">serving</button>
+        </div>
+      </div>
+
+      <p class="label">Focus-visible (any inactive button)</p>
+      <div class="row">
+        <div class="c-unit-selector" role="tablist">
+          <button class="c-unit-selector__btn c-unit-selector__btn--active">g</button>
+          <button class="c-unit-selector__btn is-focus">pieces</button>
+          <button class="c-unit-selector__btn">cups</button>
+        </div>
+      </div>
+
+      <p class="label">Composition example — PortionAdjuster</p>
+      <div class="row">
+        <div class="c-portion-adjuster">
+          <div class="c-stepper">
+            <button class="c-stepper__btn" aria-label="Decrease"><svg class="icon icon--18"><use href="#i-minus"/></svg></button>
+            <span class="c-stepper__value">120</span><span class="c-stepper__unit">g</span>
+            <button class="c-stepper__btn" aria-label="Increase"><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
+          </div>
+          <div class="c-unit-selector">
+            <button class="c-unit-selector__btn c-unit-selector__btn--active">g</button>
+            <button class="c-unit-selector__btn">pieces</button>
+            <button class="c-unit-selector__btn">cups</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 5. CHIP ====================== -->
+    <section>
+      <h2>5 · Chip</h2>
+
+      <p class="label">Option chip states</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Default</div>
+          <button class="c-chip">Vegetarian</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focus-visible</div>
+          <button class="c-chip is-focus">Vegetarian</button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Selected</div>
+          <button class="c-chip c-chip--selected">Vegan</button>
+        </div>
+      </div>
+
+      <p class="label">Filter chip states (recipes search)</p>
+      <div class="row">
+        <button class="c-chip c-chip--filter">Diet</button>
+        <button class="c-chip c-chip--filter c-chip--selected">Max 600 kcal</button>
+        <button class="c-chip c-chip--filter is-focus">Ingredient</button>
+      </div>
+
+      <p class="label">Badges — read-only, all tones</p>
+      <div class="row">
+        <span class="c-chip c-chip--badge is-fits-you">Fits you</span>
+        <span class="c-chip c-chip--badge is-diet">Vegan</span>
+        <span class="c-chip c-chip--badge is-diet">Gluten-free</span>
+        <span class="c-chip c-chip--badge is-allergen">No nuts</span>
+        <span class="c-chip c-chip--badge is-warning">Contains nuts</span>
+      </div>
+    </section>
+
+    <!-- ====================== 6. SEGMENTED CONTROL ====================== -->
+    <section>
+      <h2>6 · SegmentedControl</h2>
+      <p class="label">States — Foods active · Recipes active · inactive button focused</p>
+      <div class="stack">
+        <div class="c-segmented" role="tablist" style="max-width: 360px;">
+          <button class="c-segmented__btn c-segmented__btn--active">Foods</button>
+          <button class="c-segmented__btn">Recipes</button>
+        </div>
+        <div class="c-segmented" role="tablist" style="max-width: 360px;">
+          <button class="c-segmented__btn">Foods</button>
+          <button class="c-segmented__btn c-segmented__btn--active">Recipes</button>
+        </div>
+        <div class="c-segmented" role="tablist" style="max-width: 360px;">
+          <button class="c-segmented__btn c-segmented__btn--active">Foods</button>
+          <button class="c-segmented__btn is-focus">Recipes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 7. STEP DOTS ====================== -->
+    <section>
+      <h2>7 · StepDots</h2>
+      <p class="label">Progress through onboarding (currently 4 steps in the app)</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Step 1 / 4</div>
+          <div class="c-step-dots" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
+            <span class="c-step-dots__dot c-step-dots__dot--active"></span>
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot"></span>
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Step 2 / 4</div>
+          <div class="c-step-dots" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="2">
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot c-step-dots__dot--active"></span>
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot"></span>
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Step 3 / 4</div>
+          <div class="c-step-dots" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="3">
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot c-step-dots__dot--active"></span>
+            <span class="c-step-dots__dot"></span>
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Step 4 / 4</div>
+          <div class="c-step-dots" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="4">
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot"></span>
+            <span class="c-step-dots__dot c-step-dots__dot--active"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 8. SAVE BUTTON ====================== -->
+    <section>
+      <h2>8 · SaveButton</h2>
+      <p class="label">States</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Default</div>
+          <button class="c-save" aria-label="Save" aria-pressed="false"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Saved</div>
+          <button class="c-save c-save--saved" aria-label="Saved" aria-pressed="true"><svg class="icon icon--20 icon--filled"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Pressed (scale 0.95)</div>
+          <button class="c-save" aria-label="Save" style="transform: scale(0.95);"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focus-visible</div>
+          <button class="c-save is-focus" aria-label="Save"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 9. TOAST ====================== -->
+    <section>
+      <h2>9 · Toast</h2>
+      <p class="label">Tones — success (default) · warning · danger</p>
+      <div class="row" style="background: var(--color-bg-default); flex-direction: column; align-items: flex-start;">
+        <div class="c-toast"><span class="c-toast__icon"><svg class="icon icon--14"><use href="#i-check"/></svg></span> Saved to Favorites</div>
+        <div class="c-toast c-toast--warning"><span class="c-toast__icon"><svg class="icon icon--14"><use href="#i-alert-triangle"/></svg></span> No matching recipes — try loosening filters</div>
+        <div class="c-toast c-toast--danger"><span class="c-toast__icon"><svg class="icon icon--14"><use href="#i-x"/></svg></span> Could not save. Check connection.</div>
+      </div>
+    </section>
+
+    <!-- ====================== 10. RESULT ROW ====================== -->
+    <section>
+      <h2>10 · ResultRow</h2>
+
+      <p class="label">States</p>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <div>
+          <div class="state-cell__label" style="margin-bottom: var(--space-xs);">Default</div>
+          <button class="c-result-row">
+            <span class="c-result-row__thumb">🥣</span>
+            <span class="c-result-row__main">
+              <span class="c-result-row__title">Oatmeal, rolled, dry</span>
+              <span class="c-result-row__meta">Generic · 100 g base</span>
+            </span>
+            <span class="c-result-row__kcal">389<small>kcal</small></span>
+          </button>
+        </div>
+        <div>
+          <div class="state-cell__label" style="margin-bottom: var(--space-xs);">Focus-visible</div>
+          <button class="c-result-row is-focus">
+            <span class="c-result-row__thumb">🥪</span>
+            <span class="c-result-row__main">
+              <span class="c-result-row__title">Greek yogurt, plain, low-fat</span>
+              <span class="c-result-row__meta">Dairy · 100 g base</span>
+            </span>
+            <span class="c-result-row__kcal">73<small>kcal</small></span>
+          </button>
+        </div>
+      </div>
+
+      <p class="label">With quick-add ( + / ✓ ) — used on Calculate search when a draft meal is open</p>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <div class="c-result-row">
+          <span class="c-result-row__thumb">🥚</span>
+          <span class="c-result-row__main">
+            <span class="c-result-row__title">Egg, whole, boiled</span>
+            <span class="c-result-row__meta">Generic · 1 large ≈ 50 g</span>
+          </span>
+          <span class="c-result-row__kcal">78<small>kcal</small></span>
+          <button class="c-result-row__add" aria-label="Add to meal"><svg class="icon icon--20"><use href="#i-plus"/></svg></button>
+        </div>
+        <div class="c-result-row">
+          <span class="c-result-row__thumb">🍞</span>
+          <span class="c-result-row__main">
+            <span class="c-result-row__title">Whole-wheat bread</span>
+            <span class="c-result-row__meta">Bakery · 1 slice ≈ 28 g</span>
+          </span>
+          <span class="c-result-row__kcal">81<small>kcal</small></span>
+          <button class="c-result-row__add c-result-row__add--added" aria-label="In meal"><svg class="icon icon--20"><use href="#i-check"/></svg></button>
+        </div>
+      </div>
+
+      <p class="label">Static / non-interactive — used for ingredient rows on MealReview</p>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <div class="c-result-row c-result-row--static">
+          <span class="c-result-row__thumb"><svg class="icon icon--22"><use href="#i-rotate-ccw"/></svg></span>
+          <span class="c-result-row__main">
+            <span class="c-result-row__title">Recent: oatmeal</span>
+            <span class="c-result-row__meta">2 min ago</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 11. RECIPE CARD ====================== -->
+    <section>
+      <h2>11 · RecipeCard</h2>
+      <p class="label">States — default · saved · focus-visible</p>
+      <div class="row" style="background: var(--color-bg-default); align-items: stretch;">
+        <article class="c-recipe-card" style="max-width: 280px;">
+          <div class="c-recipe-card__image" style="background-color: #FFD86B;">
+            <button class="c-save c-recipe-card__save" aria-label="Save"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+          </div>
+          <div class="c-recipe-card__body">
+            <h3 class="c-recipe-card__title">Lemon-garlic chickpea bowl with herb yogurt</h3>
+            <div class="c-recipe-card__meta">
+              <span><b>520</b> kcal</span>
+              <span>·</span>
+              <span><b>25</b> min</span>
+            </div>
+            <div class="c-recipe-card__badges">
+              <span class="c-chip c-chip--badge is-fits-you">Fits you</span>
+              <span class="c-chip c-chip--badge is-diet">Vegetarian</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="c-recipe-card" style="max-width: 280px;">
+          <div class="c-recipe-card__image" style="background-color: #5FD49E;">
+            <button class="c-save c-save--saved c-recipe-card__save" aria-label="Saved"><svg class="icon icon--20 icon--filled"><use href="#i-heart"/></svg></button>
+          </div>
+          <div class="c-recipe-card__body">
+            <h3 class="c-recipe-card__title">Roasted vegetable & quinoa traybake (saved)</h3>
+            <div class="c-recipe-card__meta">
+              <span><b>480</b> kcal</span>
+              <span>·</span>
+              <span><b>40</b> min</span>
+            </div>
+            <div class="c-recipe-card__badges">
+              <span class="c-chip c-chip--badge is-diet">Vegan</span>
+              <span class="c-chip c-chip--badge is-diet">Gluten-free</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="c-recipe-card is-focus" style="max-width: 280px;">
+          <div class="c-recipe-card__image" style="background-color: #7CC2F2;">
+            <button class="c-save c-recipe-card__save" aria-label="Save"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+          </div>
+          <div class="c-recipe-card__body">
+            <h3 class="c-recipe-card__title">Focus-visible — 2 px coral outline</h3>
+            <div class="c-recipe-card__meta">
+              <span><b>410</b> kcal</span>
+              <span>·</span>
+              <span><b>30</b> min</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== 12. NUTRITION STRIP ====================== -->
+    <section>
+      <h2>12 · NutritionStrip</h2>
+      <div class="row" style="background: var(--color-bg-default);">
+        <div class="c-nutrition" style="width: 100%; max-width: 480px;">
+          <div class="c-nutrition__kcal">
+            <div class="c-nutrition__kcal-value">389</div>
+            <div class="c-nutrition__kcal-label">kcal · per 100 g</div>
+          </div>
+          <div class="c-nutrition__macros">
+            <div class="c-nutrition__macro c-nutrition__macro--p">
+              <div class="c-nutrition__macro-value">13<span style="font-size:12px;color:var(--color-text-muted)">g</span></div>
+              <div class="c-nutrition__macro-label">Prot</div>
+            </div>
+            <div class="c-nutrition__macro c-nutrition__macro--c">
+              <div class="c-nutrition__macro-value">66<span style="font-size:12px;color:var(--color-text-muted)">g</span></div>
+              <div class="c-nutrition__macro-label">Carb</div>
+            </div>
+            <div class="c-nutrition__macro c-nutrition__macro--f">
+              <div class="c-nutrition__macro-value">7<span style="font-size:12px;color:var(--color-text-muted)">g</span></div>
+              <div class="c-nutrition__macro-label">Fat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 13. LIST ITEM ====================== -->
+    <section>
+      <h2>13 · ListItem</h2>
+      <p class="label">States — default · focus-visible · no-chevron</p>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <button class="c-list-item">
+          <span class="c-list-item__icon"><svg class="icon icon--20"><use href="#i-settings"/></svg></span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Edit preferences</span>
+            <span class="c-list-item__sub">Diet, allergies, daily goal</span>
+          </span>
+          <span class="c-list-item__chevron"><svg class="icon icon--20"><use href="#i-chevron-right"/></svg></span>
+        </button>
+        <button class="c-list-item is-focus">
+          <span class="c-list-item__icon"><svg class="icon icon--20"><use href="#i-keyboard"/></svg></span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Focus-visible</span>
+            <span class="c-list-item__sub">2 px coral outline</span>
+          </span>
+          <span class="c-list-item__chevron"><svg class="icon icon--20"><use href="#i-chevron-right"/></svg></span>
+        </button>
+        <button class="c-list-item">
+          <span class="c-list-item__icon"><svg class="icon icon--20 icon--filled"><use href="#i-heart"/></svg></span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Favorites</span>
+            <span class="c-list-item__sub">12 foods · 8 recipes</span>
+          </span>
+          <span class="c-list-item__chevron"><svg class="icon icon--20"><use href="#i-chevron-right"/></svg></span>
+        </button>
+        <button class="c-list-item">
+          <span class="c-list-item__icon"><svg class="icon icon--20"><use href="#i-rotate-ccw"/></svg></span>
+          <span class="c-list-item__main">
+            <span class="c-list-item__title">Reset onboarding</span>
+          </span>
+          <span class="c-list-item__chevron"><svg class="icon icon--20"><use href="#i-chevron-right"/></svg></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================== 14. SUMMARY CARD ====================== -->
+    <section>
+      <h2>14 · SummaryCard</h2>
+      <div class="row" style="background: var(--color-bg-default);">
+        <div class="c-summary-card" style="width: 100%; max-width: 480px;">
+          <div class="c-summary-card__greeting">Hi, Anna 👋</div>
+          <div class="c-summary-card__goal">
+            <span class="c-summary-card__goal-value">2,000</span>
+            <span class="c-summary-card__goal-label">kcal daily goal</span>
+          </div>
+          <div class="c-summary-card__tags">
+            <span class="c-chip c-chip--badge is-diet">Vegetarian</span>
+            <span class="c-chip c-chip--badge is-allergen">No nuts</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 15. EMPTY STATE ====================== -->
+    <section>
+      <h2>15 · EmptyState</h2>
+      <p class="label">With CTA — Favorites empty</p>
+      <div class="row" style="justify-content: center;">
+        <div class="c-empty">
+          <div class="c-empty__art">🥗</div>
+          <div class="c-empty__title">Nothing here yet</div>
+          <div class="c-empty__desc">Save a recipe or food and it'll show up here for quick access.</div>
+          <button class="c-button c-button--primary">Browse recipes</button>
+        </div>
+      </div>
+
+      <p class="label">No CTA — search no-results</p>
+      <div class="row" style="justify-content: center;">
+        <div class="c-empty">
+          <div class="c-empty__art">🔍</div>
+          <div class="c-empty__title">No matches</div>
+          <div class="c-empty__desc">Try a different search term, or loosen your filters.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 16. TOP APP BAR ====================== -->
+    <section>
+      <h2>16 · TopAppBar</h2>
+      <div class="phone">
+        <div class="c-app-bar">
+          <button class="c-app-bar__icon" aria-label="Back"><svg class="icon icon--20"><use href="#i-arrow-left"/></svg></button>
+          <div class="c-app-bar__title">Recipe</div>
+          <button class="c-app-bar__icon" aria-label="Save"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+        </div>
+        <div class="phone__body">
+          <div class="t-body-md" style="color:var(--color-text-secondary)">App bar with back + right action.</div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="c-app-bar">
+          <div class="c-app-bar__title" style="text-align:left;">Profile</div>
+        </div>
+        <div class="phone__body">
+          <div class="t-body-md" style="color:var(--color-text-secondary)">App bar at tab root — left-aligned title, no back button.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 17. BOTTOM TAB BAR ====================== -->
+    <section>
+      <h2>17 · BottomTabBar</h2>
+      <div class="phone">
+        <div class="c-app-bar"><div class="c-app-bar__title" style="text-align:left;">Calculate</div></div>
+        <div class="phone__body">
+          <label class="c-search-input">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" placeholder="Search foods or recipes" />
+          </label>
+          <div class="c-empty" style="padding: var(--space-2xl) 0;">
+            <div class="c-empty__art" style="width:56px;height:56px;"><svg class="icon icon--24" style="color: var(--color-text-muted);"><use href="#i-search"/></svg></div>
+            <div class="t-body-md" style="color:var(--color-text-secondary)">Type to start searching.</div>
+          </div>
+        </div>
+        <nav class="c-tab-bar" role="tablist">
+          <button class="c-tab-bar__btn c-tab-bar__btn--active">
+            <span class="c-tab-bar__icon"><svg class="icon icon--22"><use href="#i-calculator"/></svg></span><span class="c-tab-bar__label">Calculate</span>
+          </button>
+          <button class="c-tab-bar__btn">
+            <span class="c-tab-bar__icon"><svg class="icon icon--22"><use href="#i-salad"/></svg></span><span class="c-tab-bar__label">Recipes</span>
+          </button>
+          <button class="c-tab-bar__btn">
+            <span class="c-tab-bar__icon"><svg class="icon icon--22"><use href="#i-user"/></svg></span><span class="c-tab-bar__label">Profile</span>
+          </button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ====================== 18. CONFIRM DIALOG ====================== -->
+    <section>
+      <h2>18 · ConfirmDialog</h2>
+      <p class="label">Default variant — neutral confirm</p>
+      <div class="row" style="justify-content: center; background: rgba(42, 39, 48, 0.45); padding: var(--space-2xl);">
+        <div class="c-dialog" style="margin: 0;">
+          <h2 class="c-dialog__title">Save this meal as a dish?</h2>
+          <p class="c-dialog__message">You can rename or delete it later from Profile → Favorites.</p>
+          <div class="c-dialog__actions">
+            <button class="c-button c-button--secondary">Cancel</button>
+            <button class="c-button c-button--primary">Save dish</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="label">Destructive variant — confirm button uses the danger color</p>
+      <div class="row" style="justify-content: center; background: rgba(42, 39, 48, 0.45); padding: var(--space-2xl);">
+        <div class="c-dialog" style="margin: 0;">
+          <h2 class="c-dialog__title">Reset onboarding?</h2>
+          <p class="c-dialog__message">This will clear your name, preferences and saved dishes. Your favorites stay put.</p>
+          <div class="c-dialog__actions">
+            <button class="c-button c-button--secondary">Cancel</button>
+            <button class="c-button c-button--primary" style="background: var(--color-feedback-danger); color: var(--color-text-on-brand);">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 19. BOTTOM SHEET ====================== -->
+    <section>
+      <h2>19 · BottomSheet</h2>
+      <p class="label">Slide-up modal — used for PortionPicker and NameDishSheet. Mobile-friendly alternative to a full dialog.</p>
+
+      <p class="label">Variant A — PortionPicker (food detail in Calculate)</p>
+      <div class="phone" style="background: rgba(42, 39, 48, 0.45);">
+        <div class="phone__body" style="padding: 0; justify-content: flex-end; min-height: 480px;">
+          <div class="c-sheet" style="position: relative; max-width: 100%; box-shadow: none;">
+            <div class="c-sheet__handle"></div>
+            <div class="c-sheet__header">
+              <span class="c-sheet__thumb">🥣</span>
+              <div class="c-sheet__title-block">
+                <h2 class="c-sheet__title">Oatmeal, rolled, dry</h2>
+                <div class="c-sheet__subtitle">Generic · Cereal</div>
+              </div>
+              <button class="c-save c-sheet__save" aria-label="Save"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
+            </div>
+            <div class="c-nutrition">
+              <div class="c-nutrition__kcal">
+                <div class="c-nutrition__kcal-value">156</div>
+                <div class="c-nutrition__kcal-label">kcal</div>
+              </div>
+              <div class="c-nutrition__macros">
+                <div class="c-nutrition__macro c-nutrition__macro--p">
+                  <div class="c-nutrition__macro-value">5<span class="c-nutrition__macro-unit">g</span></div>
+                  <div class="c-nutrition__macro-label">Prot</div>
+                </div>
+                <div class="c-nutrition__macro c-nutrition__macro--c">
+                  <div class="c-nutrition__macro-value">26<span class="c-nutrition__macro-unit">g</span></div>
+                  <div class="c-nutrition__macro-label">Carb</div>
+                </div>
+                <div class="c-nutrition__macro c-nutrition__macro--f">
+                  <div class="c-nutrition__macro-value">3<span class="c-nutrition__macro-unit">g</span></div>
+                  <div class="c-nutrition__macro-label">Fat</div>
+                </div>
+              </div>
+            </div>
+            <div class="c-sheet__row">
+              <div class="c-stepper">
+                <button class="c-stepper__btn" aria-label="Decrease"><svg class="icon icon--18"><use href="#i-minus"/></svg></button>
+                <span class="c-stepper__value">40</span><span class="c-stepper__unit">g</span>
+                <button class="c-stepper__btn" aria-label="Increase"><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
+              </div>
+              <div class="c-unit-selector">
+                <button class="c-unit-selector__btn c-unit-selector__btn--active">g</button>
+                <button class="c-unit-selector__btn">cups</button>
+                <button class="c-unit-selector__btn">tbsp</button>
+              </div>
+            </div>
+            <div class="c-sheet__actions">
+              <button class="c-button c-button--secondary">Cancel</button>
+              <button class="c-button c-button--primary">Add to meal</button>
+            </div>
+            <button class="c-sheet__destructive">Remove from meal</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="label">Variant B — NameDishSheet (save meal as dish)</p>
+      <div class="phone" style="background: rgba(42, 39, 48, 0.45);">
+        <div class="phone__body" style="padding: 0; justify-content: flex-end; min-height: 280px;">
+          <div class="c-sheet" style="position: relative; max-width: 100%; box-shadow: none;">
+            <div class="c-sheet__handle"></div>
+            <div>
+              <h2 class="c-sheet__title">Save as dish</h2>
+              <p class="c-sheet__subtitle">Give your meal a name so you can find it later.</p>
+            </div>
+            <input class="c-sheet__input" value="My breakfast" />
+            <div class="c-sheet__actions">
+              <button class="c-button c-button--secondary">Cancel</button>
+              <button class="c-button c-button--primary">Save dish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 20. LOAD MORE BUTTON ====================== -->
+    <section>
+      <h2>20 · LoadMoreButton</h2>
+      <p class="label">Circular reload arrow — appears at the bottom of paginated lists (recipes search results).</p>
+      <div class="row" style="background: var(--color-bg-default); justify-content: flex-start;">
+        <div class="c-load-more__wrap">
+          <button class="c-load-more" aria-label="Load more"><svg class="icon icon--22"><use href="#i-rotate-cw"/></svg></button>
+        </div>
+        <div class="c-load-more__wrap">
+          <button class="c-load-more is-loading" aria-label="Loading"><svg class="icon icon--22"><use href="#i-rotate-cw"/></svg></button>
+        </div>
+        <div class="c-load-more__wrap">
+          <button class="c-load-more" aria-label="Load more" disabled><svg class="icon icon--22"><use href="#i-rotate-cw"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 21. DISH CARD ====================== -->
+    <section>
+      <h2>21 · DishCard</h2>
+      <p class="label">States — default · with overflow fallback · focus-visible</p>
+      <div class="stack" style="background: var(--color-bg-default); padding: 0;">
+        <div class="dish-card">
+          <div class="dish-card__main">
+            <h3 class="dish-card__title">My breakfast</h3>
+            <div class="dish-card__ingredients">Oatmeal, rolled, dry · Banana, raw · Almond milk · Honey</div>
+          </div>
+          <div class="dish-card__kcal">412<small>kcal</small></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-card__main">
+            <h3 class="dish-card__title">Post-run smoothie</h3>
+            <div class="dish-card__ingredients">5 ingredients</div>
+          </div>
+          <div class="dish-card__kcal">285<small>kcal</small></div>
+        </div>
+        <div class="dish-card is-focus">
+          <div class="dish-card__main">
+            <h3 class="dish-card__title">Focus-visible</h3>
+            <div class="dish-card__ingredients">2 px coral outline</div>
+          </div>
+          <div class="dish-card__kcal">510<small>kcal</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 22. MEAL BAR ====================== -->
+    <section>
+      <h2>22 · MealBar</h2>
+      <p class="label">Sticky cart-style strip — appears across the Calculate tab when the draft meal has items. Tap to open meal review.</p>
+      <div class="phone">
+        <div class="c-app-bar"><div class="c-app-bar__title" style="text-align:left;">Calculate</div></div>
+        <div class="phone__body" style="padding-bottom: 0;">
+          <label class="c-search-input">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" value="banana" />
+            <button class="c-search-input__clear" aria-label="Clear"><svg class="icon icon--16"><use href="#i-x"/></svg></button>
+          </label>
+          <button class="c-result-row" style="text-align: left;">
+            <span class="c-result-row__thumb">🍌</span>
+            <span class="c-result-row__main">
+              <span class="c-result-row__title">Banana, raw</span>
+              <span class="c-result-row__meta">Fruit · 1 medium ≈ 118 g</span>
+            </span>
+            <span class="c-result-row__kcal">105<small>kcal</small></span>
+          </button>
+        </div>
+        <button class="meal-bar" style="position: relative;">
+          <div class="meal-bar__left">
+            <div class="meal-bar__count">3 items</div>
+            <div class="meal-bar__kcal">412 kcal</div>
+          </div>
+          <div class="meal-bar__cta">View meal <svg class="icon icon--18"><use href="#i-chevron-right"/></svg></div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================== 23. RENAME INPUT ====================== -->
+    <section>
+      <h2>23 · RenameInput</h2>
+      <p class="label">States — empty · filled · focused (typing)</p>
+      <div class="state-grid">
+        <div class="state-cell">
+          <div class="state-cell__label">Empty</div>
+          <div class="rename-input">
+            <input class="rename-input__field" placeholder="Name this meal" />
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Filled (with clear)</div>
+          <div class="rename-input">
+            <input class="rename-input__field" value="Lunch — Tuesday" />
+            <button class="rename-input__clear" aria-label="Clear"><svg class="icon icon--16"><use href="#i-x"/></svg></button>
+          </div>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Focused / typing</div>
+          <div class="rename-input is-focus">
+            <input class="rename-input__field" value="Sunday brunch" />
+            <button class="rename-input__clear" aria-label="Clear"><svg class="icon icon--16"><use href="#i-x"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 24. DETAIL HERO ====================== -->
+    <section>
+      <h2>24 · DetailHero</h2>
+      <p class="label">Recipe-detail full-bleed image with overlay back + save buttons.</p>
+      <div class="phone">
+        <div class="cd-hero" style="background: var(--color-accent-mint);">
+          <button class="cd-hero__back" aria-label="Back"><svg class="icon icon--20"><use href="#i-arrow-left"/></svg></button>
+          <button class="c-save c-save--saved cd-hero__save" aria-label="Saved"><svg class="icon icon--20 icon--filled"><use href="#i-heart"/></svg></button>
+          <div class="cd-hero__placeholder">🥗</div>
+        </div>
+        <div class="phone__body">
+          <h1 class="t-heading-lg" style="margin: 0;">Roasted vegetable & quinoa traybake</h1>
+          <p class="t-body-md muted" style="margin: 0;">A simple sheet-pan dinner with herby quinoa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 25. SECTION LABEL ====================== -->
+    <section>
+      <h2>25 · SectionLabel</h2>
+      <p class="label">Small uppercase divider that introduces a row, list, or form group.</p>
+      <div class="stack">
+        <div>
+          <div class="section-label">Recent searches</div>
+          <div class="t-body-md muted">A list, a row, or a form group goes here.</div>
+        </div>
+        <div>
+          <div class="section-label">Diet</div>
+          <div class="t-body-md muted">Chips or a stepper goes here.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 26. ADD LINK ====================== -->
+    <section>
+      <h2>26 · AddLink</h2>
+      <p class="label">Inline icon-+-label "add" action — sits below a list to extend it. Lower visual weight than a primary button.</p>
+      <div class="row" style="background: var(--color-bg-default); justify-content: flex-start;">
+        <button type="button" class="c-add-link">
+          <svg class="icon icon--18"><use href="#i-plus"/></svg>
+          Add an ingredient
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================== 27. BOTTOM ACTIONS ====================== -->
+    <section>
+      <h2>27 · BottomActions</h2>
+      <p class="label">Sticky paired-button bar at the bottom of a screen — equal-width children, breaks out of the screen padding to read edge-to-edge, handles iOS safe-area inset.</p>
+      <div class="phone">
+        <div class="c-app-bar"><div class="c-app-bar__title" style="text-align:left;">Your meal</div></div>
+        <div class="phone__body" style="padding-bottom: 0; min-height: 240px;">
+          <div class="t-body-md muted">Long list scrolls underneath the bar…</div>
+        </div>
+        <div class="c-bottom-actions" style="position: relative; margin-inline: 0;">
+          <button class="c-button c-button--secondary">Discard</button>
+          <button class="c-button c-button--primary">Save dish</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

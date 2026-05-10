@@ -1,0 +1,737 @@
+[
+  {
+    "id": "sunny-berry-oatmeal",
+    "title": "Sunny berry oatmeal",
+    "description": "Creamy rolled oats topped with mixed berries, almonds, and a drizzle of honey.",
+    "heroEmoji": "🥣",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 340,
+    "macrosPerServing": { "protein": 11, "carbs": 58, "fat": 8 },
+    "prepMinutes": 15,
+    "defaultServings": 1,
+    "dietTags": ["vegetarian", "gluten-free"],
+    "allergenTags": ["nuts", "dairy"],
+    "ingredients": [
+      { "qty": 50, "unit": "g", "name": "rolled oats (certified GF)" },
+      { "qty": 250, "unit": "ml", "name": "milk of choice" },
+      { "qty": 80, "unit": "g", "name": "mixed berries" },
+      { "qty": 15, "unit": "g", "name": "almonds, sliced" },
+      { "qty": 1, "unit": "tsp", "name": "honey" },
+      { "qty": 1, "unit": "pinch", "name": "salt" }
+    ],
+    "steps": [
+      "Bring milk to a gentle simmer in a small pot.",
+      "Stir in oats and a pinch of salt. Cook 5-7 minutes until creamy, stirring often.",
+      "Spoon into a bowl, top with berries and almonds.",
+      "Drizzle with honey and serve warm."
+    ]
+  },
+  {
+    "id": "smashed-avocado-toast",
+    "title": "Smashed avocado toast with chili crunch",
+    "description": "Sourdough loaded with smashed avocado, lemon, and crispy chili flakes.",
+    "heroEmoji": "🥑",
+    "heroColor": "#5FD49E",
+    "imageUrl": "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 380,
+    "macrosPerServing": { "protein": 9, "carbs": 38, "fat": 22 },
+    "prepMinutes": 10,
+    "defaultServings": 1,
+    "dietTags": ["vegan", "vegetarian", "dairy-free"],
+    "allergenTags": ["gluten"],
+    "ingredients": [
+      { "qty": 2, "unit": "slice", "name": "sourdough bread" },
+      { "qty": 1, "unit": "piece", "name": "ripe avocado" },
+      { "qty": 0.5, "unit": "piece", "name": "lemon (juice)" },
+      { "qty": 1, "unit": "tsp", "name": "chili crunch oil" },
+      { "qty": 1, "unit": "pinch", "name": "flaky sea salt" }
+    ],
+    "steps": [
+      "Toast the sourdough until golden.",
+      "Halve the avocado, scoop into a bowl, mash with lemon juice and salt.",
+      "Spread the avocado generously on toast.",
+      "Top with chili crunch oil and serve immediately."
+    ]
+  },
+  {
+    "id": "greek-yogurt-parfait",
+    "title": "Greek yogurt & honey parfait",
+    "description": "Layered yogurt, granola, and seasonal fruit — 5 minutes flat.",
+    "heroEmoji": "🍯",
+    "heroColor": "#B8A4FF",
+    "imageUrl": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 290,
+    "macrosPerServing": { "protein": 18, "carbs": 38, "fat": 7 },
+    "prepMinutes": 5,
+    "defaultServings": 1,
+    "dietTags": ["vegetarian", "gluten-free"],
+    "allergenTags": ["dairy", "nuts"],
+    "ingredients": [
+      { "qty": 200, "unit": "g", "name": "Greek yogurt, low-fat" },
+      { "qty": 30, "unit": "g", "name": "granola (GF certified)" },
+      { "qty": 80, "unit": "g", "name": "berries or chopped fruit" },
+      { "qty": 1, "unit": "tsp", "name": "honey" }
+    ],
+    "steps": [
+      "Spoon half the yogurt into a glass.",
+      "Add half the fruit, then half the granola.",
+      "Repeat with remaining yogurt, fruit, and granola.",
+      "Drizzle with honey and serve."
+    ]
+  },
+  {
+    "id": "mediterranean-chickpea-bowl",
+    "title": "Mediterranean chickpea bowl with herb yogurt",
+    "description": "Warm chickpeas, cucumber, tomato, and herby yogurt over fluffy couscous.",
+    "heroEmoji": "🥗",
+    "heroColor": "#7CC2F2",
+    "imageUrl": "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 520,
+    "macrosPerServing": { "protein": 21, "carbs": 72, "fat": 16 },
+    "prepMinutes": 25,
+    "defaultServings": 2,
+    "dietTags": ["vegetarian"],
+    "allergenTags": ["gluten", "dairy"],
+    "ingredients": [
+      { "qty": 200, "unit": "g", "name": "couscous, dry" },
+      { "qty": 1, "unit": "can", "name": "chickpeas, drained" },
+      { "qty": 1, "unit": "piece", "name": "cucumber, diced" },
+      { "qty": 200, "unit": "g", "name": "cherry tomatoes, halved" },
+      { "qty": 200, "unit": "g", "name": "Greek yogurt" },
+      { "qty": 1, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tsp", "name": "ground cumin" },
+      { "qty": 1, "unit": "handful", "name": "fresh mint and parsley, chopped" },
+      { "qty": 1, "unit": "piece", "name": "lemon" }
+    ],
+    "steps": [
+      "Pour couscous into a bowl, cover with boiling water, and rest 10 minutes. Fluff with a fork.",
+      "Heat olive oil in a pan, add chickpeas and cumin. Sauté 5 minutes until warmed and slightly crisp.",
+      "Stir herbs and a squeeze of lemon into the yogurt; season.",
+      "Plate couscous, top with chickpeas, cucumber, and tomatoes.",
+      "Spoon over the herb yogurt and serve."
+    ]
+  },
+  {
+    "id": "honey-mustard-chicken-salad",
+    "title": "Honey-mustard chicken salad",
+    "description": "Pan-seared chicken over crisp greens with a tangy honey-mustard vinaigrette.",
+    "heroEmoji": "🥗",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 460,
+    "macrosPerServing": { "protein": 38, "carbs": 18, "fat": 24 },
+    "prepMinutes": 20,
+    "defaultServings": 2,
+    "dietTags": ["gluten-free", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 300, "unit": "g", "name": "chicken breast" },
+      { "qty": 200, "unit": "g", "name": "mixed salad greens" },
+      { "qty": 100, "unit": "g", "name": "cherry tomatoes, halved" },
+      { "qty": 0.5, "unit": "piece", "name": "red onion, sliced" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tbsp", "name": "Dijon mustard" },
+      { "qty": 1, "unit": "tbsp", "name": "honey" },
+      { "qty": 1, "unit": "tbsp", "name": "apple cider vinegar" }
+    ],
+    "steps": [
+      "Season chicken with salt and pepper.",
+      "Heat 1 tbsp olive oil in a pan. Sear chicken 5-6 minutes per side until cooked through. Rest 5 minutes, then slice.",
+      "Whisk remaining oil, mustard, honey, and vinegar in a small bowl.",
+      "Toss greens, tomatoes, and onion with half the dressing.",
+      "Top with sliced chicken, drizzle with remaining dressing, and serve."
+    ]
+  },
+  {
+    "id": "spicy-peanut-tofu-stir-fry",
+    "title": "Spicy peanut tofu stir-fry",
+    "description": "Crisp tofu, snap peas, and bell peppers in a creamy peanut-chili sauce.",
+    "heroEmoji": "🥡",
+    "heroColor": "#FF8A7A",
+    "imageUrl": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 540,
+    "macrosPerServing": { "protein": 26, "carbs": 48, "fat": 26 },
+    "prepMinutes": 30,
+    "defaultServings": 2,
+    "dietTags": ["vegan", "vegetarian", "dairy-free"],
+    "allergenTags": ["peanuts", "soy", "gluten"],
+    "ingredients": [
+      { "qty": 300, "unit": "g", "name": "firm tofu, cubed" },
+      { "qty": 150, "unit": "g", "name": "snap peas" },
+      { "qty": 1, "unit": "piece", "name": "red bell pepper, sliced" },
+      { "qty": 200, "unit": "g", "name": "rice noodles or jasmine rice" },
+      { "qty": 3, "unit": "tbsp", "name": "natural peanut butter" },
+      { "qty": 2, "unit": "tbsp", "name": "soy sauce" },
+      { "qty": 1, "unit": "tbsp", "name": "rice vinegar" },
+      { "qty": 1, "unit": "tsp", "name": "chili paste" },
+      { "qty": 1, "unit": "clove", "name": "garlic, minced" },
+      { "qty": 1, "unit": "tbsp", "name": "neutral oil" }
+    ],
+    "steps": [
+      "Press tofu between paper towels for 10 minutes, then cube.",
+      "Cook rice or noodles per package directions; set aside.",
+      "Whisk peanut butter, soy sauce, vinegar, chili paste, and 3 tbsp warm water until smooth.",
+      "Heat oil in a wok over high heat. Sear tofu until golden on all sides, about 6 minutes. Remove.",
+      "Add garlic, peppers, and snap peas. Stir-fry 3 minutes.",
+      "Return tofu, pour over sauce, toss to coat. Serve over rice or noodles."
+    ]
+  },
+  {
+    "id": "sheet-pan-salmon-vegetables",
+    "title": "Sheet-pan salmon & lemon vegetables",
+    "description": "One-tray dinner — salmon fillets, broccoli, and potatoes with lemon and herbs.",
+    "heroEmoji": "🐟",
+    "heroColor": "#7CC2F2",
+    "imageUrl": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 520,
+    "macrosPerServing": { "protein": 36, "carbs": 38, "fat": 24 },
+    "prepMinutes": 35,
+    "defaultServings": 2,
+    "dietTags": ["pescatarian", "gluten-free", "dairy-free"],
+    "allergenTags": ["fish"],
+    "ingredients": [
+      { "qty": 2, "unit": "piece", "name": "salmon fillet (150 g each)" },
+      { "qty": 400, "unit": "g", "name": "baby potatoes, halved" },
+      { "qty": 250, "unit": "g", "name": "broccoli florets" },
+      { "qty": 1, "unit": "piece", "name": "lemon, sliced" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tsp", "name": "dried oregano" },
+      { "qty": 2, "unit": "clove", "name": "garlic, minced" }
+    ],
+    "steps": [
+      "Preheat oven to 220°C / 425°F.",
+      "Toss potatoes with 1 tbsp oil, salt, and pepper. Roast on a sheet pan 15 minutes.",
+      "Add broccoli and garlic to the pan, drizzle with remaining oil and oregano.",
+      "Make space for the salmon, season fillets and lay over lemon slices.",
+      "Roast 12-14 minutes until salmon flakes easily.",
+      "Squeeze any remaining lemon over and serve."
+    ]
+  },
+  {
+    "id": "black-bean-corn-tacos",
+    "title": "Black bean & corn tacos",
+    "description": "Smoky black beans and charred corn in soft tortillas with avocado and lime.",
+    "heroEmoji": "🌮",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 410,
+    "macrosPerServing": { "protein": 14, "carbs": 60, "fat": 14 },
+    "prepMinutes": 25,
+    "defaultServings": 2,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 6, "unit": "piece", "name": "small corn tortillas" },
+      { "qty": 1, "unit": "can", "name": "black beans, drained" },
+      { "qty": 200, "unit": "g", "name": "corn kernels" },
+      { "qty": 1, "unit": "piece", "name": "avocado, sliced" },
+      { "qty": 1, "unit": "piece", "name": "lime, cut into wedges" },
+      { "qty": 1, "unit": "tsp", "name": "ground cumin" },
+      { "qty": 1, "unit": "tsp", "name": "smoked paprika" },
+      { "qty": 1, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "handful", "name": "fresh cilantro" }
+    ],
+    "steps": [
+      "Heat oil in a pan, add corn and char 3-4 minutes without stirring.",
+      "Add beans, cumin, and paprika. Cook 5 minutes, mashing some beans for texture.",
+      "Warm tortillas in a dry skillet or microwave.",
+      "Fill tortillas with the bean mixture, top with avocado and cilantro.",
+      "Serve with lime wedges to squeeze over."
+    ]
+  },
+  {
+    "id": "pesto-pasta-cherry-tomatoes",
+    "title": "Pesto pasta with cherry tomatoes",
+    "description": "Quick weeknight pasta tossed with basil pesto, blistered tomatoes, and parmesan.",
+    "heroEmoji": "🍝",
+    "heroColor": "#5FD49E",
+    "imageUrl": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 580,
+    "macrosPerServing": { "protein": 18, "carbs": 72, "fat": 22 },
+    "prepMinutes": 20,
+    "defaultServings": 2,
+    "dietTags": ["vegetarian"],
+    "allergenTags": ["gluten", "dairy", "nuts"],
+    "ingredients": [
+      { "qty": 200, "unit": "g", "name": "penne or fusilli" },
+      { "qty": 250, "unit": "g", "name": "cherry tomatoes" },
+      { "qty": 4, "unit": "tbsp", "name": "basil pesto" },
+      { "qty": 30, "unit": "g", "name": "parmesan, grated" },
+      { "qty": 1, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "handful", "name": "fresh basil" }
+    ],
+    "steps": [
+      "Cook pasta in salted boiling water until al dente. Reserve 100 ml pasta water before draining.",
+      "Heat olive oil in a pan, add tomatoes whole. Cook 5 minutes until they blister and burst.",
+      "Off the heat, add cooked pasta, pesto, and a splash of pasta water. Toss to coat.",
+      "Plate and finish with parmesan and torn basil."
+    ]
+  },
+  {
+    "id": "quinoa-veggie-traybake",
+    "title": "Roasted vegetable & quinoa traybake",
+    "description": "Sweet roasted vegetables over fluffy quinoa with tahini-lemon dressing.",
+    "heroEmoji": "🍠",
+    "heroColor": "#FF8A7A",
+    "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 480,
+    "macrosPerServing": { "protein": 14, "carbs": 64, "fat": 18 },
+    "prepMinutes": 40,
+    "defaultServings": 2,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": ["sesame"],
+    "ingredients": [
+      { "qty": 200, "unit": "g", "name": "quinoa, dry" },
+      { "qty": 300, "unit": "g", "name": "sweet potato, cubed" },
+      { "qty": 1, "unit": "piece", "name": "red onion, wedges" },
+      { "qty": 1, "unit": "piece", "name": "courgette, sliced" },
+      { "qty": 1, "unit": "piece", "name": "bell pepper, chunks" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tsp", "name": "smoked paprika" },
+      { "qty": 2, "unit": "tbsp", "name": "tahini" },
+      { "qty": 1, "unit": "piece", "name": "lemon (juice)" }
+    ],
+    "steps": [
+      "Preheat oven to 200°C / 400°F. Toss vegetables with oil, paprika, salt, and pepper on a sheet pan.",
+      "Roast 25-30 minutes, tossing once, until edges are caramelized.",
+      "Meanwhile, rinse quinoa and simmer in 400 ml water for 15 minutes. Rest covered 5 minutes.",
+      "Whisk tahini, lemon juice, and 3 tbsp warm water until creamy.",
+      "Plate quinoa, top with roasted vegetables, drizzle with tahini sauce."
+    ]
+  },
+  {
+    "id": "caprese-crusty-bread",
+    "title": "Caprese with crusty bread",
+    "description": "Tomatoes, fresh mozzarella, and basil — the simplest summer plate.",
+    "heroEmoji": "🍅",
+    "heroColor": "#FF8A7A",
+    "imageUrl": "https://images.unsplash.com/photo-1607532941433-304659e8198a?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 420,
+    "macrosPerServing": { "protein": 19, "carbs": 38, "fat": 22 },
+    "prepMinutes": 10,
+    "defaultServings": 2,
+    "dietTags": ["vegetarian"],
+    "allergenTags": ["dairy", "gluten"],
+    "ingredients": [
+      { "qty": 3, "unit": "piece", "name": "ripe tomatoes, sliced" },
+      { "qty": 200, "unit": "g", "name": "fresh mozzarella, sliced" },
+      { "qty": 1, "unit": "handful", "name": "fresh basil" },
+      { "qty": 4, "unit": "slice", "name": "rustic bread" },
+      { "qty": 2, "unit": "tbsp", "name": "extra virgin olive oil" },
+      { "qty": 1, "unit": "tbsp", "name": "balsamic vinegar" }
+    ],
+    "steps": [
+      "Arrange tomato and mozzarella slices on a plate, alternating.",
+      "Tuck basil leaves between the layers.",
+      "Drizzle with olive oil, balsamic, salt, and a generous grind of pepper.",
+      "Serve with bread on the side."
+    ]
+  },
+  {
+    "id": "lemon-garlic-shrimp-linguine",
+    "title": "Lemon-garlic shrimp linguine",
+    "description": "Buttery shrimp with garlic, white wine, and parsley over silky linguine.",
+    "heroEmoji": "🍤",
+    "heroColor": "#B8A4FF",
+    "imageUrl": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 560,
+    "macrosPerServing": { "protein": 30, "carbs": 64, "fat": 18 },
+    "prepMinutes": 25,
+    "defaultServings": 2,
+    "dietTags": ["pescatarian"],
+    "allergenTags": ["shellfish", "gluten", "dairy"],
+    "ingredients": [
+      { "qty": 200, "unit": "g", "name": "linguine" },
+      { "qty": 250, "unit": "g", "name": "shrimp, peeled and deveined" },
+      { "qty": 3, "unit": "clove", "name": "garlic, minced" },
+      { "qty": 60, "unit": "ml", "name": "dry white wine" },
+      { "qty": 1, "unit": "piece", "name": "lemon (zest + juice)" },
+      { "qty": 2, "unit": "tbsp", "name": "butter" },
+      { "qty": 1, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "handful", "name": "fresh parsley, chopped" }
+    ],
+    "steps": [
+      "Cook linguine in salted boiling water until al dente. Reserve 100 ml pasta water.",
+      "Heat olive oil and 1 tbsp butter in a pan. Add garlic and cook 30 seconds.",
+      "Add shrimp and cook 2-3 minutes per side until pink. Remove.",
+      "Pour in white wine and lemon juice; reduce 1 minute.",
+      "Add remaining butter, a splash of pasta water, and the linguine. Toss.",
+      "Return shrimp, add lemon zest and parsley. Serve immediately."
+    ]
+  },
+  {
+    "id": "tomato-basil-soup",
+    "title": "Tomato basil soup",
+    "description": "Silky roasted tomato soup with fresh basil and a swirl of cream.",
+    "heroEmoji": "🍅",
+    "heroColor": "#FF8A7A",
+    "imageUrl": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 250,
+    "macrosPerServing": { "protein": 6, "carbs": 22, "fat": 14 },
+    "prepMinutes": 35,
+    "defaultServings": 4,
+    "dietTags": ["vegetarian", "gluten-free"],
+    "allergenTags": ["dairy"],
+    "ingredients": [
+      { "qty": 1, "unit": "kg", "name": "ripe tomatoes, halved" },
+      { "qty": 1, "unit": "piece", "name": "yellow onion, chopped" },
+      { "qty": 4, "unit": "clove", "name": "garlic" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 500, "unit": "ml", "name": "vegetable stock" },
+      { "qty": 60, "unit": "ml", "name": "double cream" },
+      { "qty": 1, "unit": "handful", "name": "fresh basil" }
+    ],
+    "steps": [
+      "Preheat oven to 200°C / 400°F. Toss tomatoes, onion, and garlic with oil, salt, and pepper.",
+      "Roast 25 minutes until edges caramelize.",
+      "Tip everything into a blender with the stock; blitz until smooth.",
+      "Pour into a pot, warm through, then stir in cream and torn basil.",
+      "Taste, season, and ladle into bowls."
+    ]
+  },
+  {
+    "id": "beef-broccoli-stir-fry",
+    "title": "Beef & broccoli stir-fry",
+    "description": "Tender beef strips and crisp broccoli in a glossy ginger-soy sauce.",
+    "heroEmoji": "🥢",
+    "heroColor": "#7CC2F2",
+    "imageUrl": "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 510,
+    "macrosPerServing": { "protein": 34, "carbs": 42, "fat": 22 },
+    "prepMinutes": 25,
+    "defaultServings": 2,
+    "dietTags": ["dairy-free"],
+    "allergenTags": ["soy", "gluten"],
+    "ingredients": [
+      { "qty": 300, "unit": "g", "name": "beef sirloin, sliced thin" },
+      { "qty": 300, "unit": "g", "name": "broccoli florets" },
+      { "qty": 200, "unit": "g", "name": "jasmine rice, dry" },
+      { "qty": 3, "unit": "tbsp", "name": "soy sauce" },
+      { "qty": 1, "unit": "tbsp", "name": "oyster sauce" },
+      { "qty": 1, "unit": "tbsp", "name": "ginger, grated" },
+      { "qty": 2, "unit": "clove", "name": "garlic, minced" },
+      { "qty": 1, "unit": "tbsp", "name": "neutral oil" },
+      { "qty": 1, "unit": "tsp", "name": "cornstarch" }
+    ],
+    "steps": [
+      "Cook rice per package directions.",
+      "Toss beef with cornstarch, half the soy, and a splash of water.",
+      "Heat oil in a wok over high heat. Sear beef 90 seconds; remove.",
+      "Add broccoli with 2 tbsp water; cover 2 minutes until bright and tender-crisp.",
+      "Stir in garlic, ginger, oyster sauce, and remaining soy. Return beef and toss.",
+      "Serve over rice."
+    ]
+  },
+  {
+    "id": "egg-fried-rice",
+    "title": "Egg fried rice",
+    "description": "Day-old rice tossed with scrambled eggs, peas, and scallions.",
+    "heroEmoji": "🍳",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 430,
+    "macrosPerServing": { "protein": 14, "carbs": 60, "fat": 14 },
+    "prepMinutes": 15,
+    "defaultServings": 2,
+    "dietTags": ["vegetarian", "dairy-free"],
+    "allergenTags": ["eggs", "soy", "gluten"],
+    "ingredients": [
+      { "qty": 400, "unit": "g", "name": "cold cooked jasmine rice" },
+      { "qty": 3, "unit": "piece", "name": "eggs, beaten" },
+      { "qty": 100, "unit": "g", "name": "frozen peas" },
+      { "qty": 3, "unit": "piece", "name": "scallions, sliced" },
+      { "qty": 2, "unit": "tbsp", "name": "soy sauce" },
+      { "qty": 1, "unit": "tsp", "name": "sesame oil" },
+      { "qty": 2, "unit": "tbsp", "name": "neutral oil" }
+    ],
+    "steps": [
+      "Heat 1 tbsp oil in a wok. Pour in eggs and scramble loosely; remove.",
+      "Add remaining oil, then rice. Press flat and let crisp 1 minute, then toss.",
+      "Stir in peas and white parts of scallions; cook 2 minutes.",
+      "Return eggs, splash with soy sauce and sesame oil, toss.",
+      "Top with green scallions and serve."
+    ]
+  },
+  {
+    "id": "banana-smoothie-bowl",
+    "title": "Banana smoothie bowl",
+    "description": "Frozen banana blended thick, topped with granola, seeds, and fresh fruit.",
+    "heroEmoji": "🍌",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 310,
+    "macrosPerServing": { "protein": 8, "carbs": 56, "fat": 7 },
+    "prepMinutes": 8,
+    "defaultServings": 1,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 2, "unit": "piece", "name": "frozen bananas" },
+      { "qty": 100, "unit": "ml", "name": "almond milk" },
+      { "qty": 1, "unit": "tbsp", "name": "almond butter" },
+      { "qty": 30, "unit": "g", "name": "granola (GF)" },
+      { "qty": 1, "unit": "tbsp", "name": "chia seeds" },
+      { "qty": 1, "unit": "handful", "name": "berries" }
+    ],
+    "steps": [
+      "Blend frozen banana, almond milk, and almond butter until thick like soft-serve.",
+      "Spoon into a bowl.",
+      "Top with granola, chia seeds, and berries.",
+      "Eat immediately with a cold spoon."
+    ]
+  },
+  {
+    "id": "tuna-poke-bowl",
+    "title": "Tuna poke bowl",
+    "description": "Sushi-grade tuna over rice with cucumber, edamame, and a sesame-soy drizzle.",
+    "heroEmoji": "🍣",
+    "heroColor": "#7CC2F2",
+    "imageUrl": "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 540,
+    "macrosPerServing": { "protein": 32, "carbs": 60, "fat": 16 },
+    "prepMinutes": 20,
+    "defaultServings": 2,
+    "dietTags": ["pescatarian", "dairy-free"],
+    "allergenTags": ["fish", "soy", "sesame"],
+    "ingredients": [
+      { "qty": 250, "unit": "g", "name": "sushi-grade tuna, cubed" },
+      { "qty": 200, "unit": "g", "name": "sushi rice, dry" },
+      { "qty": 100, "unit": "g", "name": "shelled edamame" },
+      { "qty": 1, "unit": "piece", "name": "cucumber, diced" },
+      { "qty": 1, "unit": "piece", "name": "avocado, sliced" },
+      { "qty": 3, "unit": "tbsp", "name": "soy sauce" },
+      { "qty": 1, "unit": "tbsp", "name": "sesame oil" },
+      { "qty": 1, "unit": "tsp", "name": "sesame seeds" },
+      { "qty": 1, "unit": "piece", "name": "scallion, sliced" }
+    ],
+    "steps": [
+      "Cook sushi rice per package directions; let cool slightly.",
+      "Toss tuna with soy sauce, sesame oil, and scallion.",
+      "Divide rice between bowls. Top with tuna, edamame, cucumber, and avocado.",
+      "Sprinkle with sesame seeds and extra scallion. Serve."
+    ]
+  },
+  {
+    "id": "chickpea-coconut-curry",
+    "title": "Chickpea coconut curry",
+    "description": "Cozy chickpeas simmered in tomato and coconut milk with fragrant spices.",
+    "heroEmoji": "🍛",
+    "heroColor": "#FF8A7A",
+    "imageUrl": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 470,
+    "macrosPerServing": { "protein": 14, "carbs": 56, "fat": 20 },
+    "prepMinutes": 30,
+    "defaultServings": 4,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 2, "unit": "can", "name": "chickpeas, drained" },
+      { "qty": 1, "unit": "can", "name": "coconut milk" },
+      { "qty": 1, "unit": "can", "name": "diced tomatoes" },
+      { "qty": 1, "unit": "piece", "name": "yellow onion, chopped" },
+      { "qty": 3, "unit": "clove", "name": "garlic, minced" },
+      { "qty": 1, "unit": "tbsp", "name": "fresh ginger, grated" },
+      { "qty": 2, "unit": "tbsp", "name": "curry powder" },
+      { "qty": 1, "unit": "tsp", "name": "garam masala" },
+      { "qty": 1, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 200, "unit": "g", "name": "basmati rice, dry" },
+      { "qty": 1, "unit": "handful", "name": "fresh cilantro" }
+    ],
+    "steps": [
+      "Cook rice per package directions.",
+      "Sauté onion in oil until soft, 5 minutes. Add garlic and ginger; cook 1 minute.",
+      "Stir in spices and toast 30 seconds until fragrant.",
+      "Add tomatoes, coconut milk, and chickpeas. Simmer 15 minutes.",
+      "Season, scatter cilantro, and serve over rice."
+    ]
+  },
+  {
+    "id": "spinach-feta-omelette",
+    "title": "Spinach & feta omelette",
+    "description": "Fluffy 3-egg omelette folded around wilted spinach and crumbled feta.",
+    "heroEmoji": "🍳",
+    "heroColor": "#5FD49E",
+    "imageUrl": "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 360,
+    "macrosPerServing": { "protein": 24, "carbs": 6, "fat": 26 },
+    "prepMinutes": 12,
+    "defaultServings": 1,
+    "dietTags": ["vegetarian", "gluten-free"],
+    "allergenTags": ["eggs", "dairy"],
+    "ingredients": [
+      { "qty": 3, "unit": "piece", "name": "eggs" },
+      { "qty": 80, "unit": "g", "name": "baby spinach" },
+      { "qty": 40, "unit": "g", "name": "feta, crumbled" },
+      { "qty": 1, "unit": "tsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tsp", "name": "butter" }
+    ],
+    "steps": [
+      "Heat oil in a non-stick pan; wilt spinach 1 minute. Remove.",
+      "Whisk eggs with salt and pepper.",
+      "Add butter to the pan, swirl to coat, then pour in eggs.",
+      "When edges set, scatter spinach and feta over one half.",
+      "Fold and slide onto a plate. Serve immediately."
+    ]
+  },
+  {
+    "id": "zucchini-noodles-marinara",
+    "title": "Zucchini noodles with marinara",
+    "description": "Spiralized zucchini tossed in a quick garlicky tomato sauce — light and bright.",
+    "heroEmoji": "🍝",
+    "heroColor": "#5FD49E",
+    "imageUrl": "https://images.unsplash.com/photo-1598866594230-a7c12756260f?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 220,
+    "macrosPerServing": { "protein": 7, "carbs": 22, "fat": 12 },
+    "prepMinutes": 15,
+    "defaultServings": 2,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 4, "unit": "piece", "name": "medium zucchini" },
+      { "qty": 1, "unit": "can", "name": "crushed tomatoes" },
+      { "qty": 3, "unit": "clove", "name": "garlic, minced" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tsp", "name": "dried oregano" },
+      { "qty": 1, "unit": "pinch", "name": "chili flakes" },
+      { "qty": 1, "unit": "handful", "name": "fresh basil" }
+    ],
+    "steps": [
+      "Spiralize the zucchini into noodles.",
+      "Sauté garlic in oil 30 seconds, add chili flakes and oregano.",
+      "Pour in tomatoes; simmer 8 minutes until thickened.",
+      "Toss zucchini noodles in the sauce for 1-2 minutes — just to warm through.",
+      "Top with torn basil and serve."
+    ]
+  },
+  {
+    "id": "buddha-bowl",
+    "title": "Roasted veg buddha bowl",
+    "description": "Crispy chickpeas, sweet potato, kale, and tahini drizzle over quinoa.",
+    "heroEmoji": "🥗",
+    "heroColor": "#B8A4FF",
+    "imageUrl": "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 560,
+    "macrosPerServing": { "protein": 18, "carbs": 78, "fat": 20 },
+    "prepMinutes": 40,
+    "defaultServings": 2,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": ["sesame"],
+    "ingredients": [
+      { "qty": 200, "unit": "g", "name": "quinoa, dry" },
+      { "qty": 1, "unit": "can", "name": "chickpeas, drained" },
+      { "qty": 300, "unit": "g", "name": "sweet potato, cubed" },
+      { "qty": 100, "unit": "g", "name": "kale, torn" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tsp", "name": "smoked paprika" },
+      { "qty": 2, "unit": "tbsp", "name": "tahini" },
+      { "qty": 1, "unit": "piece", "name": "lemon (juice)" },
+      { "qty": 1, "unit": "tsp", "name": "maple syrup" }
+    ],
+    "steps": [
+      "Heat oven to 200°C / 400°F.",
+      "Toss sweet potato and chickpeas with 1 tbsp oil and paprika. Roast 25 minutes.",
+      "Cook quinoa per package directions.",
+      "Massage kale with remaining oil and a pinch of salt.",
+      "Whisk tahini, lemon juice, maple, and 3 tbsp warm water.",
+      "Build bowls: quinoa, kale, sweet potato, chickpeas. Drizzle with tahini sauce."
+    ]
+  },
+  {
+    "id": "vegetarian-bean-chili",
+    "title": "Smoky 3-bean chili",
+    "description": "Hearty mix of beans simmered with peppers, smoky spices, and a hint of cocoa.",
+    "heroEmoji": "🌶️",
+    "heroColor": "#FF8A7A",
+    "imageUrl": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 380,
+    "macrosPerServing": { "protein": 18, "carbs": 60, "fat": 6 },
+    "prepMinutes": 45,
+    "defaultServings": 4,
+    "dietTags": ["vegan", "vegetarian", "gluten-free", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 1, "unit": "can", "name": "black beans" },
+      { "qty": 1, "unit": "can", "name": "kidney beans" },
+      { "qty": 1, "unit": "can", "name": "pinto beans" },
+      { "qty": 1, "unit": "can", "name": "diced tomatoes" },
+      { "qty": 1, "unit": "piece", "name": "onion, chopped" },
+      { "qty": 1, "unit": "piece", "name": "red bell pepper, diced" },
+      { "qty": 3, "unit": "clove", "name": "garlic, minced" },
+      { "qty": 2, "unit": "tbsp", "name": "tomato paste" },
+      { "qty": 1, "unit": "tbsp", "name": "chili powder" },
+      { "qty": 1, "unit": "tsp", "name": "ground cumin" },
+      { "qty": 1, "unit": "tsp", "name": "smoked paprika" },
+      { "qty": 1, "unit": "tsp", "name": "cocoa powder" },
+      { "qty": 1, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 250, "unit": "ml", "name": "vegetable stock" }
+    ],
+    "steps": [
+      "Sauté onion and pepper in oil until soft, 6 minutes.",
+      "Add garlic, spices, cocoa, and tomato paste; cook 1 minute.",
+      "Pour in tomatoes, beans (drained), and stock.",
+      "Simmer uncovered 30 minutes, stirring occasionally, until thick.",
+      "Season with salt and serve with toppings of choice."
+    ]
+  },
+  {
+    "id": "apple-cinnamon-overnight-oats",
+    "title": "Apple-cinnamon overnight oats",
+    "description": "Make-ahead jar of oats with grated apple, cinnamon, and a drizzle of maple.",
+    "heroEmoji": "🍎",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 320,
+    "macrosPerServing": { "protein": 9, "carbs": 58, "fat": 6 },
+    "prepMinutes": 5,
+    "defaultServings": 1,
+    "dietTags": ["vegetarian", "dairy-free"],
+    "allergenTags": [],
+    "ingredients": [
+      { "qty": 50, "unit": "g", "name": "rolled oats" },
+      { "qty": 150, "unit": "ml", "name": "almond milk" },
+      { "qty": 1, "unit": "piece", "name": "apple, grated" },
+      { "qty": 1, "unit": "tbsp", "name": "maple syrup" },
+      { "qty": 0.5, "unit": "tsp", "name": "cinnamon" },
+      { "qty": 1, "unit": "tbsp", "name": "chia seeds" }
+    ],
+    "steps": [
+      "Combine oats, milk, chia, cinnamon, and maple in a jar.",
+      "Stir in grated apple.",
+      "Seal and refrigerate overnight (at least 4 hours).",
+      "Stir, top with extra apple if you like, and eat cold."
+    ]
+  },
+  {
+    "id": "chicken-fajitas",
+    "title": "Sheet-pan chicken fajitas",
+    "description": "Spice-rubbed chicken with peppers and onions — wrap in warm tortillas.",
+    "heroEmoji": "🌯",
+    "heroColor": "#FFD86B",
+    "imageUrl": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
+    "kcalPerServing": 540,
+    "macrosPerServing": { "protein": 36, "carbs": 50, "fat": 18 },
+    "prepMinutes": 30,
+    "defaultServings": 3,
+    "dietTags": ["dairy-free"],
+    "allergenTags": ["gluten"],
+    "ingredients": [
+      { "qty": 500, "unit": "g", "name": "chicken breast, sliced" },
+      { "qty": 2, "unit": "piece", "name": "bell peppers, sliced" },
+      { "qty": 1, "unit": "piece", "name": "red onion, sliced" },
+      { "qty": 6, "unit": "piece", "name": "flour tortillas" },
+      { "qty": 2, "unit": "tbsp", "name": "olive oil" },
+      { "qty": 1, "unit": "tbsp", "name": "chili powder" },
+      { "qty": 1, "unit": "tsp", "name": "ground cumin" },
+      { "qty": 1, "unit": "tsp", "name": "smoked paprika" },
+      { "qty": 1, "unit": "piece", "name": "lime, cut into wedges" }
+    ],
+    "steps": [
+      "Heat oven to 220°C / 425°F.",
+      "Toss chicken, peppers, and onion with oil and spices on a sheet pan.",
+      "Roast 20 minutes, stirring once, until chicken is cooked through and edges char.",
+      "Warm tortillas in a dry skillet.",
+      "Pile fillings into tortillas, squeeze with lime, and serve."
+    ]
+  }
+]

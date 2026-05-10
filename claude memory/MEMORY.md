@@ -1,0 +1,6 @@
+- [Calories Calculator MVP structuring plan](plan_mvp_structuring.md) — pointer to the approved UX plan (user stories, features, 7 MVP screens, assumptions) at C:\Users\pasko\.claude\plans\imagine-you-are-a-drifting-alpaca.md
+- [IA dropped Home screen in favor of 3-tab spine](project_ia_drops_home_for_tabs.md) — MVP IA uses bottom-tab bar (Calculate · Recipes · Profile); no Home screen. Future landing dashboard would be a 4th tab.
+- [Do not run git commits](feedback_no_auto_commits.md) — user commits manually in this project; draft messages and stage if asked, but never run `git commit`.
+- [Brand mood — Soft & Playful](project_brand_mood.md) — approved 2026-05-07: pastel base, vibrant rounded accents, friendly low-stakes tone (Yuka/Finch/Duolingo-ish).
+- [Brand tokens v0](project_brand_tokens.md) — Fraunces + Inter; coral primary on butter base; mint/sky/lavender/butter accents; rounded radii 8–24+pill.
+- [Tech stack & data sources](project_tech_stack.md) — Vite + React + TS PWA; Open Food Facts (foods, live) + curated 30–40 recipes (static); Zustand+localStorage; $0/month on Vercel.

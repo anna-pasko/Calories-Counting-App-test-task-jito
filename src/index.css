@@ -1,0 +1,123 @@
+/* Pull in design tokens + components from the design source folder */
+@import "../design/tokens.css";
+@import "../design/components.css";
+
+/* App-level layout */
+html, body, #root {
+  height: 100%;
+}
+body {
+  /* Stop body bouncing when a child scroll-area reaches its edge. */
+  overscroll-behavior-y: contain;
+}
+#root {
+  display: flex;
+  justify-content: center;
+  background: var(--color-bg-default);
+}
+
+/* Phone-shaped viewport for desktop preview; full-bleed on mobile.
+   Uses dvh (dynamic viewport height) so the layout shrinks when the on-screen
+   keyboard opens — onboarding's bottom button stays visible. */
+.app-frame {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;        /* fallback for old browsers */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-default);
+  position: relative;
+}
+
+/* <main> wrapper so the skip link has a real landmark to jump to.
+   Inherits the flex-column layout the screens used to get from .app-frame. */
+.app-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;             /* lets overflow-y: auto on .screen work */
+}
+
+/* Skip link — visually hidden until it receives keyboard focus, then
+   slides into view in the top-left corner. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-text-primary);
+  color: var(--color-text-on-brand);
+  border-bottom-right-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transform: translateY(-110%);
+  transition: transform var(--duration-fast) var(--easing-standard);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+.screen {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  /* Reserve space for the iOS home indicator on screens without a tab bar. */
+  padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
+  overflow-y: auto;
+  /* Always reserve space for the scrollbar so the searchbar doesn't shift
+     width when results appear and the screen becomes scrollable. */
+  scrollbar-gutter: stable;
+  /* Keep rubber-banding inside this container — don't bounce the whole page. */
+  overscroll-behavior: contain;
+}
+
+.screen--no-pad {
+  padding: 0;
+  gap: 0;
+}
+
+/* For screens that own the bottom edge with a sticky action bar — drops the
+   reserved bottom padding so the bar can sit flush against the viewport.
+   The bar itself handles the safe-area inset. */
+.screen--with-bottom-bar {
+  padding-bottom: 0;
+}
+
+.list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.toast-anchor {
+  position: fixed;
+  left: 50%;
+  /* Anchor at the top so the on-screen keyboard can never hide it. */
+  top: calc(env(safe-area-inset-top) + var(--space-md));
+  transform: translateX(-50%);
+  z-index: 50;
+  pointer-events: none;
+  animation: toast-in 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.toast-anchor .c-toast { pointer-events: auto; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, -8px); }
+  to   { opacity: 1; transform: translate(-50%, 0);   }
+}
+
+/* a couple of helpers */
+.row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+.row-center  { display: flex; align-items: center; justify-content: center; gap: var(--space-md); }
+.col         { display: flex; flex-direction: column; gap: var(--space-md); }
+.grow        { flex: 1 1 auto; }
+.center      { text-align: center; }
+.muted       { color: var(--color-text-muted); }
+

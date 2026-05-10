@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir src *)",
+      "Bash(dir)",
+      "Bash(dir design *)",
+      "Read(//c/Users/pasko/AppData/Local/Temp/claude/C--Users-pasko-OneDrive-Documents-GitHub-Calories-Counting-App-test-task-jito/6c35a9ad-ed34-4f70-95f9-15fad7a9990f/tasks/**)",
+      "Bash(npm.cmd install *)",
+      "Bash(npx.cmd tsc *)",
+      "Bash(netstat -ano)",
+      "Bash(findstr LISTENING)",
+      "Bash(findstr -E \":\\(3000|5173|4173|8080|8000\\)\")",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(powershell -NoProfile -Command \"Get-Content src\\\\index.css | Measure-Object -Line\")",
+      "Bash(powershell -NoProfile -Command \"if \\(-not \\(Test-Path src\\\\components\\)\\) { New-Item -ItemType Directory -Path src\\\\components | Out-Null }; Test-Path src\\\\components\")",
+      "Bash(start http://localhost:5173/favicon.svg)",
+      "Bash(start http://localhost:5173/)",
+      "Bash('/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1264,864 --screenshot=C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.png file:///C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.html)",
+      "Bash('/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1564,464 --screenshot=C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.png file:///C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.html)"
+    ]
+  }
+}

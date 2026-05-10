@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Calories Calculator">
+  <title>Calories Calculator</title>
+  <!-- Maskable: full-bleed coral, content stays inside the safe zone (~80%) -->
+  <rect width="512" height="512" fill="#FF8A7A"/>
+
+  <!-- Stem -->
+  <path d="M 256 124 L 256 100" stroke="#6B4A2A" stroke-width="8" stroke-linecap="round"/>
+  <!-- Leaf -->
+  <path d="M 259 106 Q 294 96, 297 124 Q 271 132, 259 106 Z" fill="#5FA046"/>
+
+  <!-- Pear body, scaled into the safe zone -->
+  <path d="M 256 124
+           C 229 124, 208 152, 198 194
+           C 188 236, 140 268, 140 340
+           C 140 400, 192 421, 256 421
+           C 320 421, 372 400, 372 340
+           C 372 268, 324 236, 314 194
+           C 304 152, 283 124, 256 124 Z"
+        fill="#C8DC82"/>
+
+  <!-- Face -->
+  <circle cx="232" cy="314" r="11" fill="#2A2730"/>
+  <circle cx="280" cy="314" r="11" fill="#2A2730"/>
+  <path d="M 226 342 Q 256 364 286 342"
+        stroke="#2A2730" stroke-width="11" stroke-linecap="round" fill="none"/>
+</svg>

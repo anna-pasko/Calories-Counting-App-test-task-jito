@@ -1,0 +1,222 @@
+/* ==========================================================================
+   Calories Counting App — Design Tokens (v0)
+   Source of truth: design-tokens.json (Tokens Studio format)
+   Brand mood: Soft & Playful — pastel base, vibrant rounded accents.
+   ========================================================================== */
+
+:root {
+  /* ---------- Color · Primitives ---------- */
+  --p-neutral-ink: #2A2730;
+  --p-neutral-graphite: #6F6878;
+  --p-neutral-fog: #A39CAB;
+  --p-neutral-paper: #FFFFFF;
+  --p-neutral-butter-cream: #FFF8EE;
+  --p-neutral-oat: #F5EFE3;
+
+  --p-coral-500: #FF9E8F;
+  --p-coral-600: #F26F5E;
+  --p-coral-700: #C2493A;       /* deepened so white text clears WCAG AA */
+
+  --p-mint-500: #5FD49E;
+  --p-sky-500: #7CC2F2;
+  --p-lavender-500: #B8A4FF;
+  --p-butter-500: #FFD86B;
+
+  /* Text-grade variants — only for use as text/icon foreground.
+     Each one clears 4.5:1 on the cream + white surfaces. */
+  --p-coral-text: #B23A2A;      /* 5.6:1 on cream */
+  --p-mint-text: #1B7A52;       /* 5.0:1 on cream */
+  --p-sky-text: #2374B0;        /* 5.0:1 on cream */
+  --p-lavender-text: #6E54C9;   /* 5.6:1 on cream */
+
+  /* ---------- Color · Semantic (use these in components) ---------- */
+  --color-bg-default: var(--p-neutral-butter-cream);
+  --color-bg-card: var(--p-neutral-paper);
+  --color-bg-subtle: var(--p-neutral-oat);
+
+  --color-text-primary: var(--p-neutral-ink);
+  --color-text-secondary: var(--p-neutral-graphite);
+  --color-text-muted: var(--p-neutral-fog);
+  --color-text-on-brand: var(--p-neutral-paper);
+
+  --color-brand-primary: var(--p-coral-500);
+  --color-brand-primary-pressed: var(--p-coral-600);
+  --color-brand-text: var(--p-coral-text);             /* coral, but legible as text */
+
+  --color-accent-mint: var(--p-mint-500);
+  --color-accent-sky: var(--p-sky-500);
+  --color-accent-lavender: var(--p-lavender-500);
+  --color-accent-butter: var(--p-butter-500);
+
+  /* Text-grade accent variants. Use these whenever an accent color is
+     applied to text or to icon strokes on a light surface. */
+  --color-accent-mint-text: var(--p-mint-text);
+  --color-accent-sky-text: var(--p-sky-text);
+  --color-accent-lavender-text: var(--p-lavender-text);
+
+  --color-feedback-success: var(--p-mint-500);
+  --color-feedback-warning: var(--p-butter-500);
+  --color-feedback-danger: var(--p-coral-700);
+
+  /* Border / divider — derived */
+  --color-border-default: rgba(42, 39, 48, 0.08);
+  --color-border-strong: rgba(42, 39, 48, 0.16);
+
+  /* ---------- Radius ---------- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-0: 0;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 40px;
+  --space-5xl: 48px;
+  --space-6xl: 64px;
+
+  /* ---------- Typography · Primitives ---------- */
+  --font-family-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-family-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 28px;
+  --font-size-5xl: 36px;
+  --font-size-6xl: 48px;
+
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.45;
+  --line-height-loose: 1.6;
+
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+
+  /* ---------- Shadow (placeholder direction — refine when first card is built) ---------- */
+  --shadow-sm: 0 1px 2px rgba(42, 39, 48, 0.04), 0 1px 1px rgba(42, 39, 48, 0.02);
+  --shadow-md: 0 2px 8px rgba(42, 39, 48, 0.06), 0 1px 2px rgba(42, 39, 48, 0.04);
+  --shadow-lg: 0 8px 24px rgba(42, 39, 48, 0.08), 0 2px 4px rgba(42, 39, 48, 0.04);
+
+  /* ---------- Motion ---------- */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --easing-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================================
+   Type ramp utility classes — composite styles from design-tokens.json
+   Use these on any element to apply a typography role.
+   ========================================================================== */
+
+.t-display-xl {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-6xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.t-display-lg {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-5xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.t-heading-lg {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.t-heading-md {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.t-heading-sm {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.t-body-lg {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.t-body-md {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.t-body-sm {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.t-label-md {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.t-label-sm {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.t-numeric-xl {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-6xl);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+.t-numeric-md {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
