@@ -156,9 +156,7 @@ export function MealReviewScreen() {
                     meta={meta}
                     kcal={n.kcal}
                     kcalLabel="kcal"
-                    onClick={
-                      isEditingExisting ? () => setEditingItem(it) : undefined
-                    }
+                    onClick={() => setEditingItem(it)}
                   />
                 );
               })}

@@ -7,7 +7,7 @@ Framework-agnostic component library for the Calories Counting App.
 | File              | Purpose                                                                            |
 | ----------------- | ---------------------------------------------------------------------------------- |
 | `tokens.css`      | CSS custom properties mirroring `../design-tokens.json`. Loaded once at the root.  |
-| `components.css`  | All 17 component styles. Uses tokens via `var()`. Load after `tokens.css`.         |
+| `components.css`  | All 24 component styles. Uses tokens via `var()`. Load after `tokens.css`.         |
 | `preview.html`    | Self-contained gallery page. Open in any browser. No build step.                   |
 | `components.tsx`  | React + TypeScript reference implementations. One file, named exports.             |
 | `COMPONENTS.md`   | Per-component spec sheet (anatomy, tokens, states). Source of truth for Figma.     |
@@ -62,4 +62,4 @@ Tokens transfer (port `design-tokens.json` to a JS object), but `StyleSheet` rul
 - **Shadow tokens** — only `--shadow-sm/md/lg` placeholders. Refine when the first card/modal needs them.
 - **Dark mode** — single mode (Light) for v0. Add a `[data-theme="dark"]` block to `tokens.css` when needed.
 - **Motion tokens** — minimal (`--duration-fast`, `--duration-base`, `--easing-standard`). Extend per pattern.
-- **Icon set** — preview uses emoji placeholders. Pick an icon library (Lucide, Phosphor) before MVP build.
+- **Icon set** — Lucide (`lucide-react` in the app, inlined SVG sprite in `preview.html`).

@@ -69,6 +69,30 @@ Calculate search · Recipes search.
 
 ---
 
+## 2b · TextInput
+
+Single-line pill input — no icon, no clear button. The plain-text counterpart to `SearchInput`.
+
+| Token            | Value                              |
+| ---------------- | ---------------------------------- |
+| Height           | 48                                 |
+| Background       | `--color-bg-card`                  |
+| Border-radius    | `--radius-pill`                    |
+| Padding-x        | `--space-lg`                       |
+| Shadow           | `--shadow-sm`                      |
+| Field typography | `--font-size-lg`, color `--color-text-primary` |
+| Placeholder      | `--color-text-muted`               |
+
+### States
+
+- **empty** (placeholder) · **filled** · **focus-visible** (2 px coral outline, 2 px offset).
+
+### Used on
+
+Onboarding (name step) · Profile edit (name).
+
+---
+
 ## 3 · NumberStepper
 
 **Anatomy**: pill container · `−` button · numeric value (+ unit) · `+` button.
@@ -102,9 +126,10 @@ Small horizontal segmented control for switching between units (g · pieces · c
 
 | Token         | Value                                |
 | ------------- | ------------------------------------ |
-| Container     | bg `--color-bg-subtle`, padding 4 px, radius `--radius-pill` |
+| Container     | bg `--color-bg-subtle`, padding 4 px, radius `--radius-pill`, full-width (`width: 100%`) |
 | Button height | 32                                   |
-| Button padding| `--space-xs --space-md`              |
+| Button padding| `--space-sm --space-lg` (8 / 16)     |
+| Button flex   | `1 1 0` — buttons share row equally  |
 | Active button | bg `--color-bg-card`, color `--color-text-primary`, shadow `--shadow-sm` |
 | Inactive btn  | color `--color-text-secondary`       |
 | Typography    | `--font-size-sm`, `--font-weight-medium`|
@@ -380,7 +405,7 @@ Sticky top bar; varies between tab roots and detail screens.
 | Padding         | `--space-md --space-lg`              |
 | Background      | `--color-bg-default`                 |
 | Title           | Fraunces 20 / 1.3 semibold; centered when back/right action present, left-aligned at tab root |
-| Icon button     | 40 × 40 pill, bg `--color-bg-card`, shadow `--shadow-sm`|
+| Icon button     | 44 × 44 pill, bg `--color-bg-card`, shadow `--shadow-sm`|
 
 ### Variants
 
@@ -419,6 +444,193 @@ All detail / sub-screens · Tab roots.
 ### Used on
 
 All three tab roots. Hidden on push detail screens.
+
+---
+
+## 18 · ConfirmDialog
+
+Centered modal that replaces the native `confirm()` prompt — used for destructive actions where mobile-native prompts feel out-of-brand.
+
+| Token        | Value                                   |
+| ------------ | --------------------------------------- |
+| Backdrop     | `rgba(42, 39, 48, 0.45)`                |
+| Card bg      | `--color-bg-card`                       |
+| Card radius  | `--radius-xl`                           |
+| Card padding | `--space-2xl`                           |
+| Max width    | 360                                     |
+| Shadow       | `--shadow-lg`                           |
+| Title        | Fraunces 20 / 1.3 semibold              |
+| Message      | `--font-size-md`, `--color-text-secondary` |
+| Actions      | flex row, equal-width buttons, gap `--space-sm` |
+
+### Variants
+
+- **default** — secondary cancel · primary confirm
+- **destructive** — confirm button uses `--color-feedback-danger` background, on-brand text
+
+### Behavior
+
+- Esc key → cancel · Backdrop click → cancel · Confirm button receives `autoFocus`.
+
+### Used on
+
+Reset onboarding · Discard meal · Delete dish.
+
+---
+
+## 19 · BottomSheet
+
+Slide-up modal anchored to the bottom edge — mobile-friendly alternative to a full dialog. Variants are content-driven (not separate components).
+
+| Token            | Value                                       |
+| ---------------- | ------------------------------------------- |
+| Backdrop         | `rgba(42, 39, 48, 0.45)`                    |
+| Sheet bg         | `--color-bg-card`                           |
+| Sheet radius     | `--radius-xl --radius-xl 0 0` (top corners) |
+| Sheet padding    | `--space-md` top, `--space-xl` sides, bottom + safe-area |
+| Max width        | 480                                         |
+| Max height       | 90vh                                        |
+| Handle           | 40 × 4 pill, `--color-border-strong`, centered |
+| Title            | Fraunces 18 / 1.3 semibold                  |
+| Subtitle         | `--font-size-sm`, `--color-text-secondary`  |
+| Thumb            | 56 × 56, radius `--radius-md`, bg `--color-bg-subtle` |
+| Save toggle (in header) | 44 × 44, 1 px `--color-border-default`, no shadow |
+| Input            | 1.5 px border `--color-border-default`, focus-coral |
+| Destructive link | `--color-feedback-danger`, button-link style |
+
+### Patterns
+
+- **PortionPicker** (Calculate / food detail) — header (thumb + title + save) · NutritionStrip · NumberStepper + UnitSelector row · primary/secondary actions · optional "Remove from meal" destructive link.
+- **NameDishSheet** (save meal as dish) — title block · single text input · primary/secondary actions.
+
+### Behavior
+
+- Esc → cancel · Backdrop click → cancel · Body scroll lock while open · Slide-up + fade animation (`--duration-base`).
+
+### Used on
+
+Calculate (food detail) · MealReview (save as dish) · SavedDishDetail (rename).
+
+---
+
+## 20 · LoadMoreButton
+
+Round 44 px coral button with a circular reload glyph, centered below paginated lists.
+
+| Token             | Value                                   |
+| ----------------- | --------------------------------------- |
+| Size              | 44 × 44                                 |
+| Radius            | `--radius-pill`                         |
+| Background        | `--color-brand-primary`                 |
+| Background hover  | `--color-brand-primary-pressed`         |
+| Foreground        | `--color-text-primary`                  |
+| Shadow            | `--shadow-md`                           |
+| Wrapper padding   | `--space-md` top, `--space-sm` bottom   |
+
+### States
+
+- **default** · **loading** (`is-loading`, 800 ms spin, opacity 0.7) · **disabled** (opacity 0.4) · **active** (rotate 180° + scale 0.96).
+
+### Used on
+
+Recipes search results (paginated load).
+
+---
+
+## 21 · DishCard
+
+Saved meal row on the Calculate landing — shows dish name, ingredient summary, and total kcal.
+
+| Token            | Value                                    |
+| ---------------- | ---------------------------------------- |
+| Container bg     | `--color-bg-card`                        |
+| Container radius | `--radius-lg`                            |
+| Padding          | `--space-md --space-lg`                  |
+| Gap              | `--space-md`                             |
+| Hover            | bg `--color-bg-subtle`                   |
+| Title            | Fraunces 18 / 1.3 semibold               |
+| Ingredients      | `--font-size-sm`, `--color-text-secondary`, 2-line clamp; falls back to `"N ingredients"` if joined names overflow |
+| kcal value       | Inter 14 semibold, tabular-nums, right-aligned |
+| kcal unit        | `--font-size-xs`, `--color-text-muted`   |
+
+### Used on
+
+Calculate landing — "My dishes" section.
+
+---
+
+## 22 · MealBar
+
+Sticky cart-style strip — appears across the Calculate tab whenever the draft meal has items. Tap → opens MealReview.
+
+| Token            | Value                                   |
+| ---------------- | --------------------------------------- |
+| Background       | `#FFD7CC` (light coral, 30 % over butter-cream) |
+| Padding          | `--space-md --space-lg`                 |
+| Min height       | 60 (12 + line-heights)                  |
+| Position         | sticky, `bottom: 0`, z-index 10         |
+| Shadow           | `0 -4px 12px rgba(0, 0, 0, 0.04)`        |
+| Count label      | `--font-size-xs` semibold, uppercase, `letter-spacing-wide` |
+| kcal             | Fraunces 18 / 1.3 semibold              |
+| CTA pill         | bg `--color-brand-primary`, text `--color-text-primary`, padding `--space-sm --space-md`, radius `--radius-pill` |
+
+### Variants
+
+- **default** — sits above the BottomTabBar.
+- **`--at-bottom`** — bar owns the bottom edge (no tab bar follows); adds safe-area padding.
+
+### Behavior
+
+- Hidden when `draftMeal.length === 0` · slide-up animation on first appearance · sticks during scroll.
+
+### Used on
+
+All Calculate tab screens except MealReview.
+
+---
+
+## 23 · RenameInput
+
+Pill input with inline X-clear — used to rename a meal in MealReview.
+
+| Token            | Value                                   |
+| ---------------- | --------------------------------------- |
+| Height           | 48                                      |
+| Background       | `--color-bg-card`                       |
+| Border-radius    | `--radius-pill`                         |
+| Padding          | 0 `--space-sm` 0 `--space-lg`           |
+| Gap              | `--space-sm`                            |
+| Shadow           | `--shadow-sm`                           |
+| Field typography | `--font-size-lg`                        |
+| Clear button     | 28 × 28 pill, bg `--color-bg-subtle`, hover bumps to `--color-border-strong` |
+| Focus ring       | 2 px coral, 2 px offset (on container)  |
+
+### Difference vs SearchInput
+
+No leading icon · larger 28 × 28 clear (vs 24 × 24) since the field is the primary editing surface, not a search affordance.
+
+### Used on
+
+MealReview (rename meal).
+
+---
+
+## 24 · DetailHero
+
+Full-bleed 16 / 10 image at the top of a detail screen, with overlay back + right-action buttons.
+
+| Token             | Value                                  |
+| ----------------- | -------------------------------------- |
+| Aspect ratio      | 16 / 10 (matches RecipeCard image)     |
+| Background        | `--color-bg-subtle` (fallback)         |
+| Image fit         | `object-fit: cover`                    |
+| Placeholder glyph | 96 px emoji, `opacity: 0.6`            |
+| Back button       | 44 × 44 pill, bg `--color-bg-card`, shadow `--shadow-sm`, top + safe-area / left `--space-md` |
+| Save toggle       | `SaveButton` (44 × 44), top + safe-area / right `--space-md` |
+
+### Used on
+
+Recipe detail screen.
 
 ---
 

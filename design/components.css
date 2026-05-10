@@ -220,14 +220,16 @@ a { color: inherit; }
    Used inside PortionAdjuster — small segmented control
    ========================================================================== */
 .c-unit-selector {
-  display: inline-flex;
+  display: flex;
   background: var(--color-bg-subtle);
   border-radius: var(--radius-pill);
   padding: 4px;
   gap: 2px;
+  width: 100%;
 }
 .c-unit-selector__btn {
-  padding: var(--space-xs) var(--space-md);
+  flex: 1 1 0;
+  padding: var(--space-sm) var(--space-lg);
   border-radius: var(--radius-pill);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
@@ -760,7 +762,7 @@ a { color: inherit; }
   z-index: 10;
 }
 .c-app-bar__icon {
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   border-radius: var(--radius-pill);
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--color-bg-card);
@@ -778,7 +780,7 @@ a { color: inherit; }
   color: var(--color-text-primary);
   text-align: center;
 }
-.c-app-bar__spacer { width: 40px; flex: 0 0 auto; } /* balances back button when no right action */
+.c-app-bar__spacer { width: 44px; flex: 0 0 auto; } /* balances back button when no right action */
 
 /* ==========================================================================
    17a. ConfirmDialog (modal)
@@ -861,8 +863,8 @@ a { color: inherit; }
    with the product title. Bigger circle than the base .c-save and outlined
    in light gray so it reads on the white sheet background. */
 .c-sheet__save {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   margin-left: auto;
   flex: 0 0 auto;
   border: 1px solid var(--color-border-default);
@@ -969,8 +971,8 @@ a { color: inherit; }
   padding: var(--space-md) 0 var(--space-sm);
 }
 .c-load-more {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-pill);
   background: var(--color-brand-primary);
   color: var(--color-text-primary);            /* ink on coral = 6.3:1, AA */
@@ -1023,6 +1025,216 @@ a { color: inherit; }
 .c-tab-bar__label {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   19. DishCard (saved meal card on Calculate landing)
+   ========================================================================== */
+.dish-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--easing-standard);
+}
+.dish-card:hover { background: var(--color-bg-subtle); }
+.dish-card__main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.dish-card__title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+.dish-card__kcal {
+  flex: 0 0 auto;
+  text-align: right;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+.dish-card__kcal small {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-muted);
+}
+.dish-card__ingredients {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-snug);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   20. MealBar (sticky cart-style strip on Calculate tab)
+   ========================================================================== */
+.meal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: #FFD7CC;                          /* light coral — 30% coral over butter-cream */
+  color: var(--color-text-primary);
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  border-radius: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+  animation: meal-bar-slide var(--duration-base) var(--easing-standard);
+}
+.meal-bar--at-bottom {
+  /* No tab bar follows — handle the iOS home indicator inside the bar. */
+  padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+}
+.meal-bar__left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.meal-bar__count {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+.meal-bar__kcal {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+}
+.meal-bar__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-brand-primary);       /* ink-on-coral = 6.2:1, AA */
+  color: var(--color-text-primary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-pill);
+  font-weight: var(--font-weight-semibold);
+  flex: 0 0 auto;
+}
+@keyframes meal-bar-slide {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ==========================================================================
+   21. RenameInput (pill input with inline clear — used on MealReview)
+   ========================================================================== */
+.rename-input {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  height: 48px;
+  flex: 0 0 48px;
+  padding: 0 var(--space-sm) 0 var(--space-lg);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  transition: outline var(--duration-fast) var(--easing-standard);
+}
+.rename-input:focus-within {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+.rename-input__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+.rename-input__field::placeholder { color: var(--color-text-muted); }
+.rename-input__clear {
+  flex: 0 0 auto;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.rename-input__clear:hover {
+  background: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+/* ==========================================================================
+   22. DetailHero (recipe detail — full-bleed image with overlay back/save)
+   ========================================================================== */
+.cd-hero {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--color-bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cd-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cd-hero__placeholder {
+  font-size: 96px;
+  opacity: 0.6;
+}
+.cd-hero__back {
+  position: absolute;
+  top: max(var(--space-md), env(safe-area-inset-top));
+  left: var(--space-md);
+  z-index: 1;
+  width: 44px; height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.cd-hero__back:hover { background: var(--color-bg-subtle); }
+.cd-hero__save {
+  position: absolute;
+  top: max(var(--space-md), env(safe-area-inset-top));
+  right: var(--space-md);
+  z-index: 1;
 }
 
 /* ==========================================================================
