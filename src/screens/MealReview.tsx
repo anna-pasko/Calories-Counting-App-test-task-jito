@@ -164,14 +164,14 @@ export function MealReviewScreen() {
 
             <button
               type="button"
-              className="meal-review__add"
+              className="c-add-link"
               onClick={onAddIngredient}
             >
               <Plus size={18} strokeWidth={2.5} />
               Add an ingredient
             </button>
 
-            <div className="meal-review__actions">
+            <div className="c-bottom-actions">
               <Button variant="secondary" onClick={onDiscard}>
                 Discard
               </Button>

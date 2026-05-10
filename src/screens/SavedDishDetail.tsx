@@ -103,7 +103,7 @@ export function SavedDishDetailScreen({ dishId }: { dishId?: string }) {
           })}
         </div>
 
-        <div className="dish-detail__actions">
+        <div className="c-bottom-actions">
           <Button variant="secondary" onClick={onDelete}>
             Delete
           </Button>

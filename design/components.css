@@ -1238,6 +1238,58 @@ a { color: inherit; }
 }
 
 /* ==========================================================================
+   25. SectionLabel (small uppercase divider above a row/list)
+   ========================================================================== */
+.section-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: var(--space-md);
+}
+
+/* ==========================================================================
+   26. AddLink (inline icon + label "add" action — used in lists)
+   ========================================================================== */
+.c-add-link {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--color-brand-text);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-xs);
+}
+.c-add-link:hover { background: rgba(178, 58, 42, 0.08); }
+
+/* ==========================================================================
+   27. BottomActions (sticky paired-button bar — meal review, dish detail)
+   On phones the bar sits within thumb reach regardless of list length:
+   `margin-top: auto` pushes it to the bottom on short content, sticky
+   `bottom: 0` keeps it glued to the viewport while a long list scrolls
+   underneath. Negative inline margin breaks out of .screen's side padding
+   so the strip reads edge-to-edge; the parent uses
+   `.screen--with-bottom-bar` to drop the bottom padding.
+   ========================================================================== */
+.c-bottom-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  margin-inline: calc(var(--space-lg) * -1);
+  padding: var(--space-md) var(--space-lg)
+           calc(var(--space-md) + env(safe-area-inset-bottom));
+  background: var(--color-bg-default);
+}
+.c-bottom-actions > * { flex: 1 1 0; }
+
+/* ==========================================================================
    Reduced-motion preference
    Disables animations / transitions for users who set OS-level "reduce motion".
    ========================================================================== */

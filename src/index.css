@@ -90,15 +90,6 @@ body {
   padding-bottom: 0;
 }
 
-.section-label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin-top: var(--space-md);
-}
-
 .list-stack {
   display: flex;
   flex-direction: column;
@@ -129,41 +120,4 @@ body {
 .grow        { flex: 1 1 auto; }
 .center      { text-align: center; }
 .muted       { color: var(--color-text-muted); }
-
-/* ---------- Sticky bottom action bar (meal review + saved dish) ------- */
-/* On phones the bar sits within thumb reach regardless of list length:
-   `margin-top: auto` pushes it to the bottom on short content, sticky
-   `bottom: 0` keeps it glued to the viewport while a long list scrolls
-   underneath. Negative inline margin breaks out of .screen's side padding
-   so the strip reads edge-to-edge; the parent uses
-   `.screen--with-bottom-bar` to drop the bottom padding. */
-.meal-review__actions,
-.dish-detail__actions {
-  display: flex;
-  gap: var(--space-sm);
-  margin-top: auto;
-  position: sticky;
-  bottom: 0;
-  margin-inline: calc(var(--space-lg) * -1);
-  padding: var(--space-md) var(--space-lg)
-           calc(var(--space-md) + env(safe-area-inset-bottom));
-  background: var(--color-bg-default);
-}
-.meal-review__actions > *,
-.dish-detail__actions > * { flex: 1 1 0; }
-
-.meal-review__add {
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  background: transparent;
-  color: var(--color-brand-text);
-  font-family: var(--font-family-body);
-  font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-md);
-  margin-top: var(--space-xs);
-}
-.meal-review__add:hover { background: rgba(178, 58, 42, 0.08); }
 

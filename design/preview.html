@@ -34,9 +34,12 @@
       font-size: var(--font-size-3xl);
       line-height: var(--line-height-snug);
       color: var(--color-text-primary);
-      margin: 0 0 var(--space-sm);
+      margin: 0;
     }
     .gallery p { color: var(--color-text-secondary); margin: 0 0 var(--space-2xl); max-width: 640px; }
+    /* Sub-section labels cling to the stack/row below them, with breathing
+       room above to separate them from the previous block. */
+    .gallery p.label { margin: var(--space-md) 0 0; }
     section { display: flex; flex-direction: column; gap: var(--space-lg); }
     .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); padding: var(--space-lg); background: var(--color-bg-card); border-radius: var(--radius-lg); }
     .stack { display: flex; flex-direction: column; gap: var(--space-md); padding: var(--space-lg); background: var(--color-bg-card); border-radius: var(--radius-lg); }
@@ -60,14 +63,10 @@
     .dot--c { background: var(--color-accent-lavender); }
     .dot--f { background: var(--color-brand-primary); }
 
-    /* State-preview helpers — force a hovered/focused look on demo elements
-       without requiring real pointer / keyboard interaction. */
-    .is-focus       { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
-    .is-hover-row   { background: var(--color-bg-subtle); }
-    .is-hover-chip  { box-shadow: inset 0 0 0 1px var(--color-border-strong); }
-    .is-hover-card  { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .is-pressed     { transform: scale(0.98); }
-    .is-hover-primary { background: var(--color-brand-primary-pressed); }
+    /* State-preview helpers — force a focused / pressed look on demo elements
+       without requiring real keyboard / touch interaction. */
+    .is-focus     { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+    .is-pressed   { transform: scale(0.98); background: var(--color-brand-primary-pressed); }
 
     /* Tag the state above each preview cluster so the gallery is self-documenting. */
     .state-grid {
@@ -210,19 +209,61 @@
     <!-- ====================== TYPE RAMP ====================== -->
     <section>
       <h2>0 · Type ramp</h2>
+
+      <p class="label">Fraunces — display & headings (descending)</p>
       <div class="stack">
-        <div class="t-display-xl">1,840 kcal</div>
-        <div class="t-display-lg">Welcome back, Anna</div>
-        <div class="t-heading-lg">Today's recipes</div>
-        <div class="t-heading-md">Ingredients</div>
-        <div class="t-heading-sm">Step 3 — Combine</div>
-        <div class="t-body-lg">Default reading text. Inter, 16/1.45, regular. The default for instructions and paragraphs.</div>
-        <div class="t-body-md">Secondary body. Inter 14/1.45.</div>
-        <div class="t-body-sm">Helper text and notes. Inter 13/1.45.</div>
-        <div class="t-label-md">Save changes</div>
-        <div class="t-label-sm">Diet preference</div>
-        <div class="t-numeric-xl">2,150</div>
-        <div class="t-numeric-md">120 g</div>
+        <div>
+          <div class="state-cell__label">t-display-xl · 48 px · hero number (total daily kcal)</div>
+          <div class="t-display-xl">1,840 kcal</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-display-lg · 36 px · onboarding hero greeting</div>
+          <div class="t-display-lg">Welcome back, Anna</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-heading-lg · 24 px · screen title</div>
+          <div class="t-heading-lg">Today's recipes</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-heading-md · 20 px · card title, section header</div>
+          <div class="t-heading-md">Ingredients</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-heading-sm · 18 px · subsection header</div>
+          <div class="t-heading-sm">Step 3 — Combine</div>
+        </div>
+      </div>
+
+      <p class="label">Inter — body, labels & numeric (descending)</p>
+      <div class="stack">
+        <div>
+          <div class="state-cell__label">t-numeric-xl · 48 px · big stat (tabular figures)</div>
+          <div class="t-numeric-xl">2,150</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-body-lg · 16 px · default reading paragraph</div>
+          <div class="t-body-lg">A simple sheet-pan dinner with herby quinoa and roasted seasonal veg.</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-label-md · 16 px · button or tab label</div>
+          <div class="t-label-md">Save changes</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-numeric-md · 16 px · inline portion stat (tabular)</div>
+          <div class="t-numeric-md">120 g</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-body-md · 14 px · secondary body, meta line</div>
+          <div class="t-body-md">Generic · 100 g base</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-body-sm · 13 px · helper text, micro-copy</div>
+          <div class="t-body-sm">Tap to search again</div>
+        </div>
+        <div>
+          <div class="state-cell__label">t-label-sm · 12 px · form label, caption</div>
+          <div class="t-label-sm">Diet preference</div>
+        </div>
       </div>
     </section>
 
@@ -245,12 +286,8 @@
           <button class="c-button c-button--primary">Continue</button>
         </div>
         <div class="state-cell">
-          <div class="state-cell__label">Hover</div>
-          <button class="c-button c-button--primary is-hover-primary">Continue</button>
-        </div>
-        <div class="state-cell">
           <div class="state-cell__label">Pressed</div>
-          <button class="c-button c-button--primary is-pressed is-hover-primary">Continue</button>
+          <button class="c-button c-button--primary is-pressed">Continue</button>
         </div>
         <div class="state-cell">
           <div class="state-cell__label">Focus-visible</div>
@@ -269,10 +306,6 @@
           <button class="c-button c-button--secondary">Loosen filters</button>
         </div>
         <div class="state-cell">
-          <div class="state-cell__label">Hover</div>
-          <button class="c-button c-button--secondary" style="background: rgba(178, 58, 42, 0.08);">Loosen filters</button>
-        </div>
-        <div class="state-cell">
           <div class="state-cell__label">Focus-visible</div>
           <button class="c-button c-button--secondary is-focus">Loosen filters</button>
         </div>
@@ -287,7 +320,7 @@
     <section>
       <h2>2 · SearchInput</h2>
       <p class="label">States</p>
-      <div class="state-grid">
+      <div class="state-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         <div class="state-cell">
           <div class="state-cell__label">Empty (placeholder)</div>
           <label class="c-search-input">
@@ -296,14 +329,22 @@
           </label>
         </div>
         <div class="state-cell">
-          <div class="state-cell__label">Focused / typing</div>
+          <div class="state-cell__label">Focused (empty)</div>
           <label class="c-search-input is-focus">
             <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
-            <input class="c-search-input__field" value="oat" />
+            <input class="c-search-input__field" placeholder="Search foods or recipes" />
           </label>
         </div>
         <div class="state-cell">
-          <div class="state-cell__label">Filled (with clear)</div>
+          <div class="state-cell__label">Typing (focused + clear)</div>
+          <label class="c-search-input is-focus">
+            <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
+            <input class="c-search-input__field" value="oat" />
+            <button class="c-search-input__clear" aria-label="Clear"><svg class="icon icon--16"><use href="#i-x"/></svg></button>
+          </label>
+        </div>
+        <div class="state-cell">
+          <div class="state-cell__label">Filled (blurred, with clear)</div>
           <label class="c-search-input">
             <span class="c-search-input__icon"><svg class="icon icon--20"><use href="#i-search"/></svg></span>
             <input class="c-search-input__field" value="oatmeal" />
@@ -362,14 +403,6 @@
             <button class="c-stepper__btn" aria-label="Increase" disabled><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
           </div>
         </div>
-        <div class="state-cell">
-          <div class="state-cell__label">Button hover (butter)</div>
-          <div class="c-stepper">
-            <button class="c-stepper__btn" aria-label="Decrease" style="background: var(--color-accent-butter);"><svg class="icon icon--18"><use href="#i-minus"/></svg></button>
-            <span class="c-stepper__value">120</span><span class="c-stepper__unit">g</span>
-            <button class="c-stepper__btn" aria-label="Increase"><svg class="icon icon--18"><use href="#i-plus"/></svg></button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -424,10 +457,6 @@
           <button class="c-chip">Vegetarian</button>
         </div>
         <div class="state-cell">
-          <div class="state-cell__label">Hover (border darkens)</div>
-          <button class="c-chip is-hover-chip">Vegetarian</button>
-        </div>
-        <div class="state-cell">
           <div class="state-cell__label">Focus-visible</div>
           <button class="c-chip is-focus">Vegetarian</button>
         </div>
@@ -441,17 +470,16 @@
       <div class="row">
         <button class="c-chip c-chip--filter">Diet</button>
         <button class="c-chip c-chip--filter c-chip--selected">Max 600 kcal</button>
-        <button class="c-chip c-chip--filter is-hover-chip">Allergens</button>
         <button class="c-chip c-chip--filter is-focus">Ingredient</button>
       </div>
 
-      <p class="label">Badges — recipe card / detail (read-only, all tones)</p>
+      <p class="label">Badges — read-only, all tones</p>
       <div class="row">
         <span class="c-chip c-chip--badge is-fits-you">Fits you</span>
         <span class="c-chip c-chip--badge is-diet">Vegan</span>
         <span class="c-chip c-chip--badge is-diet">Gluten-free</span>
-        <span class="c-chip c-chip--badge is-allergen">Contains nuts</span>
-        <span class="c-chip c-chip--badge is-warning">Off-plan</span>
+        <span class="c-chip c-chip--badge is-allergen">No nuts</span>
+        <span class="c-chip c-chip--badge is-warning">Contains nuts</span>
       </div>
     </section>
 
@@ -533,10 +561,6 @@
           <button class="c-save c-save--saved" aria-label="Saved" aria-pressed="true"><svg class="icon icon--20 icon--filled"><use href="#i-heart"/></svg></button>
         </div>
         <div class="state-cell">
-          <div class="state-cell__label">Hover (scale 1.05)</div>
-          <button class="c-save" aria-label="Save" style="transform: scale(1.05);"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
-        </div>
-        <div class="state-cell">
           <div class="state-cell__label">Pressed (scale 0.95)</div>
           <button class="c-save" aria-label="Save" style="transform: scale(0.95);"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
         </div>
@@ -576,17 +600,6 @@
           </button>
         </div>
         <div>
-          <div class="state-cell__label" style="margin-bottom: var(--space-xs);">Hover</div>
-          <button class="c-result-row is-hover-row">
-            <span class="c-result-row__thumb">🍌</span>
-            <span class="c-result-row__main">
-              <span class="c-result-row__title">Banana, raw</span>
-              <span class="c-result-row__meta">Fruit · 1 medium ≈ 118 g</span>
-            </span>
-            <span class="c-result-row__kcal">105<small>kcal</small></span>
-          </button>
-        </div>
-        <div>
           <div class="state-cell__label" style="margin-bottom: var(--space-xs);">Focus-visible</div>
           <button class="c-result-row is-focus">
             <span class="c-result-row__thumb">🥪</span>
@@ -599,7 +612,7 @@
         </div>
       </div>
 
-      <p class="label" style="margin-top: var(--space-md);">With quick-add ( + / ✓ ) — used on Calculate search when a draft meal is open</p>
+      <p class="label">With quick-add ( + / ✓ ) — used on Calculate search when a draft meal is open</p>
       <div class="stack" style="background: var(--color-bg-default); padding: 0;">
         <div class="c-result-row">
           <span class="c-result-row__thumb">🥚</span>
@@ -621,7 +634,7 @@
         </div>
       </div>
 
-      <p class="label" style="margin-top: var(--space-md);">Static / non-interactive — used for ingredient rows on MealReview</p>
+      <p class="label">Static / non-interactive — used for ingredient rows on MealReview</p>
       <div class="stack" style="background: var(--color-bg-default); padding: 0;">
         <div class="c-result-row c-result-row--static">
           <span class="c-result-row__thumb"><svg class="icon icon--22"><use href="#i-rotate-ccw"/></svg></span>
@@ -636,7 +649,7 @@
     <!-- ====================== 11. RECIPE CARD ====================== -->
     <section>
       <h2>11 · RecipeCard</h2>
-      <p class="label">States — default · saved · hover (lifted) · focus-visible</p>
+      <p class="label">States — default · saved · focus-visible</p>
       <div class="row" style="background: var(--color-bg-default); align-items: stretch;">
         <article class="c-recipe-card" style="max-width: 280px;">
           <div class="c-recipe-card__image" style="background-color: #FFD86B;">
@@ -670,20 +683,6 @@
             <div class="c-recipe-card__badges">
               <span class="c-chip c-chip--badge is-diet">Vegan</span>
               <span class="c-chip c-chip--badge is-diet">Gluten-free</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="c-recipe-card is-hover-card" style="max-width: 280px;">
-          <div class="c-recipe-card__image" style="background-color: #B8A4FF;">
-            <button class="c-save c-recipe-card__save" aria-label="Save"><svg class="icon icon--20"><use href="#i-heart"/></svg></button>
-          </div>
-          <div class="c-recipe-card__body">
-            <h3 class="c-recipe-card__title">Hover — card lifts 2 px, shadow deepens</h3>
-            <div class="c-recipe-card__meta">
-              <span><b>360</b> kcal</span>
-              <span>·</span>
-              <span><b>15</b> min</span>
             </div>
           </div>
         </article>
@@ -734,21 +733,13 @@
     <!-- ====================== 13. LIST ITEM ====================== -->
     <section>
       <h2>13 · ListItem</h2>
-      <p class="label">States — default · hover · focus-visible · no-chevron</p>
+      <p class="label">States — default · focus-visible · no-chevron</p>
       <div class="stack" style="background: var(--color-bg-default); padding: 0;">
         <button class="c-list-item">
           <span class="c-list-item__icon"><svg class="icon icon--20"><use href="#i-settings"/></svg></span>
           <span class="c-list-item__main">
             <span class="c-list-item__title">Edit preferences</span>
             <span class="c-list-item__sub">Diet, allergies, daily goal</span>
-          </span>
-          <span class="c-list-item__chevron"><svg class="icon icon--20"><use href="#i-chevron-right"/></svg></span>
-        </button>
-        <button class="c-list-item is-hover-row">
-          <span class="c-list-item__icon"><svg class="icon icon--20"><use href="#i-star"/></svg></span>
-          <span class="c-list-item__main">
-            <span class="c-list-item__title">Hover state</span>
-            <span class="c-list-item__sub">Background shifts to oat</span>
           </span>
           <span class="c-list-item__chevron"><svg class="icon icon--20"><use href="#i-chevron-right"/></svg></span>
         </button>
@@ -886,7 +877,7 @@
         </div>
       </div>
 
-      <p class="label" style="margin-top: var(--space-md);">Destructive variant — confirm button uses the danger color</p>
+      <p class="label">Destructive variant — confirm button uses the danger color</p>
       <div class="row" style="justify-content: center; background: rgba(42, 39, 48, 0.45); padding: var(--space-2xl);">
         <div class="c-dialog" style="margin: 0;">
           <h2 class="c-dialog__title">Reset onboarding?</h2>
@@ -904,7 +895,7 @@
       <h2>19 · BottomSheet</h2>
       <p class="label">Slide-up modal — used for PortionPicker and NameDishSheet. Mobile-friendly alternative to a full dialog.</p>
 
-      <p class="label" style="margin-top: var(--space-md);">Variant A — PortionPicker (food detail in Calculate)</p>
+      <p class="label">Variant A — PortionPicker (food detail in Calculate)</p>
       <div class="phone" style="background: rgba(42, 39, 48, 0.45);">
         <div class="phone__body" style="padding: 0; justify-content: flex-end; min-height: 480px;">
           <div class="c-sheet" style="position: relative; max-width: 100%; box-shadow: none;">
@@ -920,7 +911,7 @@
             <div class="c-nutrition">
               <div class="c-nutrition__kcal">
                 <div class="c-nutrition__kcal-value">156</div>
-                <div class="c-nutrition__kcal-label">kcal · per 40 g</div>
+                <div class="c-nutrition__kcal-label">kcal</div>
               </div>
               <div class="c-nutrition__macros">
                 <div class="c-nutrition__macro c-nutrition__macro--p">
@@ -958,7 +949,7 @@
         </div>
       </div>
 
-      <p class="label" style="margin-top: var(--space-md);">Variant B — NameDishSheet (save meal as dish)</p>
+      <p class="label">Variant B — NameDishSheet (save meal as dish)</p>
       <div class="phone" style="background: rgba(42, 39, 48, 0.45);">
         <div class="phone__body" style="padding: 0; justify-content: flex-end; min-height: 280px;">
           <div class="c-sheet" style="position: relative; max-width: 100%; box-shadow: none;">
@@ -997,7 +988,7 @@
     <!-- ====================== 21. DISH CARD ====================== -->
     <section>
       <h2>21 · DishCard</h2>
-      <p class="label">States — default · with overflow fallback · hover · focus-visible</p>
+      <p class="label">States — default · with overflow fallback · focus-visible</p>
       <div class="stack" style="background: var(--color-bg-default); padding: 0;">
         <div class="dish-card">
           <div class="dish-card__main">
@@ -1012,13 +1003,6 @@
             <div class="dish-card__ingredients">5 ingredients</div>
           </div>
           <div class="dish-card__kcal">285<small>kcal</small></div>
-        </div>
-        <div class="dish-card is-hover-row">
-          <div class="dish-card__main">
-            <h3 class="dish-card__title">Hover state</h3>
-            <div class="dish-card__ingredients">Background shifts to oat</div>
-          </div>
-          <div class="dish-card__kcal">340<small>kcal</small></div>
         </div>
         <div class="dish-card is-focus">
           <div class="dish-card__main">
@@ -1102,6 +1086,50 @@
         <div class="phone__body">
           <h1 class="t-heading-lg" style="margin: 0;">Roasted vegetable & quinoa traybake</h1>
           <p class="t-body-md muted" style="margin: 0;">A simple sheet-pan dinner with herby quinoa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 25. SECTION LABEL ====================== -->
+    <section>
+      <h2>25 · SectionLabel</h2>
+      <p class="label">Small uppercase divider that introduces a row, list, or form group.</p>
+      <div class="stack">
+        <div>
+          <div class="section-label">Recent searches</div>
+          <div class="t-body-md muted">A list, a row, or a form group goes here.</div>
+        </div>
+        <div>
+          <div class="section-label">Diet</div>
+          <div class="t-body-md muted">Chips or a stepper goes here.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== 26. ADD LINK ====================== -->
+    <section>
+      <h2>26 · AddLink</h2>
+      <p class="label">Inline icon-+-label "add" action — sits below a list to extend it. Lower visual weight than a primary button.</p>
+      <div class="row" style="background: var(--color-bg-default); justify-content: center;">
+        <button type="button" class="c-add-link">
+          <svg class="icon icon--18"><use href="#i-plus"/></svg>
+          Add an ingredient
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================== 27. BOTTOM ACTIONS ====================== -->
+    <section>
+      <h2>27 · BottomActions</h2>
+      <p class="label">Sticky paired-button bar at the bottom of a screen — equal-width children, breaks out of the screen padding to read edge-to-edge, handles iOS safe-area inset.</p>
+      <div class="phone">
+        <div class="c-app-bar"><div class="c-app-bar__title" style="text-align:left;">Your meal</div></div>
+        <div class="phone__body" style="padding-bottom: 0; min-height: 240px;">
+          <div class="t-body-md muted">Long list scrolls underneath the bar…</div>
+        </div>
+        <div class="c-bottom-actions" style="position: relative; margin-inline: 0;">
+          <button class="c-button c-button--secondary">Discard</button>
+          <button class="c-button c-button--primary">Save dish</button>
         </div>
       </div>
     </section>

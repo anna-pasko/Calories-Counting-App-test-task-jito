@@ -7,7 +7,7 @@ Framework-agnostic component library for the Calories Counting App.
 | File              | Purpose                                                                            |
 | ----------------- | ---------------------------------------------------------------------------------- |
 | `tokens.css`      | CSS custom properties mirroring `../design-tokens.json`. Loaded once at the root.  |
-| `components.css`  | All 24 component styles. Uses tokens via `var()`. Load after `tokens.css`.         |
+| `components.css`  | All 27 component styles. Uses tokens via `var()`. Load after `tokens.css`.         |
 | `preview.html`    | Self-contained gallery page. Open in any browser. No build step.                   |
 | `components.tsx`  | React + TypeScript reference implementations. One file, named exports.             |
 | `COMPONENTS.md`   | Per-component spec sheet (anatomy, tokens, states). Source of truth for Figma.     |

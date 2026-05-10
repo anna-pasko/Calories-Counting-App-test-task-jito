@@ -25,8 +25,8 @@ Notation: `--color-bg-card` refers to the semantic CSS variable; the alias resol
 | ------------------ | ---------------------------- | -------------------------------------- | --------------------- | ------------------------------ |
 | Background         | `--color-brand-primary`      | transparent                            | transparent           | `--color-bg-card`              |
 | Background hover   | `--color-brand-primary-pressed` | rgba(255,138,122,.08)               | —                     | `--color-bg-subtle`            |
-| Text               | `--color-text-on-brand`      | `--color-brand-primary`                | `--color-brand-primary` | `--color-text-primary`       |
-| Border             | none                         | inset 0 0 0 1.5px `--color-brand-primary` | none               | none                           |
+| Text               | `--color-text-primary` (ink on coral, 6.3:1 AA) | `--color-brand-primary` | `--color-brand-primary` | `--color-text-primary` |
+| Border             | none                         | inset 0 0 0 1.5px `--color-brand-text` | none                  | none                           |
 | Min-height (md/lg) | 48 / 56                      | 48 / 56                                | 32                    | 44                             |
 | Padding-x          | `--space-2xl` / `--space-3xl`| same                                   | `--space-sm`          | 0                              |
 | Border-radius      | `--radius-pill`              | `--radius-pill`                        | `--radius-sm`         | `--radius-pill`                |
@@ -61,7 +61,7 @@ Onboarding · Edit preferences · Empty state CTA · CTAs across all flows.
 
 ### States
 
-- **empty** (placeholder) · **filled** (clear button visible) · **focus-within** (2 px coral outline on container).
+- **empty** (placeholder, no clear) · **focused** (2 px coral outline, still empty, no clear) · **typing** (focused + value entered + clear button visible) · **filled** (blurred, has value, clear button visible).
 
 ### Used on
 
@@ -163,10 +163,10 @@ Single component, three variants:
 - min-height 24 · padding 0 `--space-sm` · radius `--radius-pill`
 - typography `--font-size-xs` semibold, uppercase, `letter-spacing-wide`
 - tones (background colors):
-  - `fits-you` → `--color-accent-mint`
-  - `diet`     → `--color-accent-lavender`
-  - `allergen` → `--color-feedback-warning`
-  - `warning`  → `--color-feedback-danger` (text `--color-text-on-brand`)
+  - `fits-you` → `--color-accent-mint` — recipe matches the user's preferences (Recipes search · Recipe detail)
+  - `diet`     → `--color-accent-lavender` — diet tag like "Vegan", "Gluten-free" (Recipe card · Recipe detail · Profile)
+  - `allergen` → `--color-feedback-warning` (yellow) — user-preference tag like "No nuts" on the Profile summary
+  - `warning`  → `--color-feedback-danger` (deep coral, text `--color-text-on-brand`) — recipe-detail alert like "Contains nuts" when an avoidance overlaps the recipe. Note: only fires on a *saved-then-conflicted* recipe (user saved it before adding the allergen to their preferences), since the Recipes search filter excludes such recipes for fresh views. It's the safety net that stops a stale Favorites tap from leading the user into a recipe they want to avoid.
 
 ### Used on
 
@@ -194,7 +194,7 @@ Profile · Favorites (Foods / Recipes).
 
 ## 7 · StepDots
 
-3-dot progress for onboarding.
+4-dot progress for onboarding.
 
 - dot size 8 × 8 (inactive) · 24 × 8 (active, capsule)
 - gap `--space-sm`
@@ -204,7 +204,7 @@ Profile · Favorites (Foods / Recipes).
 
 ### Used on
 
-Onboarding (3 steps).
+Onboarding (4 steps).
 
 ---
 
@@ -631,6 +631,70 @@ Full-bleed 16 / 10 image at the top of a detail screen, with overlay back + righ
 ### Used on
 
 Recipe detail screen.
+
+---
+
+## 25 · SectionLabel
+
+Small uppercase divider that captions the row, list, or form group below it.
+
+| Token         | Value                                  |
+| ------------- | -------------------------------------- |
+| Typography    | `--font-size-xs`, `--font-weight-medium`, `letter-spacing-wide`, uppercase |
+| Color         | `--color-text-muted`                   |
+| Margin-top    | `--space-md` (separates from previous block) |
+
+### Used on
+
+Onboarding (Diet · Allergies) · ProfileEdit (Your name · Diet · Allergies · Daily calorie goal) · Calculate (Recent searches · My dishes) · MealReview (Ingredients) · RecipeDetail (Nutrition · Servings · Ingredients · Steps) · SavedDishDetail (Ingredients).
+
+---
+
+## 26 · AddLink
+
+Inline icon + label "add" action. Sits below a list to let the user extend it. Lower visual weight than a primary `Button` — meant to read as a continuation of the list, not a hero CTA.
+
+| Token         | Value                                  |
+| ------------- | -------------------------------------- |
+| Layout        | inline-flex, gap `--space-xs`, `align-self: center` |
+| Background    | transparent                            |
+| Background hover | `rgba(178, 58, 42, 0.08)` (coral-text @ 8%) |
+| Color         | `--color-brand-text`                   |
+| Padding       | `--space-sm --space-md`                |
+| Border-radius | `--radius-md`                          |
+| Margin-top    | `--space-xs` (sits close to the list above) |
+| Typography    | `--font-family-body`, `--font-weight-semibold` |
+| Icon          | leading Plus, 18 × 18                  |
+
+### Difference vs Button (link variant)
+
+`c-button--link` is a flat text link with smaller padding and no leading icon. `AddLink` carries a Plus glyph, more padding, a `--radius-md` background-hover affordance, and is intended to be visually attached to the list it extends (top margin, centered self-alignment).
+
+### Used on
+
+MealReview ("Add an ingredient").
+
+---
+
+## 27 · BottomActions
+
+Sticky paired-button bar at the bottom of a screen.
+
+| Token            | Value                                          |
+| ---------------- | ---------------------------------------------- |
+| Layout           | flex row, gap `--space-sm`, equal-width children (`flex: 1 1 0`) |
+| Position         | sticky, `bottom: 0`, `margin-top: auto` (pushes to bottom on short content) |
+| Background       | `--color-bg-default`                           |
+| Padding          | `--space-md --space-lg` (+ `env(safe-area-inset-bottom)` at the bottom for iOS home indicator) |
+| Inline margin    | `calc(var(--space-lg) * -1)` — breaks out of `.screen` side padding so the strip reads edge-to-edge |
+
+### Required parent
+
+Use inside a `.screen--with-bottom-bar` container — that drops the screen's bottom padding so this bar can own the bottom edge.
+
+### Used on
+
+MealReview (Discard · Save dish) · SavedDishDetail (Delete · Edit).
 
 ---
 
