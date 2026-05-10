@@ -53,11 +53,11 @@ export function RecipeDetailScreen({
   }
 
   const factor = servings / recipe.defaultServings;
-  const kcal = Math.round(recipe.kcalPerServing);
+  const kcal = Math.round(recipe.kcalPerServing * servings);
   const macros = {
-    protein: round1(recipe.macrosPerServing.protein),
-    carbs: round1(recipe.macrosPerServing.carbs),
-    fat: round1(recipe.macrosPerServing.fat),
+    protein: round1(recipe.macrosPerServing.protein * servings),
+    carbs: round1(recipe.macrosPerServing.carbs * servings),
+    fat: round1(recipe.macrosPerServing.fat * servings),
   };
 
   const fitsYou =
@@ -119,7 +119,6 @@ export function RecipeDetailScreen({
             protein={macros.protein}
             carbs={macros.carbs}
             fat={macros.fat}
-            perLabel="per serving"
           />
 
           <div className="section-label">Servings</div>

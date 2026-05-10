@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Chip,
   EmptyState,
@@ -18,11 +18,23 @@ type Tab = "foods" | "recipes";
 export function ProfileFavoritesScreen() {
   const pop = useApp((s) => s.pop);
   const push = useApp((s) => s.push);
+  const prefs = useApp((s) => s.prefs);
   const favFoodIds = useApp((s) => s.favoriteFoodIds);
   const favRecipeIds = useApp((s) => s.favoriteRecipeIds);
   const toggleFavoriteRecipe = useApp((s) => s.toggleFavoriteRecipe);
   const addToMeal = useApp((s) => s.addToMeal);
   const showToast = useApp((s) => s.showToast);
+
+  // Same definition as Recipes.tsx — recipe matches all user diets and avoids
+  // every allergen the user picked. Lets a saved-then-conflicted favorite
+  // surface a warning badge at the card level instead of only on detail.
+  const fitsYou = useMemo(() => {
+    const userDiets = new Set(prefs.dietTags);
+    const userAllergens = new Set(prefs.allergenTags);
+    return (r: Recipe) =>
+      [...userDiets].every((d) => r.dietTags.includes(d)) &&
+      ![...userAllergens].some((a) => r.allergenTags.includes(a));
+  }, [prefs]);
 
   const [tab, setTab] = useState<Tab>("foods");
   const [foods, setFoods] = useState<Food[]>([]);
@@ -110,11 +122,23 @@ export function ProfileFavoritesScreen() {
                     props: { recipeId: r.id, fromTab: "profile" },
                   })
                 }
-                badges={r.dietTags
-                  .slice(0, 2)
-                  .map((d) => (
-                    <Chip key={d} variant="badge" tone="diet">{d}</Chip>
-                  ))}
+                badges={
+                  <>
+                    {fitsYou(r) && (
+                      <Chip variant="badge" tone="fits-you">Fits you</Chip>
+                    )}
+                    {prefs.allergenTags
+                      .filter((a) => r.allergenTags.includes(a))
+                      .map((a) => (
+                        <Chip key={a} variant="badge" tone="warning">
+                          Contains {a}
+                        </Chip>
+                      ))}
+                    {r.dietTags.slice(0, 2).map((d) => (
+                      <Chip key={d} variant="badge" tone="diet">{d}</Chip>
+                    ))}
+                  </>
+                }
               />
             ))}
           </div>

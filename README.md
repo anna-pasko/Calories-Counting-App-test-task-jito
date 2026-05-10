@@ -40,7 +40,7 @@ Every push to `main` deploys automatically.
 .
 ├── design/                    Design system (tokens, components, gallery, specs)
 │   ├── tokens.css             CSS variables (colors, spacing, type)
-│   ├── components.css         All 17 component styles
+│   ├── components.css         All 27 component styles
 │   ├── components.tsx         React + TS reference components
 │   ├── preview.html           Standalone gallery — open in browser
 │   └── COMPONENTS.md          Per-component spec sheet (anatomy, tokens, states)
@@ -93,4 +93,4 @@ Every push to `main` deploys automatically.
 
 - **No accounts, no server.** All user data (preferences, favorites, recent searches) is stored in the browser's `localStorage`. Clearing browser data resets the app.
 - **Add to Home Screen** on iPhone or Android to install as a PWA — works offline for the static parts, falls back gracefully when offline (food search needs internet).
-- **Icons** in v0 are emoji placeholders. Plan to swap to a real icon library (Lucide is recommended) before final.
+- **Icons** are [Lucide](https://lucide.dev) (`lucide-react`) throughout the app. The design-system gallery (`design/preview.html`) uses an inlined Lucide SVG sprite so it renders the same icons without needing a build.
