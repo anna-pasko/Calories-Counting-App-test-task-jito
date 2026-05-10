@@ -31,6 +31,7 @@ Key design screens\\user flow 2 - to find a recipe (3 images)
 
 
 **You can also view my workflow at Jira:**
+https://id.atlassian.com/invite/p/jira-software?id=YT0wdgujRbO8C3or5CnO1Q
 
 https://paskoanna5.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiY2RiMWQxYWQ5YTgyNDlhY2FhNDBkZWFmYzIzOWNiMTIiLCJwIjoiaiJ9
 
