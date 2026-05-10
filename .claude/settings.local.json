@@ -15,7 +15,9 @@
       "Bash(powershell -NoProfile -Command \"Get-Content src\\\\index.css | Measure-Object -Line\")",
       "Bash(powershell -NoProfile -Command \"if \\(-not \\(Test-Path src\\\\components\\)\\) { New-Item -ItemType Directory -Path src\\\\components | Out-Null }; Test-Path src\\\\components\")",
       "Bash(start http://localhost:5173/favicon.svg)",
-      "Bash(start http://localhost:5173/)"
+      "Bash(start http://localhost:5173/)",
+      "Bash('/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1264,864 --screenshot=C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.png file:///C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.html)",
+      "Bash('/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe' --headless=new --disable-gpu --hide-scrollbars --window-size=1564,464 --screenshot=C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.png file:///C:/Users/pasko/OneDrive/Documents/GitHub/Calories-Counting-App-test-task-jito/Branding/stylescape.html)"
     ]
   }
 }

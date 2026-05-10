@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Calories Calculator — Brand Stylescape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- Tokens (mirrors design/tokens.css) ---------- */
+    :root {
+      --ink: #2A2730;
+      --graphite: #6F6878;
+      --fog: #A39CAB;
+      --paper: #FFFFFF;
+      --butter-cream: #FFF8EE;
+      --oat: #F5EFE3;
+      --coral: #FF9E8F;
+      --coral-text: #B23A2A;
+      --mint: #5FD49E;
+      --mint-text: #1B7A52;
+      --sky: #7CC2F2;
+      --sky-text: #2374B0;
+      --lavender: #B8A4FF;
+      --lavender-text: #6E54C9;
+      --butter: #FFD86B;
+      --display: "Fraunces", Georgia, serif;
+      --body: "Inter", -apple-system, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #18171C; }
+    body {
+      font-family: var(--body);
+      color: var(--ink);
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Canvas — 30:8 ratio (1500 × 400). Screenshot/print this exact element. */
+    .canvas {
+      width: 1500px;
+      height: 400px;
+      position: relative;
+      background: var(--butter-cream);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      overflow: hidden;
+    }
+
+    /* ---------- Repeating sidebar text (vertical, brand mark) ---------- */
+    .sidebar-marquee {
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 28px;
+      background: var(--ink);
+      color: var(--coral);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--body);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ---------- Tile primitives ---------- */
+    .tile {
+      position: absolute;
+      overflow: hidden;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============== BRAND BLOCK ============== */
+    .brand {
+      top: 0;
+      left: 28px;
+      width: 250px;
+      height: 100%;
+      background: var(--coral);
+      justify-content: space-between;
+      padding: 18px 16px;
+    }
+    .brand__edition {
+      font-family: var(--body);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(42,39,48,0.7);
+    }
+    .brand__title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 38px;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .brand__title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--paper);
+      display: block;
+    }
+    .brand__pear-frame {
+      align-self: center;
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      background: var(--butter-cream);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px rgba(42,39,48,0.10);
+    }
+    .brand__pear { width: 80px; height: 80px; }
+
+    /* ============== HUGE TYPOGRAPHY TILE ============== */
+    .huge-type {
+      top: 0;
+      left: 286px;
+      width: 280px;
+      height: 100%;
+      background: var(--butter-cream);
+      padding: 0;
+      overflow: hidden;
+    }
+    .huge-type__bg {
+      position: absolute;
+      top: -30px; left: -22px;
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 200px;
+      line-height: 0.78;
+      letter-spacing: -0.05em;
+      color: var(--coral);
+      pointer-events: none;
+      white-space: pre;
+    }
+    .huge-type__small {
+      position: absolute;
+      bottom: 14px;
+      left: 18px;
+      right: 18px;
+      font-family: var(--body);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .huge-type__rule {
+      position: absolute;
+      bottom: 42px;
+      left: 18px;
+      width: 85px;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    /* ============== CALCULATE PHONE ============== */
+    .ph-calc {
+      top: 20px;
+      left: 574px;
+      width: 230px;
+      height: 360px;
+      padding: 0;
+      background: var(--paper);
+      border-radius: 22px;
+      box-shadow: 0 10px 24px rgba(42,39,48,0.18);
+      transform: rotate(-2deg);
+      transform-origin: center;
+    }
+    .ph__bar {
+      padding: 12px 14px 6px;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .ph__body {
+      flex: 1;
+      padding: 4px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: var(--butter-cream);
+    }
+    .ph-search {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--paper);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 11px;
+      box-shadow: 0 1px 2px rgba(42,39,48,0.05);
+    }
+    .ph-search svg { stroke: var(--fog); }
+    .ph-row {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--paper);
+      border-radius: 12px;
+      padding: 7px 10px;
+    }
+    .ph-row__thumb {
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      background: var(--oat);
+      display: grid; place-items: center;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+    .ph-row__main { flex: 1; min-width: 0; }
+    .ph-row__title { font-size: 11px; font-weight: 600; color: var(--ink); }
+    .ph-row__meta { font-size: 9px; color: var(--graphite); }
+    .ph-row__kcal {
+      font-size: 11px; font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .ph-row__add {
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: var(--coral);
+      color: var(--ink);
+      display: grid; place-items: center;
+      flex: 0 0 auto;
+    }
+    .ph-row__add--added { background: var(--mint); }
+    .ph-meal-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #FFD7CC;
+    }
+    .ph-meal-bar__count {
+      font-size: 8px; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .ph-meal-bar__kcal {
+      font-family: var(--display);
+      font-size: 13px; font-weight: 600;
+    }
+    .ph-meal-bar__cta {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: var(--coral); color: var(--ink);
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 10px; font-weight: 600;
+    }
+
+    /* ============== RECIPE PHONE ============== */
+    .ph-recipe {
+      top: 24px;
+      left: 824px;
+      width: 220px;
+      height: 354px;
+      padding: 0;
+      background: var(--paper);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(42,39,48,0.18);
+      transform: rotate(3deg);
+      transform-origin: center;
+    }
+    .ph-hero {
+      height: 130px;
+      background: linear-gradient(135deg, #FFD86B, #FF9E8F);
+      display: grid; place-items: center;
+      font-size: 56px;
+    }
+    .ph-recipe-body { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .ph-recipe-title {
+      font-family: var(--display);
+      font-size: 14px; font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .ph-meta { display: flex; gap: 6px; font-size: 10px; color: var(--graphite); }
+    .ph-meta b { color: var(--ink); font-weight: 700; }
+    .ph-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 2px; }
+    .ph-badge {
+      font-size: 8px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: var(--ink);
+    }
+    .ph-badge--fits { background: var(--mint); }
+    .ph-badge--diet { background: var(--lavender); }
+    .ph-stepper {
+      align-self: center;
+      margin-top: 4px;
+      background: var(--oat);
+      border-radius: 999px;
+      padding: 5px 10px;
+      display: flex; gap: 8px; align-items: center;
+      font-size: 11px; font-weight: 600;
+    }
+    .ph-stepper small { font-size: 9px; font-weight: 500; color: var(--graphite); }
+
+    /* ============== TAGLINE TILE ============== */
+    .tagline {
+      top: 0;
+      left: 1054px;
+      width: 250px;
+      height: 220px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 18px 20px;
+      justify-content: space-between;
+    }
+    .tagline__eyebrow {
+      font-family: var(--body);
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .tagline__hero {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+    }
+    .tagline__hero em {
+      color: var(--coral);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .tagline__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      align-self: flex-start;
+      padding: 6px 12px;
+      background: var(--coral);
+      color: var(--ink);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* ============== STAT TILE ============== */
+    .stat {
+      top: 228px;
+      left: 1054px;
+      width: 250px;
+      height: 172px;
+      background: var(--butter);
+      padding: 12px 16px 10px;
+      justify-content: space-between;
+    }
+    .stat__eyebrow {
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(42,39,48,0.7);
+    }
+    .stat__number {
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 80px;
+      line-height: 0.86;
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+    .stat__caption {
+      font-family: var(--display);
+      font-size: 14px; font-weight: 600;
+      line-height: 1.2;
+    }
+    .stat__caption em { font-style: italic; font-weight: 400; color: var(--coral-text); }
+
+    /* ============== TONE OF VOICE / QUOTE TILE ============== */
+    .voice {
+      top: 0;
+      left: 1312px;
+      width: 188px;
+      height: 200px;
+      background: var(--coral);
+      padding: 16px 16px 14px;
+      justify-content: space-between;
+    }
+    .voice__eyebrow {
+      font-family: var(--body);
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(42,39,48,0.65);
+    }
+    .voice__quote {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .voice__chips { display: flex; gap: 4px; flex-wrap: wrap; }
+    .voice__chip {
+      font-size: 8px; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--paper); color: var(--ink);
+    }
+    .voice__chip--ink { background: var(--ink); color: var(--paper); }
+
+    /* ============== PALETTE TILE ============== */
+    .palette {
+      top: 208px;
+      left: 1312px;
+      width: 188px;
+      height: 192px;
+      background: var(--paper);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .palette__head {
+      padding: 8px 12px 4px;
+      font-family: var(--body);
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--graphite);
+    }
+    .palette__list { flex: 1; display: flex; flex-direction: column; }
+    .palette__row {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 10px; font-weight: 700;
+    }
+    .palette__row span {
+      margin-left: auto;
+      font-variant-numeric: tabular-nums;
+      opacity: 0.7;
+      font-weight: 600;
+    }
+    .palette__row--coral { background: var(--coral); }
+    .palette__row--mint  { background: var(--mint); }
+    .palette__row--sky   { background: var(--sky); }
+    .palette__row--lav   { background: var(--lavender); color: var(--paper); }
+    .palette__row--butter{ background: var(--butter); }
+    .palette__row--cream { background: var(--butter-cream); border-top: 1px solid var(--oat); }
+
+    /* ============== FLOATING STICKERS / DECORATIONS ============== */
+    .ast {
+      position: absolute;
+      font-family: var(--display);
+      font-weight: 600;
+      line-height: 1;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .sticker {
+      position: absolute;
+      z-index: 30;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      line-height: 1.05;
+      box-shadow: 0 6px 14px rgba(42,39,48,0.22);
+    }
+    .sticker--mint { background: var(--mint); color: var(--ink); }
+    .sticker--ink { background: var(--ink); color: var(--paper); }
+    .sticker--butter { background: var(--butter); color: var(--ink); }
+    .sticker--paper-out { background: var(--paper); color: var(--ink); border: 2px solid var(--ink); }
+    .sticker--coral { background: var(--coral); color: var(--ink); }
+
+    .sticker__inner {
+      font-family: var(--body);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .sticker__inner--display {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      text-transform: none;
+    }
+
+    /* Tape strip (over phone corners, like the digital archive) */
+    .tape {
+      position: absolute;
+      width: 70px;
+      height: 16px;
+      background: rgba(255,216,107,0.85);
+      border: 1px dashed rgba(42,39,48,0.25);
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="canvas">
+
+    <!-- ====== Vertical brand-mark sidebar (left edge) ====== -->
+    <div class="sidebar-marquee">
+      CALORIES&nbsp;CALCULATOR&nbsp;·&nbsp;CALORIES&nbsp;CALCULATOR&nbsp;·&nbsp;CALORIES&nbsp;CALCULATOR&nbsp;·&nbsp;CALORIES&nbsp;CALCULATOR
+    </div>
+
+    <!-- ====== A · Brand block ====== -->
+    <div class="tile brand">
+      <div class="brand__edition">No 01 / Soft &amp; Playful</div>
+      <div class="brand__title">Calories<br/><em>Calculator</em></div>
+      <div class="brand__pear-frame">
+        <svg class="brand__pear" viewBox="0 0 512 512" aria-hidden="true">
+          <path d="M 256 100 L 256 70" stroke="#6B4A2A" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <path d="M 260 78 Q 304 64, 308 100 Q 274 110, 260 78 Z" fill="#5FA046"/>
+          <path d="M 256 100 C 222 100, 196 136, 184 188 C 172 240, 110 280, 110 370 C 110 446, 176 472, 256 472 C 336 472, 402 446, 402 370 C 402 280, 340 240, 328 188 C 316 136, 290 100, 256 100 Z" fill="#C8DC82"/>
+          <circle cx="226" cy="338" r="14" fill="#2A2730"/>
+          <circle cx="286" cy="338" r="14" fill="#2A2730"/>
+          <path d="M 218 372 Q 256 400 294 372" stroke="#2A2730" stroke-width="14" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ====== B · Huge typography tile ====== -->
+    <div class="tile huge-type">
+      <div class="huge-type__bg">HE<br/>AL<br/>TH</div>
+      <div class="huge-type__rule"></div>
+      <div class="huge-type__small">Brand vibe — pastel base, vibrant accents, friendly tone.</div>
+    </div>
+
+    <!-- ====== C · Calculate phone (rotated -2°) ====== -->
+    <div class="tile ph-calc">
+      <div class="ph__bar">Calculate</div>
+      <div class="ph__body">
+        <div class="ph-search">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span>oatmeal</span>
+        </div>
+        <div class="ph-row">
+          <div class="ph-row__thumb">🥣</div>
+          <div class="ph-row__main">
+            <div class="ph-row__title">Oatmeal, rolled</div>
+            <div class="ph-row__meta">Generic · 100 g</div>
+          </div>
+          <div class="ph-row__kcal">389</div>
+          <div class="ph-row__add">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          </div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-row__thumb">🍌</div>
+          <div class="ph-row__main">
+            <div class="ph-row__title">Banana, raw</div>
+            <div class="ph-row__meta">Fruit · 1 medium</div>
+          </div>
+          <div class="ph-row__kcal">105</div>
+          <div class="ph-row__add ph-row__add--added">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-row__thumb">🥛</div>
+          <div class="ph-row__main">
+            <div class="ph-row__title">Almond milk</div>
+            <div class="ph-row__meta">Beverage · 250 ml</div>
+          </div>
+          <div class="ph-row__kcal">38</div>
+          <div class="ph-row__add">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="ph-meal-bar">
+        <div>
+          <div class="ph-meal-bar__count">1 item</div>
+          <div class="ph-meal-bar__kcal">105 kcal</div>
+        </div>
+        <div class="ph-meal-bar__cta">
+          View meal
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== D · Recipe phone (rotated +3°) ====== -->
+    <div class="tile ph-recipe">
+      <div class="ph-hero">🥗</div>
+      <div class="ph-recipe-body">
+        <div class="ph-recipe-title">Lemon-garlic chickpea bowl</div>
+        <div class="ph-meta"><span><b>520</b> kcal</span> · <span><b>25</b> min</span></div>
+        <div class="ph-badges">
+          <span class="ph-badge ph-badge--fits">Fits you</span>
+          <span class="ph-badge ph-badge--diet">Vegan</span>
+          <span class="ph-badge ph-badge--diet">GF</span>
+        </div>
+        <div class="ph-stepper">
+          <span style="font-weight:600;">−</span>
+          <span style="font-weight:600; font-variant-numeric:tabular-nums;">2</span>
+          <small>servings</small>
+          <span style="font-weight:600;">+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== E · Tagline tile ====== -->
+    <div class="tile tagline">
+      <div class="tagline__eyebrow">Food App · No 01</div>
+      <div class="tagline__hero">
+        Find food.<br/>
+        Find recipes.<br/>
+        <em>That fit you.</em>
+      </div>
+      <div class="tagline__pill">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        Download the app
+      </div>
+    </div>
+
+    <!-- ====== F · Stat tile ====== -->
+    <div class="tile stat">
+      <div class="stat__eyebrow">Default daily goal</div>
+      <div class="stat__number">2,150</div>
+      <div class="stat__caption">a friendly number, <em>not finger-wagging.</em></div>
+    </div>
+
+    <!-- ====== G · Tone of voice ====== -->
+    <div class="tile voice">
+      <div class="voice__eyebrow">Tone of voice</div>
+      <div class="voice__quote">"Three questions and you're in."</div>
+      <div class="voice__chips">
+        <span class="voice__chip">Soft</span>
+        <span class="voice__chip voice__chip--ink">Playful</span>
+        <span class="voice__chip">Low-stakes</span>
+      </div>
+    </div>
+
+    <!-- ====== H · Palette ====== -->
+    <div class="tile palette">
+      <div class="palette__head">Palette</div>
+      <div class="palette__list">
+        <div class="palette__row palette__row--coral">Coral <span>FF9E8F</span></div>
+        <div class="palette__row palette__row--mint">Mint <span>5FD49E</span></div>
+        <div class="palette__row palette__row--sky">Sky <span>7CC2F2</span></div>
+        <div class="palette__row palette__row--lav">Lavender <span>B8A4FF</span></div>
+        <div class="palette__row palette__row--butter">Butter <span>FFD86B</span></div>
+      </div>
+    </div>
+
+    <!-- ====== Floating decorations (asterisks, scribbles) ====== -->
+    <div class="ast" style="top: 12px; left: 270px; font-size: 26px; color: var(--butter  );">✶</div>
+    <div class="ast" style="bottom: 200px; left: 532px; font-size: 22px; color: var(--mint-text); transform: rotate(15deg);">✶</div>
+    <div class="ast" style="top: 8px; left: 800px; font-size: 30px; color: var(--lavender-text); transform: rotate(-12deg);">✶</div>
+
+    <!-- ====== Floating round stickers ====== -->
+    <!-- 100% playful — overlapping brand / huge-type boundary -->
+    <div class="sticker sticker--mint"
+         style="top: 250px; left: 250px; width: 92px; height: 92px; transform: rotate(-12deg);">
+      <span class="sticker__inner__display sticker__inner--display">100%<br/>playful</span>
+    </div>
+
+    <!-- $0/month — overlapping huge-type / phone -->
+    <div class="sticker sticker--paper-out"
+         style="top: -6px; left: 504px; padding: 10px 18px; transform: rotate(-6deg);">
+      <span class="sticker__inner">$0&nbsp;/&nbsp;month · forever</span>
+    </div>
+
+    <!-- WORKS OFFLINE — between phones -->
+    <div class="sticker sticker--ink"
+         style="top: 250px; left: 780px; width: 78px; height: 78px; transform: rotate(10deg);">
+      <span class="sticker__inner">Works<br/>offline</span>
+    </div>
+
+    <!-- FRESH! script — overlapping recipe phone hero -->
+    <div class="sticker sticker--coral"
+         style="top: 14px; left: 994px; padding: 8px 14px; transform: rotate(1deg);">
+      <span class="sticker__inner__display sticker__inner--display">Fresh!</span>
+    </div>
+
+    <!-- Try it free pill — bottom right -->
+    <div class="sticker sticker--butter"
+         style="bottom: 170px; left: 1224px; padding: 8px 14px; transform: rotate(-4deg);">
+      <span class="sticker__inner">→ Try it · free forever</span>
+    </div>
+
+    <!-- Tape strips on the phones -->
+    <div class="tape" style="top: 8px; left: 654px; transform: rotate(-8deg);"></div>
+    <div class="tape" style="top: 12px; left: 904px; transform: rotate(6deg);"></div>
+
+  </div>
+</body>
+</html>
